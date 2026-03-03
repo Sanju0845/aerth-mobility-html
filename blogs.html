@@ -762,7 +762,7 @@ You can use simple formatting:
           var tags = (b.tags || []).map(function (t) { return '<span class="blog-card-tag">' + t + '</span>'; }).join('');
           return '<article class="blog-card" onclick="window.location.href=\'blog-post.html?slug=' + b.slug + '\'" style="cursor:pointer">' +
             '<div class="blog-card-img is-loading">' +
-              '<img src="https://Aerth Mobility.com/' + b.featuredImage + '" alt="' + b.title + '" loading="lazy" onerror="this.src=\'evx-s.png\'" onload="this.parentElement.classList.remove(\'is-loading\')">' +
+              '<img src="' + (b.featuredImage || 'evx-s.png') + '" alt="' + b.title + '" loading="lazy" onerror="this.src=\'evx-s.png\'" onload="this.parentElement.classList.remove(\'is-loading\')">' +
               (b.isFeatured ? '<span class="blog-card-featured">Featured</span>' : '') +
             '</div>' +
             '<div class="blog-card-body">' +
