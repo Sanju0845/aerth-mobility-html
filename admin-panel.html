@@ -393,7 +393,7 @@ Or just write plain paragraphs separated by blank lines."></textarea>
     let isLoggedIn = false;
     
     // Initialize
-    document.getElementById('blogDate').value = new Date().toISOString().split('T')[0];
+    document.getElementById('blogDate').value = '2026-03-05';
     
     // Check if already logged in (session)
     if (sessionStorage.getItem('adminToken')) {
@@ -618,7 +618,7 @@ Or just write plain paragraphs separated by blank lines."></textarea>
         document.getElementById('blogContent').value = '';
         document.getElementById('blogTags').value = '';
         document.getElementById('blogReadTime').value = '5';
-        document.getElementById('blogDate').value = new Date().toISOString().split('T')[0];
+        document.getElementById('blogDate').value = '2026-03-05';
       } catch (error) {
         console.error('Publish error:', error);
         alert('Error publishing blog. Please try again.');
