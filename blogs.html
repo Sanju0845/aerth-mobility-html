@@ -668,23 +668,43 @@ You can use simple formatting:
     var sortSelect = document.getElementById('blogSort');
     var countEl = document.getElementById('blogCount');
 
-    fetch('blogs/blogs.json')
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
-        
-        var extraDays = 0;
-        var date = new Date();
-        date.setDate(date.getDate() + extraDays);
-        
-        var today = date.toISOString().slice(0, 10);
+    // Load blogs - prioritize localStorage (admin changes) then fallback to JSON
+    function loadBlogs() {
+      // Try localStorage first
+      try {
+        const stored = localStorage.getItem('adminBlogs');
+        if (stored) {
+          const localStorageBlogs = JSON.parse(stored);
+          processBlogsData(localStorageBlogs);
+          return;
+        }
+      } catch (e) {
+        console.log('No localStorage blogs, loading from file');
+      }
+      
+      // Fallback to blogs.json
+      fetch('blogs/blogs.json')
+        .then(function (r) { return r.json(); })
+        .then(processBlogsData);
+    }
+    
+    function processBlogsData(data) {
+      var extraDays = 0;
+      var date = new Date();
+      date.setDate(date.getDate() + extraDays);
+      
+      var today = date.toISOString().slice(0, 10);
 
-        allBlogs = (data || []).filter(function (b) {
-          return !b.status || b.status === 'published';
-        });
-        var totalEl = document.getElementById('blogTotal');
-        if (totalEl) totalEl.textContent = allBlogs.length;
-        applyFilters();
+      allBlogs = (data || []).filter(function (b) {
+        return !b.status || b.status === 'published';
       });
+      var totalEl = document.getElementById('blogTotal');
+      if (totalEl) totalEl.textContent = allBlogs.length;
+      applyFilters();
+    }
+    
+    // Start loading blogs
+    loadBlogs();
 
     searchInput.addEventListener('input', function () { currentPage = 1; applyFilters(); });
     sortSelect.addEventListener('change', function () { sortDir = this.value; currentPage = 1; applyFilters(); });
