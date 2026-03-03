@@ -123,6 +123,16 @@
     }
     .btn-warning:hover { background: rgba(245, 158, 11, 0.2); }
     
+    .btn-info {
+      padding: 0.625rem 1.25rem;
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 8px;
+      color: #3b82f6; font-size: 0.875rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn-info:hover { background: rgba(59, 130, 246, 0.2); }
+    
     /* Blog Form */
     .blog-form {
       background: rgba(30, 41, 59, 0.6);
@@ -273,6 +283,8 @@
           <button class="btn-secondary" onclick="toggleForm()">+ New Blog</button>
           <button class="btn-secondary" onclick="window.location.href='voice-of-trust.html'">Manage Testimonials</button>
           <button class="btn-warning" onclick="updateAllBlogDates()" title="Update all blog dates to March 5th, 2026">📅 Update Dates</button>
+          <button class="btn-info" onclick="clearLocalStorage()" title="Clear localStorage and reload admin blogs">🗑️ Clear Storage</button>
+          <button class="btn-info" onclick="syncUserView()" title="Sync current blogs to user view">🔄 Sync User View</button>
           <button class="btn-danger" onclick="logout()">Logout</button>
         </div>
       </div>
@@ -776,6 +788,44 @@ Or just write plain paragraphs separated by blank lines."></textarea>
       } catch (error) {
         console.error('Error updating blog dates:', error);
         alert('Error updating blog dates. Please try again.');
+      }
+    }
+    
+    // Function to clear localStorage and reload only current admin blogs
+    function clearLocalStorage() {
+      try {
+        localStorage.removeItem('adminBlogs');
+        console.log('Cleared localStorage');
+        
+        // Reload only current admin blogs
+        loadBlogs();
+        
+        showSuccessMessage('localStorage cleared and admin blogs reloaded');
+      } catch (error) {
+        console.error('Error clearing localStorage:', error);
+        alert('Error clearing localStorage. Please try again.');
+      }
+    }
+    
+    // Function to sync localStorage with current admin blogs
+    function syncUserView() {
+      try {
+        const stored = localStorage.getItem('adminBlogs');
+        if (stored) {
+          const adminBlogs = JSON.parse(stored);
+          console.log(`Syncing ${adminBlogs.length} blogs to user view`);
+          showSuccessMessage(`Synced ${adminBlogs.length} blogs to user view`);
+          
+          // Force reload of user-facing page blogs
+          if (typeof window.loadUserBlogs === 'function') {
+            window.loadUserBlogs();
+          }
+        } else {
+          alert('No blogs in localStorage to sync');
+        }
+      } catch (error) {
+        console.error('Error syncing blogs:', error);
+        alert('Error syncing blogs. Please try again.');
       }
     }
   </script>
