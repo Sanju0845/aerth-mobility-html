@@ -283,7 +283,7 @@
           <button class="btn-secondary" onclick="toggleForm()">+ New Blog</button>
           <button class="btn-secondary" onclick="window.location.href='voice-of-trust.html'">Manage Testimonials</button>
           <button class="btn-warning" onclick="updateAllBlogDates()" title="Update all blog dates to March 5th, 2026">📅 Update Dates</button>
-          <button class="btn-info" onclick="clearLocalStorage()" title="Clear localStorage and reload admin blogs">🗑️ Clear Storage</button>
+          <button class="btn-danger" onclick="clearLocalStorage()" title="⚠️ Delete ALL blogs from localStorage">🗑️ Delete All</button>
           <button class="btn-info" onclick="syncUserView()" title="Sync current blogs to user view">🔄 Sync User View</button>
           <button class="btn-danger" onclick="logout()">Logout</button>
         </div>
@@ -791,16 +791,20 @@ Or just write plain paragraphs separated by blank lines."></textarea>
       }
     }
     
-    // Function to clear localStorage and reload only current admin blogs
+    // Function to clear ALL blogs from localStorage
     function clearLocalStorage() {
+      if (!confirm('⚠️ This will delete ALL blogs from localStorage. Are you sure?')) {
+        return;
+      }
+      
       try {
         localStorage.removeItem('adminBlogs');
-        console.log('Cleared localStorage');
+        console.log('Cleared ALL blogs from localStorage');
         
-        // Reload only current admin blogs
+        // Reload blog list (will show empty or fallback to JSON)
         loadBlogs();
         
-        showSuccessMessage('localStorage cleared and admin blogs reloaded');
+        showSuccessMessage('ALL blogs deleted from localStorage');
       } catch (error) {
         console.error('Error clearing localStorage:', error);
         alert('Error clearing localStorage. Please try again.');
