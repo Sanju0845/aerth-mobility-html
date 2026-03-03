@@ -670,25 +670,36 @@ You can use simple formatting:
 
     // Load blogs - prioritize localStorage (admin changes) then fallback to JSON
     function loadBlogs() {
+      console.log('Loading blogs...');
+      
       // Try localStorage first
       try {
         const stored = localStorage.getItem('adminBlogs');
         if (stored) {
           const localStorageBlogs = JSON.parse(stored);
+          console.log('Loaded from localStorage:', localStorageBlogs.length, 'blogs');
           processBlogsData(localStorageBlogs);
           return;
+        } else {
+          console.log('No localStorage blogs found');
         }
       } catch (e) {
-        console.log('No localStorage blogs, loading from file');
+        console.log('Error loading from localStorage:', e);
       }
       
       // Fallback to blogs.json
+      console.log('Loading from blogs.json...');
       fetch('blogs/blogs.json')
         .then(function (r) { return r.json(); })
-        .then(processBlogsData);
+        .then(function(data) {
+          console.log('Loaded from blogs.json:', data.length, 'blogs');
+          processBlogsData(data);
+        });
     }
     
     function processBlogsData(data) {
+      console.log('Processing blog data:', data.length, 'blogs received');
+      
       var extraDays = 0;
       var date = new Date();
       date.setDate(date.getDate() + extraDays);
@@ -698,6 +709,9 @@ You can use simple formatting:
       allBlogs = (data || []).filter(function (b) {
         return !b.status || b.status === 'published';
       });
+      
+      console.log('After filtering published blogs:', allBlogs.length, 'blogs');
+      
       var totalEl = document.getElementById('blogTotal');
       if (totalEl) totalEl.textContent = allBlogs.length;
       applyFilters();
