@@ -113,6 +113,16 @@
     }
     .btn-danger:hover { background: rgba(239, 68, 68, 0.2); }
     
+    .btn-warning {
+      padding: 0.625rem 1.25rem;
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 8px;
+      color: #f59e0b; font-size: 0.875rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn-warning:hover { background: rgba(245, 158, 11, 0.2); }
+    
     /* Blog Form */
     .blog-form {
       background: rgba(30, 41, 59, 0.6);
@@ -262,6 +272,7 @@
         <div class="admin-actions">
           <button class="btn-secondary" onclick="toggleForm()">+ New Blog</button>
           <button class="btn-secondary" onclick="window.location.href='voice-of-trust.html'">Manage Testimonials</button>
+          <button class="btn-warning" onclick="updateAllBlogDates()" title="Update all blog dates to March 5th, 2026">📅 Update Dates</button>
           <button class="btn-danger" onclick="logout()">Logout</button>
         </div>
       </div>
@@ -739,6 +750,33 @@ Or just write plain paragraphs separated by blank lines."></textarea>
       `;
       document.body.appendChild(msg);
       setTimeout(() => msg.remove(), 3000);
+    }
+    
+    // Function to update all blog dates to March 5th, 2026
+    function updateAllBlogDates() {
+      try {
+        const stored = localStorage.getItem('adminBlogs');
+        if (stored) {
+          const blogs = JSON.parse(stored);
+          const updatedBlogs = blogs.map(blog => ({
+            ...blog,
+            publishedDate: '2026-03-05'
+          }));
+          
+          localStorage.setItem('adminBlogs', JSON.stringify(updatedBlogs));
+          console.log(`Updated ${updatedBlogs.length} blog dates to March 5th, 2026`);
+          
+          // Reload the blog list to show changes
+          loadBlogs();
+          
+          showSuccessMessage(`Updated ${updatedBlogs.length} blog dates to March 5th, 2026`);
+        } else {
+          alert('No blogs found in localStorage to update');
+        }
+      } catch (error) {
+        console.error('Error updating blog dates:', error);
+        alert('Error updating blog dates. Please try again.');
+      }
     }
   </script>
 </body>
