@@ -359,31 +359,14 @@
         <button type="button" class="form-modal-close" onclick="closeTestimonialForm()">&times;</button>
       </div>
       <form id="testimonialForm" onsubmit="saveTestimonial(event)">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="testimonialName">Name *</label>
-            <input type="text" id="testimonialName" name="name" required placeholder="John Doe">
-          </div>
-          <div class="form-group">
-            <label for="testimonialTitle">Title/Position *</label>
-            <input type="text" id="testimonialTitle" name="title" required placeholder="CEO, Director, etc.">
-          </div>
-        </div>
-        
-        <div class="form-row">
-          <div class="form-group">
-            <label for="testimonialBusiness">Business Name *</label>
-            <input type="text" id="testimonialBusiness" name="business" required placeholder="Company Name">
-          </div>
-          <div class="form-group">
-            <label for="testimonialLocation">Location *</label>
-            <input type="text" id="testimonialLocation" name="location" required placeholder="City, State">
-          </div>
+        <div class="form-group">
+          <label for="testimonialTitle">Title *</label>
+          <input type="text" id="testimonialTitle" name="title" required placeholder="Customer testimonial title">
         </div>
         
         <div class="form-group">
-          <label for="testimonialQuote">Testimonial Quote *</label>
-          <textarea id="testimonialQuote" name="quote" required rows="4" placeholder="What they said about Aerth Mobility..."></textarea>
+          <label for="testimonialSubtitle">Sub-header/Description *</label>
+          <textarea id="testimonialSubtitle" name="subtitle" required rows="3" placeholder="Brief description about the customer or their experience..."></textarea>
         </div>
         
         <div class="form-group">
@@ -394,7 +377,7 @@
         
         <div class="form-actions">
           <button type="button" class="btn-secondary" onclick="closeTestimonialForm()">Cancel</button>
-          <button type="submit" class="btn-primary">Save Testimonial</button>
+          <button type="submit" class="btn-primary">Publish Testimonial</button>
         </div>
       </form>
     </div>
@@ -552,24 +535,11 @@ function renderTestimonials() {
         </div>
       </div>
       <div class="testimonial-content">
-        <div class="testimonial-quote">"${testimonial.quote}"</div>
-        <div class="testimonial-person">
-          <div class="person-avatar">${testimonial.name.charAt(0).toUpperCase()}</div>
-          <div class="person-details">
-            <h3>${testimonial.name}</h3>
-            <div class="title">${testimonial.title}</div>
-            <div class="business">${testimonial.business}</div>
-            <div class="location">
-              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-              </svg>
-              ${testimonial.location}
-            </div>
-          </div>
-        </div>
+        <h3>${testimonial.title}</h3>
+        <p>${testimonial.subtitle}</p>
         ${isAdmin ? `
           <div style="margin-top: 1rem; text-align: right;">
-            <button onclick="deleteTestimonial(${testimonial.id})" class="btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+            <button onclick="deleteTestimonial('${testimonial.id}')" class="btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
               Delete
             </button>
           </div>
@@ -622,13 +592,11 @@ function saveTestimonial(event) {
   
   const formData = new FormData(event.target);
   const testimonial = {
-    id: Date.now(),
-    name: formData.get('name'),
+    id: 'testimonial-' + Date.now(),
     title: formData.get('title'),
-    business: formData.get('business'),
-    location: formData.get('location'),
-    quote: formData.get('quote'),
-    videoUrl: formData.get('videoUrl')
+    subtitle: formData.get('subtitle'),
+    videoUrl: formData.get('videoUrl'),
+    publishedDate: new Date().toISOString().split('T')[0]
   };
   
   testimonials.push(testimonial);
@@ -637,7 +605,7 @@ function saveTestimonial(event) {
   closeTestimonialForm();
   
   // Show success message
-  showSuccessMessage('Testimonial added successfully!');
+  showSuccessMessage('Testimonial published successfully!');
 }
 
 // Delete testimonial
