@@ -574,17 +574,25 @@ Or just write plain paragraphs separated by blank lines."></textarea>
         
         // Save to localStorage for admin
         localStorage.setItem('adminBlogs', JSON.stringify(blogs));
-        
-        // Show success
-        document.getElementById('viewBlogLink').href = `blog-post.html?slug=${slug}`;
-        document.getElementById('successOverlay').classList.add('show');
+        console.log('Blog saved to localStorage:', blog);
+        console.log('Total blogs in localStorage:', blogs.length);
         
         // Reset edit mode
         window.editingSlug = null;
         document.getElementById('publishBtn').textContent = 'Publish Blog';
         
-        // Reload list
+        // Reload list immediately
+        console.log('Reloading blog list...');
         loadBlogs();
+        
+        // Show success after list reload
+        setTimeout(() => {
+          document.getElementById('viewBlogLink').href = `blog-post.html?slug=${slug}`;
+          document.getElementById('successOverlay').classList.add('show');
+          console.log('Success overlay shown');
+        }, 200);
+        
+        // Clear form
         document.getElementById('blogCategory').value = '';
         document.getElementById('blogAuthor').value = '';
         document.getElementById('blogImage').value = '';
