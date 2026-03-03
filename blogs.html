@@ -741,15 +741,15 @@ You can use simple formatting:
     }
 
     function render() {
-      // Add admin blogs from localStorage
-      var adminBlogs = JSON.parse(localStorage.getItem('adminBlogs') || '[]');
-      var allBlogsWithAdmin = allBlogs.concat(adminBlogs);
+      console.log('Rendering blogs. Current allBlogs count:', allBlogs.length);
       
-      var total = allBlogsWithAdmin.length;
+      var total = allBlogs.length;
       var totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
       if (currentPage > totalPages) currentPage = totalPages;
       var start = (currentPage - 1) * PAGE_SIZE;
-      var page = allBlogsWithAdmin.slice(start, start + PAGE_SIZE);
+      var page = allBlogs.slice(start, start + PAGE_SIZE);
+
+      console.log('Rendering page with', page.length, 'blogs');
 
       if (page.length === 0) {
         grid.innerHTML = '<div class="blog-empty">' +
