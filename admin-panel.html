@@ -552,13 +552,21 @@ Or just write plain paragraphs separated by blank lines."></textarea>
       publishBtn.disabled = true;
       
       try {
-        // For static hosting, save to localStorage and update JSON
+        // Load from localStorage first (preserves deletions)
         let blogs = [];
         try {
-          const response = await fetch('blogs/blogs.json');
-          blogs = await response.json();
+          const stored = localStorage.getItem('adminBlogs');
+          if (stored) {
+            blogs = JSON.parse(stored);
+            console.log('Loaded blogs from localStorage:', blogs.length);
+          } else {
+            // Only load from JSON if no localStorage exists
+            const response = await fetch('blogs/blogs.json');
+            blogs = await response.json();
+            console.log('Loaded blogs from JSON file:', blogs.length);
+          }
         } catch (e) {
-          console.log('Creating new blogs array');
+          console.log('Error loading blogs, creating new array:', e);
         }
         
         if (window.editingSlug) {
