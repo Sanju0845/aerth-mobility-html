@@ -435,7 +435,8 @@ Or just write plain paragraphs separated by blank lines."></textarea>
     
     async function loadBlogs() {
       try {
-        const response = await fetch('/api/blogs');
+        // Try to load from blogs.json file directly
+        const response = await fetch('blogs/blogs.json');
         const blogs = await response.json();
         
         const listEl = document.getElementById('blogList');
