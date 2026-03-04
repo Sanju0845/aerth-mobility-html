@@ -8,7 +8,7 @@
   "rewrites": [
     {
       "source": "/admin",
-      "destination": "/admin-panel.html"
+      "destination": "/admin.html"
     }
   ]
 }

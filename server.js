@@ -442,9 +442,9 @@ app.delete('/api/blog/:slug', (req, res) => {
   }
 });
 
-// Serve admin panel
+// Serve admin dashboard
 app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, 'admin-panel.html'));
+  res.sendFile(path.join(__dirname, 'admin.html'));
 });
 
 // Start server
