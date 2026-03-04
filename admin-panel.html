@@ -481,15 +481,11 @@ Or just write plain paragraphs separated by blank lines."></textarea>
       // Wait a bit for form to render
       await new Promise(resolve => setTimeout(resolve, 100));
       
-      // Now get elements
-      const btnText = document.getElementById('publishText');
+      // Get button directly - don't rely on span
       const publishBtn = document.getElementById('publishBtn');
       
-      if (!btnText || !publishBtn) {
-        console.error('Elements not found:', {
-          btnText: !!btnText,
-          publishBtn: !!publishBtn,
-        });
+      if (!publishBtn) {
+        console.error('Publish button not found');
         alert('Error: Form elements not found. Please try again.');
         return;
       }
@@ -537,13 +533,9 @@ Or just write plain paragraphs separated by blank lines."></textarea>
         status: 'published'
       };
       
-      // Show loading
-      const originalText = btnText ? btnText.textContent : publishBtn.textContent;
-      if (btnText) {
-        btnText.innerHTML = '<span class="loading"></span> Publishing...';
-      } else {
-        publishBtn.innerHTML = '<span class="loading"></span> Publishing...';
-      }
+      // Show loading using button directly
+      const originalText = publishBtn.textContent;
+      publishBtn.innerHTML = '<span class="loading"></span> Publishing...';
       publishBtn.disabled = true;
       
       try {
@@ -591,11 +583,7 @@ Or just write plain paragraphs separated by blank lines."></textarea>
         console.error('Publish error:', error);
         alert('Error publishing blog. Please try again.');
       } finally {
-        if (btnText) {
-          btnText.textContent = originalText;
-        } else {
-          publishBtn.textContent = originalText;
-        }
+        publishBtn.textContent = originalText;
         if (publishBtn) publishBtn.disabled = false;
       }
     }
