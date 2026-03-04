@@ -613,26 +613,33 @@ Or just write plain paragraphs separated by blank lines."></textarea>
           return;
         }
         
-        // Fill form with blog data
-        document.getElementById('blogTitle').value = blog.title || '';
-        document.getElementById('blogSubtitle').value = blog.subtitle || '';
-        document.getElementById('blogCategory').value = blog.category || '';
-        document.getElementById('blogAuthor').value = blog.author || '';
-        document.getElementById('blogImage').value = blog.featuredImage || '';
-        document.getElementById('blogContent').value = blog.content || '';
-        document.getElementById('blogTags').value = (blog.tags || []).join(', ');
-        document.getElementById('blogReadTime').value = blog.readingTime || '5';
+        // Show form first
+        const form = document.getElementById('blogForm');
+        form.classList.add('show');
         
-        // Show form
-        document.getElementById('blogForm').classList.add('show');
-        document.getElementById('blogTitle').focus();
-        
-        // Store edit mode
-        window.editingSlug = slug;
-        
-        // Change button text
-        const publishBtn = document.getElementById('publishBtn');
-        publishBtn.textContent = 'Update Blog';
+        // Wait a bit for form to be visible, then fill data
+        setTimeout(() => {
+          // Fill form with blog data
+          document.getElementById('blogTitle').value = blog.title || '';
+          document.getElementById('blogSubtitle').value = blog.subtitle || '';
+          document.getElementById('blogCategory').value = blog.category || '';
+          document.getElementById('blogAuthor').value = blog.author || '';
+          document.getElementById('blogImage').value = blog.featuredImage || '';
+          document.getElementById('blogContent').value = blog.content || '';
+          document.getElementById('blogTags').value = (blog.tags || []).join(', ');
+          document.getElementById('blogReadTime').value = blog.readingTime || '5';
+          
+          document.getElementById('blogTitle').focus();
+          
+          // Store edit mode
+          window.editingSlug = slug;
+          
+          // Change button text
+          const publishBtn = document.getElementById('publishBtn');
+          if (publishBtn) {
+            publishBtn.textContent = 'Update Blog';
+          }
+        }, 100);
         
       } catch (error) {
         console.error('Edit error:', error);
