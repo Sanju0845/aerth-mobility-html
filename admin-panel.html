@@ -460,7 +460,8 @@ Or just write plain paragraphs separated by blank lines."></textarea>
             </div>
             <div class="blog-meta">
               <span class="blog-category">${escapeHtml(blog.category || 'General')}</span>
-              <a href="/blogs/${blog.slug}.html" target="_blank" class="btn-secondary" style="padding: 0.375rem 0.75rem;">View</a>
+              <a href="blog-post.html?slug=${blog.slug}" target="_blank" class="btn-secondary" style="padding: 0.375rem 0.75rem;">View</a>
+              <button class="btn-primary" style="padding: 0.375rem 0.75rem;" onclick="editBlog('${blog.slug}')">Edit</button>
               <button class="btn-danger" style="padding: 0.375rem 0.75rem;" onclick="deleteBlog('${blog.slug}')">Delete</button>
             </div>
           </div>
@@ -491,8 +492,13 @@ Or just write plain paragraphs separated by blank lines."></textarea>
       
       document.getElementById('formError').style.display = 'none';
       
-      // Create slug
-      const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '').substring(0, 50);
+      // Create slug or use existing for edit
+      let slug;
+      if (window.editingSlug) {
+        slug = window.editingSlug;
+      } else {
+        slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '').substring(0, 50);
+      }
       
       const blog = {
         id: 'blog-' + Date.now(),
@@ -516,38 +522,46 @@ Or just write plain paragraphs separated by blank lines."></textarea>
       document.getElementById('publishBtn').disabled = true;
       
       try {
-        const response = await fetch('/api/blog/publish', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            password: ADMIN_PASSWORD,
-            blog: blog
-          })
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-          // Clear form
-          document.getElementById('blogTitle').value = '';
-          document.getElementById('blogSubtitle').value = '';
-          document.getElementById('blogCategory').value = '';
-          document.getElementById('blogAuthor').value = '';
-          document.getElementById('blogImage').value = '';
-          document.getElementById('blogContent').value = '';
-          document.getElementById('blogTags').value = '';
-          document.getElementById('blogReadTime').value = '5';
-          document.getElementById('blogDate').value = new Date().toISOString().split('T')[0];
-          
-          // Show success
-          document.getElementById('viewBlogLink').href = result.url;
-          document.getElementById('successOverlay').classList.add('show');
-          
-          // Reload list
-          loadBlogs();
-        } else {
-          alert('Error: ' + result.error);
+        // For static hosting, save to localStorage and update JSON
+        let blogs = [];
+        try {
+          const response = await fetch('blogs/blogs.json');
+          blogs = await response.json();
+        } catch (e) {
+          console.log('Creating new blogs array');
         }
+        
+        if (window.editingSlug) {
+          // Update existing blog
+          const index = blogs.findIndex(b => b.slug === window.editingSlug);
+          if (index !== -1) {
+            blogs[index] = { ...blog, id: blogs[index].id };
+          }
+        } else {
+          // Add new blog
+          blogs.push(blog);
+        }
+        
+        // Save to localStorage for admin
+        localStorage.setItem('adminBlogs', JSON.stringify(blogs));
+        
+        // Show success
+        document.getElementById('viewBlogLink').href = `blog-post.html?slug=${slug}`;
+        document.getElementById('successOverlay').classList.add('show');
+        
+        // Reset edit mode
+        window.editingSlug = null;
+        document.getElementById('publishBtn').textContent = 'Publish Blog';
+        
+        // Reload list
+        loadBlogs();
+        document.getElementById('blogCategory').value = '';
+        document.getElementById('blogAuthor').value = '';
+        document.getElementById('blogImage').value = '';
+        document.getElementById('blogContent').value = '';
+        document.getElementById('blogTags').value = '';
+        document.getElementById('blogReadTime').value = '5';
+        document.getElementById('blogDate').value = new Date().toISOString().split('T')[0];
       } catch (error) {
         console.error('Publish error:', error);
         alert('Error publishing blog. Please try again.');
@@ -577,6 +591,45 @@ Or just write plain paragraphs separated by blank lines."></textarea>
       } catch (error) {
         console.error('Delete error:', error);
         alert('Error deleting blog. Please try again.');
+      }
+    }
+    
+    async function editBlog(slug) {
+      try {
+        // Load blog data from JSON
+        const response = await fetch('blogs/blogs.json');
+        const blogs = await response.json();
+        const blog = blogs.find(b => b.slug === slug);
+        
+        if (!blog) {
+          alert('Blog not found');
+          return;
+        }
+        
+        // Fill form with blog data
+        document.getElementById('blogTitle').value = blog.title || '';
+        document.getElementById('blogSubtitle').value = blog.subtitle || '';
+        document.getElementById('blogCategory').value = blog.category || '';
+        document.getElementById('blogAuthor').value = blog.author || '';
+        document.getElementById('blogImage').value = blog.featuredImage || '';
+        document.getElementById('blogContent').value = blog.content || '';
+        document.getElementById('blogTags').value = (blog.tags || []).join(', ');
+        document.getElementById('blogReadTime').value = blog.readingTime || '5';
+        
+        // Show form
+        document.getElementById('blogForm').classList.add('show');
+        document.getElementById('blogTitle').focus();
+        
+        // Store edit mode
+        window.editingSlug = slug;
+        
+        // Change button text
+        const publishBtn = document.getElementById('publishBtn');
+        publishBtn.textContent = 'Update Blog';
+        
+      } catch (error) {
+        console.error('Edit error:', error);
+        alert('Error loading blog for editing');
       }
     }
     
