@@ -517,9 +517,16 @@ Or just write plain paragraphs separated by blank lines."></textarea>
       
       // Show loading
       const btnText = document.getElementById('publishText');
+      const publishBtn = document.getElementById('publishBtn');
+      
+      if (!btnText || !publishBtn) {
+        alert('Error: Form elements not found');
+        return;
+      }
+      
       const originalText = btnText.textContent;
       btnText.innerHTML = '<span class="loading"></span> Publishing...';
-      document.getElementById('publishBtn').disabled = true;
+      publishBtn.disabled = true;
       
       try {
         // For static hosting, save to localStorage and update JSON
@@ -566,8 +573,8 @@ Or just write plain paragraphs separated by blank lines."></textarea>
         console.error('Publish error:', error);
         alert('Error publishing blog. Please try again.');
       } finally {
-        btnText.textContent = originalText;
-        document.getElementById('publishBtn').disabled = false;
+        if (btnText) btnText.textContent = originalText;
+        if (publishBtn) publishBtn.disabled = false;
       }
     }
     
