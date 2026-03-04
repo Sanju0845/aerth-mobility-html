@@ -435,9 +435,22 @@ Or just write plain paragraphs separated by blank lines."></textarea>
     
     async function loadBlogs() {
       try {
-        // Try to load from blogs.json file directly
-        const response = await fetch('blogs/blogs.json');
-        const blogs = await response.json();
+        // Try to load from localStorage first (admin changes)
+        let blogs = [];
+        try {
+          const stored = localStorage.getItem('adminBlogs');
+          if (stored) {
+            blogs = JSON.parse(stored);
+          }
+        } catch (e) {
+          console.log('No localStorage blogs, loading from file');
+        }
+        
+        // If no localStorage blogs, load from blogs.json file
+        if (blogs.length === 0) {
+          const response = await fetch('blogs/blogs.json');
+          blogs = await response.json();
+        }
         
         const listEl = document.getElementById('blogList');
         
@@ -629,9 +642,23 @@ Or just write plain paragraphs separated by blank lines."></textarea>
     
     async function editBlog(slug) {
       try {
-        // Load blog data from JSON
-        const response = await fetch('blogs/blogs.json');
-        const blogs = await response.json();
+        // Load blog data from localStorage first (admin changes)
+        let blogs = [];
+        try {
+          const stored = localStorage.getItem('adminBlogs');
+          if (stored) {
+            blogs = JSON.parse(stored);
+          }
+        } catch (e) {
+          console.log('No localStorage blogs, loading from file');
+        }
+        
+        // If no localStorage blogs, load from blogs.json file
+        if (blogs.length === 0) {
+          const response = await fetch('blogs/blogs.json');
+          blogs = await response.json();
+        }
+        
         const blog = blogs.find(b => b.slug === slug);
         
         if (!blog) {
