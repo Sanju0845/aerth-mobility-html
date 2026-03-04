@@ -246,8 +246,8 @@
       fetch('blogs/blogs.json')
         .then(function(r) { return r.json(); })
         .then(function(data) {
-          var allBlogs = data.blogs || [];
-          blog = allBlogs.find(function(b) { return b.slug === slug && b.status === 'published'; });
+          var allBlogs = data || [];
+          blog = allBlogs.find(function(b) { return b.slug === slug; });
           
           if (blog) {
             renderBlog(blog);
