@@ -518,9 +518,21 @@ Or just write plain paragraphs separated by blank lines."></textarea>
       // Show loading
       const btnText = document.getElementById('publishText');
       const publishBtn = document.getElementById('publishBtn');
+      const form = document.getElementById('blogForm');
+      
+      // Make sure form is visible
+      if (form && !form.classList.contains('show')) {
+        form.classList.add('show');
+      }
       
       if (!btnText || !publishBtn) {
-        alert('Error: Form elements not found');
+        console.error('Elements not found:', {
+          btnText: !!btnText,
+          publishBtn: !!publishBtn,
+          form: !!form,
+          formVisible: form ? form.classList.contains('show') : 'no form'
+        });
+        alert('Error: Form elements not found. Please try again.');
         return;
       }
       
