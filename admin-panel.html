@@ -472,6 +472,28 @@ Or just write plain paragraphs separated by blank lines."></textarea>
     }
     
     async function publishBlog() {
+      // Make sure form is visible first
+      const form = document.getElementById('blogForm');
+      if (form && !form.classList.contains('show')) {
+        form.classList.add('show');
+      }
+      
+      // Wait a bit for form to render
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
+      // Now get elements
+      const btnText = document.getElementById('publishText');
+      const publishBtn = document.getElementById('publishBtn');
+      
+      if (!btnText || !publishBtn) {
+        console.error('Elements not found:', {
+          btnText: !!btnText,
+          publishBtn: !!publishBtn,
+        });
+        alert('Error: Form elements not found. Please try again.');
+        return;
+      }
+      
       const title = document.getElementById('blogTitle').value.trim();
       const subtitle = document.getElementById('blogSubtitle').value.trim();
       const category = document.getElementById('blogCategory').value;
@@ -516,26 +538,6 @@ Or just write plain paragraphs separated by blank lines."></textarea>
       };
       
       // Show loading
-      const btnText = document.getElementById('publishText');
-      const publishBtn = document.getElementById('publishBtn');
-      const form = document.getElementById('blogForm');
-      
-      // Make sure form is visible
-      if (form && !form.classList.contains('show')) {
-        form.classList.add('show');
-      }
-      
-      if (!btnText || !publishBtn) {
-        console.error('Elements not found:', {
-          btnText: !!btnText,
-          publishBtn: !!publishBtn,
-          form: !!form,
-          formVisible: form ? form.classList.contains('show') : 'no form'
-        });
-        alert('Error: Form elements not found. Please try again.');
-        return;
-      }
-      
       const originalText = btnText ? btnText.textContent : publishBtn.textContent;
       if (btnText) {
         btnText.innerHTML = '<span class="loading"></span> Publishing...';
