@@ -536,8 +536,12 @@ Or just write plain paragraphs separated by blank lines."></textarea>
         return;
       }
       
-      const originalText = btnText.textContent;
-      btnText.innerHTML = '<span class="loading"></span> Publishing...';
+      const originalText = btnText ? btnText.textContent : publishBtn.textContent;
+      if (btnText) {
+        btnText.innerHTML = '<span class="loading"></span> Publishing...';
+      } else {
+        publishBtn.innerHTML = '<span class="loading"></span> Publishing...';
+      }
       publishBtn.disabled = true;
       
       try {
@@ -585,7 +589,11 @@ Or just write plain paragraphs separated by blank lines."></textarea>
         console.error('Publish error:', error);
         alert('Error publishing blog. Please try again.');
       } finally {
-        if (btnText) btnText.textContent = originalText;
+        if (btnText) {
+          btnText.textContent = originalText;
+        } else {
+          publishBtn.textContent = originalText;
+        }
         if (publishBtn) publishBtn.disabled = false;
       }
     }
