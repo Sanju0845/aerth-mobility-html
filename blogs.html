@@ -678,8 +678,8 @@ You can use simple formatting:
         
         var today = date.toISOString().slice(0, 10);
 
-        allBlogs = (data.blogs || []).filter(function (b) {
-          return b.status === 'published' && b.publishedDate && b.publishedDate <= today;
+        allBlogs = (data || []).filter(function (b) {
+          return !b.status || b.status === 'published';
         });
         var totalEl = document.getElementById('blogTotal');
         if (totalEl) totalEl.textContent = allBlogs.length;
