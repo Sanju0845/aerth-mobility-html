@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aerth Mobility - Blog Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      min-height: 100vh;
+      color: #e2e8f0;
+    }
+    .container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+    
+    /* Login Screen */
+    .login-screen {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; min-height: 100vh;
+    }
+    .login-box {
+      background: rgba(30, 41, 59, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(148, 163, 184, 0.1);
+      border-radius: 16px;
+      padding: 2.5rem;
+      width: 100%; max-width: 400px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+    .login-logo {
+      text-align: center; margin-bottom: 2rem;
+    }
+    .login-logo h1 {
+      font-size: 1.75rem; font-weight: 700;
+      background: linear-gradient(135deg, #3b82f6, #10b981);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .login-logo p { color: #94a3b8; margin-top: 0.5rem; font-size: 0.875rem; }
+    
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label {
+      display: block; margin-bottom: 0.5rem;
+      font-size: 0.875rem; font-weight: 500; color: #cbd5e1;
+    }
+    .form-group input {
+      width: 100%; padding: 0.75rem 1rem;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 8px;
+      color: #e2e8f0; font-size: 0.9375rem;
+      transition: all 0.2s;
+    }
+    .form-group input:focus {
+      outline: none; border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    
+    .btn {
+      width: 100%; padding: 0.875rem;
+      background: linear-gradient(135deg, #3b82f6, #10b981);
+      border: none; border-radius: 8px;
+      color: white; font-size: 0.9375rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4); }
+    .btn:active { transform: translateY(0); }
+    
+    .error-message {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+      padding: 0.75rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      font-size: 0.875rem;
+      display: none;
+    }
+    
+    /* Admin Dashboard */
+    .admin-screen { display: none; }
+    .admin-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 2rem; padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+    }
+    .admin-header h2 {
+      font-size: 1.5rem; font-weight: 700;
+      background: linear-gradient(135deg, #3b82f6, #10b981);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .admin-actions { display: flex; gap: 0.75rem; }
+    
+    .btn-secondary {
+      padding: 0.625rem 1.25rem;
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 8px;
+      color: #3b82f6; font-size: 0.875rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn-secondary:hover { background: rgba(59, 130, 246, 0.2); }
+    
+    .btn-danger {
+      padding: 0.625rem 1.25rem;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 8px;
+      color: #ef4444; font-size: 0.875rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn-danger:hover { background: rgba(239, 68, 68, 0.2); }
+    
+    /* Blog Form */
+    .blog-form {
+      background: rgba(30, 41, 59, 0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(148, 163, 184, 0.1);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      display: none;
+    }
+    .blog-form.show { display: block; }
+    .blog-form h3 { font-size: 1.25rem; margin-bottom: 1.5rem; color: #f1f5f9; }
+    
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+    
+    .form-group textarea {
+      width: 100%; padding: 0.75rem 1rem;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 8px;
+      color: #e2e8f0; font-size: 0.9375rem;
+      min-height: 200px; resize: vertical;
+      font-family: inherit;
+    }
+    .form-group textarea:focus {
+      outline: none; border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    
+    .form-group select {
+      width: 100%; padding: 0.75rem 1rem;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 8px;
+      color: #e2e8f0; font-size: 0.9375rem;
+      cursor: pointer;
+    }
+    .form-group select:focus {
+      outline: none; border-color: #3b82f6;
+    }
+    
+    .form-hint {
+      font-size: 0.75rem; color: #94a3b8; margin-top: 0.25rem;
+    }
+    
+    /* Blog List */
+    .blog-list { display: grid; gap: 1rem; }
+    .blog-item {
+      background: rgba(30, 41, 59, 0.4);
+      border: 1px solid rgba(148, 163, 184, 0.1);
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex; justify-content: space-between; align-items: center;
+      transition: all 0.2s;
+    }
+    .blog-item:hover {
+      background: rgba(30, 41, 59, 0.6);
+      border-color: rgba(59, 130, 246, 0.3);
+    }
+    .blog-info h4 { font-size: 1rem; color: #f1f5f9; margin-bottom: 0.25rem; }
+    .blog-info p { font-size: 0.75rem; color: #94a3b8; }
+    .blog-meta {
+      display: flex; gap: 0.75rem;
+      align-items: center;
+    }
+    .blog-category {
+      font-size: 0.75rem; padding: 0.25rem 0.625rem;
+      background: rgba(59, 130, 246, 0.1);
+      border-radius: 999px; color: #3b82f6;
+    }
+    
+    /* Success Message */
+    .success-overlay {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: none; align-items: center; justify-content: center;
+      z-index: 1000;
+    }
+    .success-overlay.show { display: flex; }
+    .success-box {
+      background: rgba(30, 41, 59, 0.95);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      max-width: 400px;
+    }
+    .success-icon {
+      width: 64px; height: 64px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+    .success-icon svg { width: 32px; height: 32px; color: white; }
+    .success-box h3 { font-size: 1.25rem; color: #f1f5f9; margin-bottom: 0.5rem; }
+    .success-box p { color: #94a3b8; font-size: 0.875rem; margin-bottom: 1.5rem; }
+    .success-box a {
+      color: #3b82f6; text-decoration: none;
+      font-size: 0.875rem; font-weight: 500;
+    }
+    .success-box a:hover { text-decoration: underline; }
+    
+    /* Loading */
+    .loading {
+      display: inline-block; width: 20px; height: 20px;
+      border: 2px solid rgba(59, 130, 246, 0.3);
+      border-top-color: #3b82f6;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    
+    .empty-state {
+      text-align: center; padding: 3rem;
+      color: #94a3b8;
+    }
+    .empty-state svg {
+      width: 64px; height: 64px; margin-bottom: 1rem;
+      opacity: 0.3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-screen">
+      <div class="login-box">
+        <div class="login-logo">
+          <h1>Aerth Mobility</h1>
+          <p>Blog Admin Panel</p>
+        </div>
+        <div id="loginError" class="error-message">Invalid password</div>
+        <div class="form-group">
+          <label for="adminPassword">Admin Password</label>
+          <input type="password" id="adminPassword" placeholder="Enter password">
+        </div>
+        <button class="btn" onclick="login()">Login</button>
+      </div>
+    </div>
+
+    <!-- Admin Screen -->
+    <div id="adminScreen" class="admin-screen">
+      <div class="admin-header">
+        <h2>Blog Admin</h2>
+        <div class="admin-actions">
+          <button class="btn-secondary" onclick="toggleForm()">+ New Blog</button>
+          <button class="btn-danger" onclick="logout()">Logout</button>
+        </div>
+      </div>
+
+      <!-- Blog Form -->
+      <div id="blogForm" class="blog-form">
+        <h3>Create New Blog Post</h3>
+        <div id="formError" class="error-message"></div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="blogTitle">Blog Title *</label>
+            <input type="text" id="blogTitle" placeholder="e.g., 5 Tips for EV Maintenance">
+            <p class="form-hint">Keep it catchy and under 60 characters</p>
+          </div>
+          <div class="form-group">
+            <label for="blogCategory">Category *</label>
+            <select id="blogCategory">
+              <option value="">Select category</option>
+              <option value="EV Tips">EV Tips</option>
+              <option value="Maintenance">Maintenance</option>
+              <option value="Industry News">Industry News</option>
+              <option value="Technology">Technology</option>
+              <option value="Buying Guide">Buying Guide</option>
+              <option value="Safety">Safety</option>
+              <option value="Battery Care">Battery Care</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="blogSubtitle">Subtitle *</label>
+          <input type="text" id="blogSubtitle" placeholder="Brief description of the blog">
+          <p class="form-hint">This appears on the blog card and in search results</p>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="blogAuthor">Author Name *</label>
+            <input type="text" id="blogAuthor" placeholder="e.g., John Doe">
+          </div>
+          <div class="form-group">
+            <label for="blogDate">Publish Date</label>
+            <input type="date" id="blogDate">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="blogImage">Featured Image URL *</label>
+          <input type="text" id="blogImage" placeholder="https://example.com/image.jpg or /images/blog-image.jpg">
+          <p class="form-hint">Paste a full URL or a relative path starting with /</p>
+        </div>
+
+        <div class="form-group">
+          <label for="blogContent">Blog Content *</label>
+          <textarea id="blogContent" placeholder="Write your blog content here...
+
+Use:
+# Heading 1
+## Heading 2
+- Bullet points
+* Bullet points
+> Blockquote
+
+Or just write plain paragraphs separated by blank lines."></textarea>
+          <p class="form-hint">Supports: # Heading, ## Subheading, - or * for bullets, > for quotes</p>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="blogTags">Tags (comma separated)</label>
+            <input type="text" id="blogTags" placeholder="e.g., EV, Battery, Maintenance">
+          </div>
+          <div class="form-group">
+            <label for="blogReadTime">Reading Time (minutes)</label>
+            <input type="number" id="blogReadTime" value="5" min="1" max="60">
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem;">
+          <button class="btn" onclick="publishBlog()" id="publishBtn">
+            <span id="publishText">Publish Blog</span>
+          </button>
+          <button class="btn-secondary" onclick="toggleForm()">Cancel</button>
+        </div>
+      </div>
+
+      <!-- Blog List -->
+      <div id="blogList" class="blog-list">
+        <div class="empty-state">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"/>
+          </svg>
+          <p>No blogs yet. Click "+ New Blog" to create one.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Overlay -->
+  <div id="successOverlay" class="success-overlay" onclick="closeSuccess()">
+    <div class="success-box" onclick="event.stopPropagation()">
+      <div class="success-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+        </svg>
+      </div>
+      <h3>Blog Published!</h3>
+      <p>Your blog has been successfully published and is now live.</p>
+      <a href="#" id="viewBlogLink" target="_blank">View Blog Post →</a>
+      <br><br>
+      <button class="btn" onclick="closeSuccess()" style="width: auto; padding: 0.625rem 2rem;">Create Another</button>
+    </div>
+  </div>
+
+  <script>
+    const ADMIN_PASSWORD = 'aerthadmin123';
+    let isLoggedIn = false;
+    
+    // Initialize
+    document.getElementById('blogDate').value = new Date().toISOString().split('T')[0];
+    
+    // Check if already logged in (session)
+    if (sessionStorage.getItem('adminToken')) {
+      isLoggedIn = true;
+      showAdmin();
+      loadBlogs();
+    }
+    
+    // Login on Enter key
+    document.getElementById('adminPassword').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') login();
+    });
+    
+    function login() {
+      const password = document.getElementById('adminPassword').value;
+      const errorEl = document.getElementById('loginError');
+      
+      if (password === ADMIN_PASSWORD) {
+        isLoggedIn = true;
+        sessionStorage.setItem('adminToken', 'admin-' + Date.now());
+        showAdmin();
+        loadBlogs();
+      } else {
+        errorEl.style.display = 'block';
+        document.getElementById('adminPassword').value = '';
+      }
+    }
+    
+    function logout() {
+      isLoggedIn = false;
+      sessionStorage.removeItem('adminToken');
+      document.getElementById('loginScreen').style.display = 'flex';
+      document.getElementById('adminScreen').style.display = 'none';
+      document.getElementById('adminPassword').value = '';
+      document.getElementById('loginError').style.display = 'none';
+    }
+    
+    function showAdmin() {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('adminScreen').style.display = 'block';
+    }
+    
+    function toggleForm() {
+      const form = document.getElementById('blogForm');
+      form.classList.toggle('show');
+      if (form.classList.contains('show')) {
+        document.getElementById('blogTitle').focus();
+      }
+    }
+    
+    async function loadBlogs() {
+      try {
+        const response = await fetch('/api/blogs');
+        const blogs = await response.json();
+        
+        const listEl = document.getElementById('blogList');
+        
+        if (blogs.length === 0) {
+          listEl.innerHTML = `
+            <div class="empty-state">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"/>
+              </svg>
+              <p>No blogs yet. Click "+ New Blog" to create one.</p>
+            </div>`;
+          return;
+        }
+        
+        listEl.innerHTML = blogs.map(blog => `
+          <div class="blog-item">
+            <div class="blog-info">
+              <h4>${escapeHtml(blog.title)}</h4>
+              <p>${escapeHtml(blog.subtitle || '').substring(0, 80)}${(blog.subtitle || '').length > 80 ? '...' : ''}</p>
+            </div>
+            <div class="blog-meta">
+              <span class="blog-category">${escapeHtml(blog.category || 'General')}</span>
+              <a href="/blogs/${blog.slug}.html" target="_blank" class="btn-secondary" style="padding: 0.375rem 0.75rem;">View</a>
+              <button class="btn-danger" style="padding: 0.375rem 0.75rem;" onclick="deleteBlog('${blog.slug}')">Delete</button>
+            </div>
+          </div>
+        `).join('');
+      } catch (error) {
+        console.error('Error loading blogs:', error);
+      }
+    }
+    
+    async function publishBlog() {
+      const title = document.getElementById('blogTitle').value.trim();
+      const subtitle = document.getElementById('blogSubtitle').value.trim();
+      const category = document.getElementById('blogCategory').value;
+      const author = document.getElementById('blogAuthor').value.trim();
+      const image = document.getElementById('blogImage').value.trim();
+      const content = document.getElementById('blogContent').value.trim();
+      const tags = document.getElementById('blogTags').value.split(',').map(t => t.trim()).filter(t => t);
+      const readTime = document.getElementById('blogReadTime').value || 5;
+      const date = document.getElementById('blogDate').value || new Date().toISOString().split('T')[0];
+      
+      // Validation
+      if (!title || !subtitle || !category || !author || !image || !content) {
+        const errorEl = document.getElementById('formError');
+        errorEl.textContent = 'Please fill in all required fields (*)';
+        errorEl.style.display = 'block';
+        return;
+      }
+      
+      document.getElementById('formError').style.display = 'none';
+      
+      // Create slug
+      const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '').substring(0, 50);
+      
+      const blog = {
+        id: 'blog-' + Date.now(),
+        slug: slug,
+        title: title,
+        subtitle: subtitle,
+        category: category,
+        author: author,
+        featuredImage: image,
+        content: content,
+        tags: tags,
+        readingTimeMinutes: parseInt(readTime),
+        publishedDate: date,
+        status: 'published'
+      };
+      
+      // Show loading
+      const btnText = document.getElementById('publishText');
+      const originalText = btnText.textContent;
+      btnText.innerHTML = '<span class="loading"></span> Publishing...';
+      document.getElementById('publishBtn').disabled = true;
+      
+      try {
+        const response = await fetch('/api/blog/publish', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            password: ADMIN_PASSWORD,
+            blog: blog
+          })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          // Clear form
+          document.getElementById('blogTitle').value = '';
+          document.getElementById('blogSubtitle').value = '';
+          document.getElementById('blogCategory').value = '';
+          document.getElementById('blogAuthor').value = '';
+          document.getElementById('blogImage').value = '';
+          document.getElementById('blogContent').value = '';
+          document.getElementById('blogTags').value = '';
+          document.getElementById('blogReadTime').value = '5';
+          document.getElementById('blogDate').value = new Date().toISOString().split('T')[0];
+          
+          // Show success
+          document.getElementById('viewBlogLink').href = result.url;
+          document.getElementById('successOverlay').classList.add('show');
+          
+          // Reload list
+          loadBlogs();
+        } else {
+          alert('Error: ' + result.error);
+        }
+      } catch (error) {
+        console.error('Publish error:', error);
+        alert('Error publishing blog. Please try again.');
+      } finally {
+        btnText.textContent = originalText;
+        document.getElementById('publishBtn').disabled = false;
+      }
+    }
+    
+    async function deleteBlog(slug) {
+      if (!confirm('Are you sure you want to delete this blog?')) return;
+      
+      try {
+        const response = await fetch(`/api/blog/${slug}`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: ADMIN_PASSWORD })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          loadBlogs();
+        } else {
+          alert('Error: ' + result.error);
+        }
+      } catch (error) {
+        console.error('Delete error:', error);
+        alert('Error deleting blog. Please try again.');
+      }
+    }
+    
+    function closeSuccess() {
+      document.getElementById('successOverlay').classList.remove('show');
+      document.getElementById('blogForm').classList.remove('show');
+    }
+    
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+  </script>
+</body>
+</html>

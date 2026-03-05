@@ -240,8 +240,14 @@
     var adminBlogs = JSON.parse(localStorage.getItem('adminBlogs') || '[]');
     var blog = adminBlogs.find(function(b) { return b.slug === slug; });
     
-    // If not found in admin blogs, try to fetch from blogs.json
+    // If not found in admin blogs, try to fetch from blogs.json (only works on http/https, not file://)
     if (!blog) {
+      // Check if running from file:// protocol
+      if (window.location.protocol === 'file:') {
+        showError('Blog not found in local storage.\n\nTo view published blogs, please open this file through a web server (http://localhost) instead of directly from the file system.');
+        return;
+      }
+      
       fetch('blogs/blogs.json')
         .then(function(r) { return r.json(); })
         .then(function(data) {
@@ -362,5 +368,32 @@
   </script>
 
   <script src="evx.js"></script>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="evx-h.png" alt="Aerth Mobility" class="footer-logo" />
+        <p class="editable footer-tagline">Your Trusted EV Partner</p>
+        <p class="editable footer-address">India : Rudrapur | New Delhi (Functional Centers)<br>India : Ghaziabad | Pune | Bangalore ( Upcoming Centers)</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="services.html">Services</a>
+        <a href="spare-parts.html">Spare Parts</a>
+        <a href="franchise.html">Franchise</a>
+        <a href="locations.html">Locations</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="blogs.html">Blog</a>
+      </nav>
+      <div class="footer-right">
+        <a href="https://wa.me/918279773212" class="footer-phone">+91 82797 73212</a>
+        <a href="mailto:support@aerthmobility.com" class="footer-email">support@aerthmobility.com</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="editable footer-copy">&copy; 2026 Aerth Mobility. All rights reserved.</p>
+    </div>
+  </footer>
 </body>
 </html>
