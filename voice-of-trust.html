@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title>Voice of Trust | Aerth Mobility</title>
+  <meta name="description" content="Hear from our customers and industry leaders about their experience with Aerth Mobility EV solutions.">
+  <meta name="keywords" content="Aerth Mobility, testimonials, customer reviews, EV testimonials, electric vehicle reviews">
+  <meta name="author" content="Aerth Mobility">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#f2f2f5">
+  
+  <link rel="canonical" href="https://aerthmobility.com/voice-of-trust">
+  
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Voice of Trust | Aerth Mobility">
+  <meta property="og:description" content="Hear from our customers and industry leaders about their experience with Aerth Mobility EV solutions.">
+  <meta property="og:image" content="evx-s.png">
+  <meta property="og:url" content="https://aerthmobility.com/voice-of-trust">
+  <meta property="og:site_name" content="Aerth Mobility">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Voice of Trust | Aerth Mobility">
+  <meta name="twitter:description" content="Hear from our customers and industry leaders about their experience with Aerth Mobility EV solutions.">
+  <meta name="twitter:image" content="evx-s.png">
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="evx.css">
+  <link rel="icon" href="evx.ico" type="image/x-icon">
+  
+  <style>
+/* ══════════════════════════════════════════════════════
+   Voice of Trust — Video Testimonials
+   ══════════════════════════════════════════════════════ */
+.testimonials-page { max-width: 1200px; margin: 0 auto; padding: 5.5rem 1.5rem 4rem; }
+
+/* ── Hero Section ── */
+.testimonials-hero {
+  position: relative; overflow: hidden; border-radius: var(--radius-lg);
+  min-height: 280px; display: flex; align-items: center; justify-content: center;
+  text-align: center; margin-bottom: 3rem;
+  background: linear-gradient(135deg, #0a0a1a 0%, #0057B7 50%, #007A00 100%);
+  box-shadow: 0 12px 48px rgba(0,87,183,0.18), 0 0 0 1px rgba(255,255,255,0.04) inset;
+}
+.testimonials-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 600px 400px at 25% 40%, rgba(0,148,255,0.25) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 350px at 75% 65%, rgba(0,200,100,0.15) 0%, transparent 70%);
+  pointer-events: none; animation: testimonialsHeroPulse 8s ease-in-out infinite alternate;
+}
+@keyframes testimonialsHeroPulse { 0% { opacity: 0.6; } 100% { opacity: 1; } }
+.testimonials-hero-inner { position: relative; z-index: 1; padding: 2.5rem 1.5rem; }
+.testimonials-hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 0.3rem 0.9rem; border-radius: 999px; font-size: 0.68rem;
+  font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: #fff; background: rgba(255,255,255,0.12); margin-bottom: 0.75rem;
+  backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.1);
+}
+.testimonials-hero h1 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; color: #fff;
+  margin: 0 0 0.35rem; letter-spacing: -0.03em;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.3);
+}
+.testimonials-hero h1 span {
+  background: linear-gradient(90deg, #00d4ff, #00ff88);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.testimonials-hero p {
+  font-size: clamp(0.95rem, 1.2vw, 1.1rem); color: rgba(255,255,255,0.85);
+  margin: 0; max-width: 480px; margin-left: auto; margin-right: auto;
+  line-height: 1.5;
+}
+
+/* ── Admin Button ── */
+.admin-section { text-align: center; margin-bottom: 3rem; }
+.add-testimonial-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 0.8rem 1.6rem; border-radius: var(--radius);
+  background: var(--accent); color: #fff; font-weight: 600;
+  text-decoration: none; transition: all 0.3s ease;
+  border: none; cursor: pointer; font-size: 0.95rem;
+}
+.add-testimonial-btn:hover {
+  background: var(--accent-dark); transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,148,255,0.3);
+}
+
+/* ── Testimonials Grid ── */
+.testimonials-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 2rem; margin-bottom: 3rem;
+}
+.testimonial-card {
+  background: var(--bg-elevated); border-radius: var(--radius-lg);
+  overflow: hidden; transition: all 0.3s ease;
+  border: 1px solid var(--border); box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+.testimonial-card:hover {
+  transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+}
+
+/* ── Video Section ── */
+.testimonial-video {
+  position: relative; width: 100%; aspect-ratio: 16/9;
+  background: #000; overflow: hidden;
+}
+.testimonial-video video {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.video-overlay {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.2); transition: all 0.3s ease;
+  cursor: pointer;
+}
+.video-overlay:hover { background: rgba(0,0,0,0.1); }
+.play-btn {
+  width: 64px; height: 64px; background: rgba(255,255,255,0.9);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s ease; box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+.play-btn:hover {
+  background: #fff; transform: scale(1.1);
+}
+.play-btn svg { width: 24px; height: 24px; fill: var(--accent); margin-left: 2px; }
+
+/* ── Testimonial Content ── */
+.testimonial-content {
+  padding: 1.5rem;
+}
+.testimonial-quote {
+  font-size: 1.05rem; line-height: 1.6; color: var(--text);
+  margin-bottom: 1.2rem; font-style: italic;
+  position: relative; padding-left: 1.5rem;
+}
+.testimonial-quote::before {
+  content: '"';
+  position: absolute; left: 0; top: -4px;
+  font-size: 2rem; color: var(--accent); opacity: 0.6;
+}
+
+/* ── Person Info ── */
+.testimonial-person {
+  display: flex; align-items: center; gap: 1rem;
+  padding-top: 1rem; border-top: 1px solid var(--border);
+}
+.person-avatar {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--accent); display: flex; align-items: center;
+  justify-content: center; color: #fff; font-weight: bold;
+  font-size: 1.2rem; flex-shrink: 0;
+}
+.person-details h3 {
+  font-size: 1.1rem; font-weight: 600; color: var(--text);
+  margin: 0 0 0.2rem 0;
+}
+.person-details .title {
+  font-size: 0.9rem; color: var(--text-muted); margin: 0 0 0.3rem 0;
+}
+.person-details .business {
+  font-size: 0.85rem; color: var(--accent); font-weight: 500;
+  margin: 0;
+}
+.person-details .location {
+  font-size: 0.8rem; color: var(--text-muted);
+  margin: 0; display: flex; align-items: center; gap: 4px;
+}
+
+/* ── Empty State ── */
+.empty-testimonials {
+  text-align: center; padding: 4rem 2rem;
+  background: var(--bg-elevated); border-radius: var(--radius-lg);
+  border: 2px dashed var(--border);
+}
+.empty-testimonials svg {
+  width: 80px; height: 80px; fill: var(--text-muted);
+  margin-bottom: 1rem; opacity: 0.5;
+}
+.empty-testimonials h3 {
+  font-size: 1.3rem; color: var(--text);
+  margin: 0 0 0.5rem 0;
+}
+.empty-testimonials p {
+  color: var(--text-muted); margin: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .testimonials-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .testimonials-page { padding: 4rem 1rem 2rem; }
+  .testimonial-person { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+}
+
+/* ── Loading Skeleton ── */
+.testimonial-skel {
+  background: linear-gradient(90deg, var(--bg-elevated) 25%, var(--bg-hover) 50%, var(--bg-elevated) 75%);
+  background-size: 200% 100%; animation: loading 1.5s infinite;
+}
+@keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+.skel-video { height: 200px; border-radius: var(--radius) var(--radius) 0 0; }
+.skel-content { padding: 1.5rem; }
+.skel-quote { height: 60px; border-radius: 4px; margin-bottom: 1rem; }
+.skel-person { display: flex; gap: 1rem; align-items: center; }
+.skel-avatar { width: 48px; height: 48px; border-radius: 50%; }
+.skel-details { flex: 1; }
+.skel-name { height: 20px; border-radius: 4px; width: 120px; margin-bottom: 8px; }
+.skel-title { height: 16px; border-radius: 4px; width: 160px; }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo" aria-label="Aerth Mobility Home"><img src="evx-h.png" alt="Aerth Mobility" class="header-logo" loading="eager" /></a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="services.html">Services</a>
+      <a href="spare-parts.html">Spare Parts</a>
+      <a href="consulting.html">Consulting</a>
+      <a href="fleet.html">Fleet</a>
+      <a href="franchise.html">Franchise</a>
+      <a href="locations.html">Locations</a>
+      <a href="skill-center.html">Skill Center</a>
+        <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="https://wa.me/918279773212" class="header-phone">+91 82797 73212</a>
+    <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+    </button>
+  </div>
+</header>
+
+  <main class="testimonials-page">
+    <!-- Hero Section -->
+    <section class="testimonials-hero">
+      <div class="testimonials-hero-inner">
+        <div class="testimonials-hero-badge">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+          Customer Stories
+        </div>
+        <h1>Voice of <span>Trust</span></h1>
+        <p>Hear directly from our customers and industry leaders about their experience with Aerth Mobility EV solutions</p>
+      </div>
+    </section>
+
+    <!-- Admin Section -->
+    <div class="admin-section" id="adminSection" style="display: none;">
+      <button class="add-testimonial-btn" onclick="openTestimonialForm()">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+        </svg>
+        Add Testimonial
+      </button>
+    </div>
+
+    <!-- Testimonials Grid -->
+    <div class="testimonials-grid" id="testimonialsGrid">
+      <!-- Loading Skeletons -->
+      <div class="testimonial-card">
+        <div class="testimonial-video testimonial-skel skel-video"></div>
+        <div class="testimonial-content skel-content">
+          <div class="testimonial-quote testimonial-skel skel-quote"></div>
+          <div class="testimonial-person">
+            <div class="person-avatar testimonial-skel skel-avatar"></div>
+            <div class="person-details">
+              <div class="testimonial-skel skel-name"></div>
+              <div class="testimonial-skel skel-title"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-video testimonial-skel skel-video"></div>
+        <div class="testimonial-content skel-content">
+          <div class="testimonial-quote testimonial-skel skel-quote"></div>
+          <div class="testimonial-person">
+            <div class="person-avatar testimonial-skel skel-avatar"></div>
+            <div class="person-details">
+              <div class="testimonial-skel skel-name"></div>
+              <div class="testimonial-skel skel-title"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-testimonials" id="emptyState" style="display: none;">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
+      </svg>
+      <h3>No Testimonials Yet</h3>
+      <p>Be the first to share your experience with Aerth Mobility</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="evx-h.png" alt="Aerth Mobility" class="footer-logo" />
+        <p class="editable footer-tagline">Your Trusted EV Partner</p>
+        <p class="editable footer-address">India : Rudrapur | New Delhi (Functional Centers)<br>India : Ghaziabad | Pune | Bangalore ( Upcoming Centers) &ndash; 500019</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="services.html">Services</a>
+        <a href="spare-parts.html">Spare Parts</a>
+        <a href="consulting.html">Consulting</a>
+        <a href="fleet.html">Fleet</a>
+        <a href="franchise.html">Franchise</a>
+        <a href="locations.html">Locations</a>
+        <a href="skill-center.html">Skill Center</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="blogs.html">Blog</a>
+        <a href="tips.html">Tips</a>
+        <a href="ai-based-diagnostics.html" class="footer-">AI Diagnostics</a>
+        <a href="Aerth Mobility-founder-story.html" class="footer-">Founder Story</a>
+        <a href="https://www.youtube.com/@AerthMobility" class="footer-">YouTube</a>
+        <a href="Executive-Council.html" class="footer-">Executive Council</a>
+        <a href="voice-of-trust.html" class="footer-">Voice of trust</a>
+      </nav>
+      <div class="footer-right">
+        <a href="https://wa.me/918279773212" class="footer-phone">+91 82797 73212</a>
+        <a href="mailto:support@aerthmobility.com" class="footer-email">support@aerthmobility.com</a>
+        <div class="footer-social">
+          <a href="https://www.linkedin.com/company/Aerth Mobility-ev" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></a>
+          <a href="https://www.facebook.com/Aerth Mobility.EV" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg></a>
+          <a href="https://www.instagram.com/Aerth Mobility.ev/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2m-.2 2A3.6 3.6 0 004 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 003.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5M12 7a5 5 0 110 10 5 5 0 010-10m0 2a3 3 0 100 6 3 3 0 000-6z"/></svg></a>
+          <a href="https://www.youtube.com/@AerthMobility" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg></a>
+          <a href="https://x.com/Aerth Mobility_EV" target="_blank" rel="noopener" aria-label="X / Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="editable footer-copy">&copy; 2026 Aerth Mobility. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms-and-conditions.html">Terms &amp; Conditions</a>
+      </div>
+      <p class="editable footer-credit">Made by Sanju @www.mystx.space<a href="https://www.linkedin.com/in/manjuverm" target="_blank" rel="noopener"></a></p>
+    </div>
+  </footer>
+
+  <!-- Testimonial Form Modal -->
+  <div id="testimonialFormModal" class="form-modal" style="display: none;">
+    <div class="form-modal-content">
+      <div class="form-modal-header">
+        <h2>Add New Testimonial</h2>
+        <button type="button" class="form-modal-close" onclick="closeTestimonialForm()">&times;</button>
+      </div>
+      <form id="testimonialForm" onsubmit="saveTestimonial(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="testimonialName">Name *</label>
+            <input type="text" id="testimonialName" name="name" required placeholder="John Doe">
+          </div>
+          <div class="form-group">
+            <label for="testimonialTitle">Title/Position *</label>
+            <input type="text" id="testimonialTitle" name="title" required placeholder="CEO, Director, etc.">
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="testimonialBusiness">Business Name *</label>
+            <input type="text" id="testimonialBusiness" name="business" required placeholder="Company Name">
+          </div>
+          <div class="form-group">
+            <label for="testimonialLocation">Location *</label>
+            <input type="text" id="testimonialLocation" name="location" required placeholder="City, State">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="testimonialQuote">Testimonial Quote *</label>
+          <textarea id="testimonialQuote" name="quote" required rows="4" placeholder="What they said about Aerth Mobility..."></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="testimonialVideo">Video URL *</label>
+          <input type="url" id="testimonialVideo" name="videoUrl" required placeholder="https://youtube.com/watch?v=... or direct video URL">
+          <small>YouTube, Vimeo, or direct video URLs supported</small>
+        </div>
+        
+        <div class="form-actions">
+          <button type="button" class="btn-secondary" onclick="closeTestimonialForm()">Cancel</button>
+          <button type="submit" class="btn-primary">Save Testimonial</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <style>
+/* ── Modal Styles ── */
+.form-modal {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;
+  z-index: 1000; backdrop-filter: blur(4px);
+}
+.form-modal-content {
+  background: var(--bg-elevated); border-radius: var(--radius-lg);
+  max-width: 600px; width: 90%; max-height: 90vh; overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+.form-modal-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.5rem; border-bottom: 1px solid var(--border);
+}
+.form-modal-header h2 { margin: 0; color: var(--text); }
+.form-modal-close {
+  background: none; border: none; font-size: 1.5rem; color: var(--text-muted);
+  cursor: pointer; padding: 0.5rem; line-height: 1;
+}
+.form-modal-close:hover { color: var(--text); }
+.form-modal-content form { padding: 1.5rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+.form-group { margin-bottom: 1rem; }
+.form-group label {
+  display: block; margin-bottom: 0.5rem; font-weight: 500;
+  color: var(--text); font-size: 0.9rem;
+}
+.form-group input,
+.form-group textarea {
+  width: 100%; padding: 0.75rem; border: 1px solid var(--border);
+  border-radius: var(--radius); background: var(--bg);
+  color: var(--text); font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none; border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0,148,255,0.1);
+}
+.form-group small {
+  display: block; margin-top: 0.25rem;
+  color: var(--text-muted); font-size: 0.8rem;
+}
+.form-actions {
+  display: flex; gap: 1rem; justify-content: flex-end;
+  margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border);
+}
+.btn-primary, .btn-secondary {
+  padding: 0.75rem 1.5rem; border-radius: var(--radius);
+  font-weight: 500; cursor: pointer; transition: all 0.3s ease;
+  border: none; font-size: 0.95rem;
+}
+.btn-primary {
+  background: var(--accent); color: #fff;
+}
+.btn-primary:hover {
+  background: var(--accent-dark); transform: translateY(-1px);
+}
+.btn-secondary {
+  background: var(--bg-hover); color: var(--text);
+  border: 1px solid var(--border);
+}
+.btn-secondary:hover {
+  background: var(--bg-elevated);
+}
+@media (max-width: 768px) {
+  .form-row { grid-template-columns: 1fr; }
+  .form-modal-content { width: 95%; margin: 1rem; }
+  .form-actions { flex-direction: column; }
+}
+  </style>
+
+  <script>
+// Testimonials Management
+let testimonials = [];
+let isAdmin = false;
+
+// Check if admin is logged in (same as blog admin)
+function checkAdminStatus() {
+  const adminSession = localStorage.getItem('aerth_admin_session');
+  if (adminSession) {
+    try {
+      const session = JSON.parse(adminSession);
+      if (session.password === 'aerthadmin123' && 
+          new Date(session.expiry) > new Date()) {
+        isAdmin = true;
+        document.getElementById('adminSection').style.display = 'block';
+      }
+    } catch (e) {
+      localStorage.removeItem('aerth_admin_session');
+    }
+  }
+}
+
+// Load testimonials
+function loadTestimonials() {
+  const stored = localStorage.getItem('aerth_testimonials');
+  if (stored) {
+    testimonials = JSON.parse(stored);
+  } else {
+    // Sample testimonials
+    testimonials = [
+      {
+        id: Date.now(),
+        name: "Rajesh Kumar",
+        title: "Fleet Manager",
+        business: "Delhi Transport Co.",
+        location: "New Delhi",
+        quote: "Aerth Mobility's EV solutions have transformed our fleet operations. We've seen 40% reduction in maintenance costs and excellent reliability.",
+        videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+      }
+    ];
+    saveTestimonials();
+  }
+  renderTestimonials();
+}
+
+// Render testimonials
+function renderTestimonials() {
+  const grid = document.getElementById('testimonialsGrid');
+  const emptyState = document.getElementById('emptyState');
+  
+  if (testimonials.length === 0) {
+    grid.style.display = 'none';
+    emptyState.style.display = 'block';
+    return;
+  }
+  
+  grid.style.display = 'grid';
+  emptyState.style.display = 'none';
+  
+  grid.innerHTML = testimonials.map(testimonial => `
+    <div class="testimonial-card" data-id="${testimonial.id}">
+      <div class="testimonial-video">
+        <video 
+          src="${getEmbedUrl(testimonial.videoUrl)}" 
+          poster="https://img.youtube.com/vi/${getYouTubeId(testimonial.videoUrl)}/maxresdefault.jpg"
+          controls 
+          preload="metadata"
+          playsinline>
+        </video>
+        <div class="video-overlay" onclick="playVideo(this)">
+          <div class="play-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-content">
+        <div class="testimonial-quote">"${testimonial.quote}"</div>
+        <div class="testimonial-person">
+          <div class="person-avatar">${testimonial.name.charAt(0).toUpperCase()}</div>
+          <div class="person-details">
+            <h3>${testimonial.name}</h3>
+            <div class="title">${testimonial.title}</div>
+            <div class="business">${testimonial.business}</div>
+            <div class="location">
+              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
+              ${testimonial.location}
+            </div>
+          </div>
+        </div>
+        ${isAdmin ? `
+          <div style="margin-top: 1rem; text-align: right;">
+            <button onclick="deleteTestimonial(${testimonial.id})" class="btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+              Delete
+            </button>
+          </div>
+        ` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+// Get embed URL for video
+function getEmbedUrl(url) {
+  const youtubeId = getYouTubeId(url);
+  if (youtubeId) {
+    return `https://www.youtube.com/embed/${youtubeId}`;
+  }
+  return url;
+}
+
+// Get YouTube ID from URL
+function getYouTubeId(url) {
+  const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/);
+  return match ? match[1] : null;
+}
+
+// Play video
+function playVideo(overlay) {
+  const video = overlay.previousElementSibling;
+  const playBtn = overlay.querySelector('.play-btn');
+  
+  if (video.paused) {
+    video.play();
+    overlay.style.display = 'none';
+  }
+}
+
+// Open testimonial form
+function openTestimonialForm() {
+  document.getElementById('testimonialFormModal').style.display = 'flex';
+}
+
+// Close testimonial form
+function closeTestimonialForm() {
+  document.getElementById('testimonialFormModal').style.display = 'none';
+  document.getElementById('testimonialForm').reset();
+}
+
+// Save testimonial
+function saveTestimonial(event) {
+  event.preventDefault();
+  
+  const formData = new FormData(event.target);
+  const testimonial = {
+    id: Date.now(),
+    name: formData.get('name'),
+    title: formData.get('title'),
+    business: formData.get('business'),
+    location: formData.get('location'),
+    quote: formData.get('quote'),
+    videoUrl: formData.get('videoUrl')
+  };
+  
+  testimonials.push(testimonial);
+  saveTestimonials();
+  renderTestimonials();
+  closeTestimonialForm();
+  
+  // Show success message
+  showSuccessMessage('Testimonial added successfully!');
+}
+
+// Delete testimonial
+function deleteTestimonial(id) {
+  if (confirm('Are you sure you want to delete this testimonial?')) {
+    testimonials = testimonials.filter(t => t.id !== id);
+    saveTestimonials();
+    renderTestimonials();
+    showSuccessMessage('Testimonial deleted successfully!');
+  }
+}
+
+// Save testimonials to localStorage
+function saveTestimonials() {
+  localStorage.setItem('aerth_testimonials', JSON.stringify(testimonials));
+}
+
+// Show success message
+function showSuccessMessage(message) {
+  const msg = document.createElement('div');
+  msg.className = 'success-message';
+  msg.textContent = message;
+  msg.style.cssText = `
+    position: fixed; top: 2rem; right: 2rem; z-index: 2000;
+    background: var(--accent); color: white; padding: 1rem 1.5rem;
+    border-radius: var(--radius); box-shadow: 0 4px 16px rgba(0,148,255,0.3);
+    animation: slideIn 0.3s ease;
+  `;
+  document.body.appendChild(msg);
+  setTimeout(() => msg.remove(), 3000);
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+  checkAdminStatus();
+  loadTestimonials();
+});
+
+// Add slide-in animation
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+`;
+document.head.appendChild(style);
+  </script>
+
+  <script src="evx.js"></script>
+</body>
+</html>
