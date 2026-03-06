@@ -217,9 +217,9 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* --- Header Logo --- */
 .header-logo {
-  height: 65px;
+  height: 80px;
   width: auto;
-  max-width: 160px;
+  max-width: 200px;
   object-fit: contain;
   flex-shrink: 0;
   margin-right: 1rem;
