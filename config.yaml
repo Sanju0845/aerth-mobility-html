@@ -1,0 +1,178 @@
+# PagesCMS Configuration for Aerth Mobility
+# This file defines the content structure for the PagesCMS admin interface
+
+content:
+  # Site-wide settings
+  site:
+    name: "Aerth Mobility"
+    description: "India's #1 EV Service & Spare Parts for 2W & 3W"
+    
+  # Navigation structure
+  nav:
+    - title: "Home"
+      path: "/index.html"
+    - title: "About"
+      path: "/about.html"
+    - title: "Services"
+      path: "/services.html"
+    - title: "Locations"
+      path: "/locations.html"
+    - title: "Contact"
+      path: "/contact.html"
+    - title: "Franchise"
+      path: "/franchise.html"
+    - title: "Fleet"
+      path: "/fleet.html"
+    - title: "Spare Parts"
+      path: "/spare-parts.html"
+    - title: "Skill Center"
+      path: "/skill-center.html"
+
+# Content collections define editable content areas
+collections:
+  
+  # Homepage content
+  homepage:
+    name: "Homepage"
+    path: "index.html"
+    fields:
+      - name: "hero_title"
+        label: "Hero Title"
+        type: "string"
+        selector: ".hero-title h1"
+        
+      - name: "hero_description"
+        label: "Hero Description"
+        type: "text"
+        selector: ".hero-title p"
+        
+      - name: "cta_text"
+        label: "CTA Button Text"
+        type: "string"
+        selector: ".hero-ctas .btn-primary"
+        
+  # About page content
+  about:
+    name: "About Page"
+    path: "about.html"
+    fields:
+      - name: "page_title"
+        label: "Page Title"
+        type: "string"
+        selector: ".abt-hero h1"
+        
+      - name: "description"
+        label: "Description"
+        type: "text"
+        selector: ".abt-hero p"
+        
+  # Services page content
+  services:
+    name: "Services Page"
+    path: "services.html"
+    fields:
+      - name: "page_title"
+        label: "Page Title"
+        type: "string"
+        selector: ".services-hero h1"
+        
+      - name: "description"
+        label: "Description"
+        type: "text"
+        selector: ".services-hero p"
+        
+  # Locations page content
+  locations:
+    name: "Locations Page"
+    path: "locations.html"
+    fields:
+      - name: "page_title"
+        label: "Page Title"
+        type: "string"
+        selector: ".locations-hero h1"
+        
+      - name: "description"
+        label: "Description"
+        type: "text"
+        selector: ".locations-hero p"
+        
+      - name: "office_address"
+        label: "Head Office Address"
+        type: "text"
+        selector: ".snapshot-card--consult .snapshot-desc"
+        
+      - name: "delhi_address"
+        label: "Delhi Centre Address"
+        type: "text"
+        selector: ".snapshot-card--fleet .snapshot-desc"
+
+# Global content (appears on all pages)
+globals:
+  - name: "site_name"
+    label: "Site Name"
+    type: "string"
+    default: "Aerth Mobility"
+    
+  - name: "footer_tagline"
+    label: "Footer Tagline"
+    type: "string"
+    default: "Your Trusted EV Partner"
+    
+  - name: "contact_phone"
+    label: "Contact Phone"
+    type: "string"
+    default: "+91 8279773212"
+    
+  - name: "contact_email"
+    label: "Contact Email"
+    type: "string"
+    default: "Support@AerthMobility.com"
+    
+  - name: "footer_address"
+    label: "Footer Address"
+    type: "text"
+    default: "India : Rudrapur | New Delhi (Functional Centers)"
+
+# Media settings
+media:
+  uploads: "images/uploads"
+  public_path: "/images/uploads"
+  accept:
+    - "image/*"
+    - ".pdf"
+    - ".doc"
+    - ".docx"
+
+# Editor settings
+editor:
+  default_language: "en"
+  spellcheck: true
+  toolbar:
+    - "bold"
+    - "italic"
+    - "underline"
+    - "link"
+    - "heading"
+    - "bullet-list"
+    - "numbered-list"
+
+# Preview settings
+preview:
+  enabled: true
+  template: "index.html"
+  
+# Deployment settings (for PagesCMS)
+deploy:
+  provider: "manual"
+  webhook_url: null
+  
+# User permissions
+permissions:
+  admin:
+    - "read"
+    - "write"
+    - "publish"
+    - "delete"
+  editor:
+    - "read"
+    - "write"
