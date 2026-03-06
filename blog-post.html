@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title>Blog Post | Aerth Mobility</title>
+  <meta name="description" id="metaDesc" content="Read the latest EV insights from Aerth Mobility.">
+  <meta name="keywords" content="Aerth Mobility, EV blog, electric vehicle tips">
+  <meta name="author" content="Aerth Mobility">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#f2f2f5">
+  
+  <link rel="canonical" id="metaCanonical" href="">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" id="ogTitle" content="">
+  <meta property="og:description" id="ogDesc" content="">
+  <meta property="og:image" id="ogImage" content="evx-s.png">
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="evx.css">    
+  <link rel="icon" href="evx.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="evx.ico">
+  
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-10969700287');
+  </script>
+
+<style>
+/* ── Blog Article Layout ── */
+.bp { max-width: 780px; margin: 0 auto; padding: 5.5rem 1.5rem 4rem; }
+
+/* ── Breadcrumb ── */
+.bp-crumbs {
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  font-size: 0.82rem; color: var(--text-dim); margin-bottom: 2rem;
+}
+.bp-crumbs a { color: var(--neon-blue); text-decoration: none; font-weight: 600; }
+.bp-crumbs a:hover { text-decoration: underline; }
+.bp-crumbs svg { flex-shrink: 0; }
+
+/* ── Hero ── */
+.bp-hero { margin-bottom: 2.5rem; text-align: center; }
+.bp-category {
+  display: inline-block; padding: 4px 14px; border-radius: 999px;
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; color: #fff; margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--neon-blue), var(--neon-green));
+}
+.bp-title {
+  font-size: clamp(1.6rem, 4.5vw, 2.5rem); font-weight: 800;
+  line-height: 1.15; letter-spacing: -0.02em; color: var(--text);
+  margin: 0 0 0.5rem;
+}
+.bp-subtitle {
+  font-size: 1.05rem; color: var(--text-muted); margin: 0 0 1.5rem; line-height: 1.55;
+}
+.bp-meta-bar {
+  display: flex; align-items: center; justify-content: center;
+  gap: 1.5rem; flex-wrap: wrap; font-size: 0.82rem; color: var(--text-dim);
+}
+.bp-meta-item { display: flex; align-items: center; gap: 5px; }
+
+/* Featured image */
+.bp-featured {
+  position: relative; border-radius: var(--radius); overflow: hidden;
+  margin-bottom: 2.5rem; box-shadow: var(--shadow);
+}
+.bp-featured img {
+  width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover;
+}
+
+/* ── Article content ── */
+.bp-content { min-width: 0; }
+.bp-content h2 {
+  font-size: 1.4rem; font-weight: 800; color: var(--text);
+  margin: 2rem 0 0.75rem; line-height: 1.25; letter-spacing: -0.01em;
+}
+.bp-content h2::before {
+  content: ''; display: inline-block; width: 4px; height: 1.1em;
+  background: linear-gradient(180deg, var(--neon-blue), var(--neon-green));
+  border-radius: 4px; margin-right: 10px; vertical-align: text-bottom;
+}
+.bp-content p {
+  font-size: 1rem; line-height: 1.8; color: var(--text-muted); margin: 0 0 1.25rem;
+}
+.bp-content ul, .bp-content ol {
+  margin: 0 0 1.25rem; padding-left: 0; list-style: none;
+}
+.bp-content li {
+  position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem;
+  font-size: 0.95rem; line-height: 1.7; color: var(--text-muted);
+}
+.bp-content li::before {
+  content: ''; position: absolute; left: 0; top: 0.55em;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--neon-blue), var(--neon-green));
+}
+
+/* Blockquote */
+.bp-content blockquote {
+  margin: 1.5rem 0; padding: 1rem 1.25rem; border-radius: var(--radius);
+  background: rgba(0,148,255,0.04); border-left: 4px solid var(--neon-blue);
+  font-style: italic; color: var(--text-muted);
+}
+
+/* ── Author card ── */
+.bp-author {
+  display: flex; align-items: center; gap: 1rem; padding: 1.25rem;
+  border-radius: var(--radius); background: var(--bg-glass);
+  border: 1px solid var(--border); box-shadow: var(--shadow);
+  margin: 2.5rem 0;
+}
+.bp-author-img {
+  width: 56px; height: 56px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
+  border: 2px solid var(--neon-blue); box-shadow: 0 0 12px var(--neon-blue-glow);
+}
+.bp-author-info { flex: 1; min-width: 0; }
+.bp-author-name { font-size: 0.95rem; font-weight: 700; color: var(--text); margin: 0; }
+.bp-author-role { font-size: 0.78rem; color: var(--text-dim); margin: 0 0 0.25rem; }
+
+/* ── Share bar ── */
+.bp-share {
+  display: flex; align-items: center; gap: 0.75rem; margin: 2rem 0;
+  padding: 1rem; border-radius: var(--radius); background: var(--bg-glass);
+  border: 1px solid var(--border);
+}
+.bp-share-label { font-size: 0.82rem; font-weight: 700; color: var(--text-dim); white-space: nowrap; }
+.bp-share a {
+  width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; background: var(--bg-card); border: 1px solid var(--border);
+  color: var(--text-dim); transition: all 0.25s;
+}
+.bp-share a:hover { border-color: var(--neon-blue); color: var(--neon-blue); transform: translateY(-2px); }
+
+/* ── Back to blog link ── */
+.bp-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.88rem; font-weight: 700; color: var(--neon-blue); text-decoration: none;
+  margin-top: 2rem; transition: gap 0.3s;
+}
+.bp-back:hover { gap: 10px; }
+
+/* ── Loading skeleton ── */
+.bp-skeleton { animation: bpPulse 1.5s ease-in-out infinite; }
+@keyframes bpPulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
+}
+.bp-skel-bar {
+  height: 14px; border-radius: 6px; background: var(--bg-elevated); margin-bottom: 12px;
+}
+.bp-skel-title { height: 32px; border-radius: 8px; background: var(--bg-elevated); margin-bottom: 16px; width: 70%; }
+.bp-skel-img { width: 100%; aspect-ratio: 16/9; border-radius: var(--radius); background: var(--bg-elevated); margin-bottom: 20px; }
+</style>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" aria-label="Aerth Mobility Home">
+        <span class="logo-ring" aria-hidden="true"></span>
+        <img src="evx-s.png" alt="Aerth Mobility" class="logo-img" />
+        <span class="logo-text">
+          <img src="evx-h-d.png" alt="Aerth Mobility" class="inline-logo">
+          <span class="logo-tagline">Your Trusted EV Partner</span>
+        </span>
+      </a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="services.html">Services</a>
+        <a href="spare-parts.html">Spare Parts</a>
+        <a href="franchise.html">Franchise</a>
+        <a href="locations.html">Locations</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="blogs.html" class="active">Blog</a>
+      </nav>
+      <a href="https://wa.me/918279773212" class="header-phone">+91 82797 73212</a>
+      <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <article class="bp" id="blogPost">
+      <!-- Breadcrumb -->
+      <nav class="bp-crumbs" aria-label="Breadcrumb">
+        <a href="blogs.html">Blog</a>
+        <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        <span id="bpCrumbTitle">Loading…</span>
+      </nav>
+
+      <!-- Skeleton loader -->
+      <div id="bpSkeleton" class="bp-skeleton">
+        <div style="text-align:center;margin-bottom:1.5rem;">
+          <div class="bp-skel-bar w40" style="margin:0 auto 10px;"></div>
+          <div class="bp-skel-title" style="margin:0 auto 10px;"></div>
+          <div class="bp-skel-bar w60" style="margin:0 auto;"></div>
+        </div>
+        <div class="bp-skel-img"></div>
+        <div class="bp-skel-bar w100"></div>
+        <div class="bp-skel-bar w100"></div>
+        <div class="bp-skel-bar w80"></div>
+      </div>
+
+      <!-- Actual content -->
+      <div id="bpContent" style="display:none;">
+        <div class="bp-hero" id="bpHero"></div>
+        <div class="bp-featured" id="bpFeatured"></div>
+        <div class="bp-content" id="bpArticle"></div>
+        <div class="bp-author" id="bpAuthor"></div>
+        <div class="bp-share" id="bpShare"></div>
+        <a href="blogs.html" class="bp-back">
+          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          Back to all articles
+        </a>
+      </div>
+    </article>
+  </main>
+
+  <script>
+  (function () {
+    // Get blog slug from URL query parameter
+    var urlParams = new URLSearchParams(window.location.search);
+    var slug = urlParams.get('slug') || window.location.pathname.split('/').pop().replace(/\.html?$/i, '');
+    
+    if (!slug || slug === 'blog-post') {
+      showError('Blog post not found');
+      return;
+    }
+
+    // Try to find blog in localStorage first (admin blogs)
+    var adminBlogs = JSON.parse(localStorage.getItem('adminBlogs') || '[]');
+    var blog = adminBlogs.find(function(b) { return b.slug === slug; });
+    
+    // If not found in admin blogs, try to fetch from blogs.json
+    if (!blog) {
+      fetch('blogs/blogs.json')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var allBlogs = data.blogs || [];
+          blog = allBlogs.find(function(b) { return b.slug === slug && b.status === 'published'; });
+          
+          if (blog) {
+            renderBlog(blog);
+          } else {
+            showError('Blog post not found');
+          }
+        })
+        .catch(function() {
+          showError('Error loading blog post');
+        });
+    } else {
+      renderBlog(blog);
+    }
+
+    function renderBlog(b) {
+      // Update SEO
+      document.title = b.title + ' | Aerth Mobility Blog';
+      document.getElementById('metaDesc').content = b.subtitle || b.excerpt || '';
+      document.getElementById('ogTitle').content = b.title;
+      document.getElementById('ogDesc').content = b.subtitle || b.excerpt || '';
+      document.getElementById('ogImage').content = b.featuredImage || 'evx-s.png';
+      document.getElementById('metaCanonical').href = window.location.href;
+
+      // Breadcrumb
+      document.getElementById('bpCrumbTitle').textContent = b.title;
+
+      // Hero
+      var pubDate = b.publishedDate ? new Date(b.publishedDate) : null;
+      var dateStr = pubDate ? pubDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+      
+      document.getElementById('bpHero').innerHTML =
+        '<span class="bp-category">' + esc(b.category || '') + '</span>' +
+        '<h1 class="bp-title">' + esc(b.title) + '</h1>' +
+        (b.subtitle ? '<p class="bp-subtitle">' + esc(b.subtitle) + '</p>' : '') +
+        '<div class="bp-meta-bar">' +
+          '<span class="bp-meta-item"><svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4" stroke-width="2"/></svg>' + esc(b.author || 'Aerth Mobility') + '</span>' +
+          '<span class="bp-meta-item"><svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" stroke-width="2"/><path stroke-width="2" d="M16 2v4M8 2v4M3 10h18"/></svg>' + dateStr + '</span>' +
+          '<span class="bp-meta-item"><svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path stroke-width="2" d="M12 6v6l4 2"/></svg>' + (b.readingTimeMinutes || '5') + ' min read</span>' +
+        '</div>';
+
+      // Featured image
+      if (b.featuredImage) {
+        document.getElementById('bpFeatured').innerHTML =
+          '<img src="' + b.featuredImage + '" alt="' + esc(b.title) + '" onerror="this.style.display=\'none\'">';
+      } else {
+        document.getElementById('bpFeatured').style.display = 'none';
+      }
+
+      // Article content
+      var contentHtml = '';
+      if (b.content) {
+        // Simple text content - convert newlines to paragraphs
+        var paragraphs = b.content.split('\n\n').filter(function(p) { return p.trim(); });
+        contentHtml = paragraphs.map(function(p) {
+          if (p.startsWith('# ')) {
+            return '<h2>' + esc(p.substring(2)) + '</h2>';
+          } else if (p.startsWith('## ')) {
+            return '<h3>' + esc(p.substring(3)) + '</h3>';
+          } else if (p.startsWith('- ') || p.startsWith('* ')) {
+            // List
+            var items = p.split('\n').filter(function(l) { return l.trim(); });
+            return '<ul>' + items.map(function(item) {
+              return '<li>' + esc(item.replace(/^[-*]\s*/, '')) + '</li>';
+            }).join('') + '</ul>';
+          } else if (p.startsWith('> ')) {
+            return '<blockquote>' + esc(p.substring(2)) + '</blockquote>';
+          } else {
+            return '<p>' + esc(p) + '</p>';
+          }
+        }).join('');
+      }
+      document.getElementById('bpArticle').innerHTML = contentHtml || '<p>No content available.</p>';
+
+      // Author card
+      document.getElementById('bpAuthor').innerHTML =
+        '<img class="bp-author-img" src="evx-s.png" alt="' + esc(b.author || '') + '">' +
+        '<div class="bp-author-info">' +
+          '<p class="bp-author-name">' + esc(b.author || 'Aerth Mobility') + '</p>' +
+          '<p class="bp-author-role">Author at Aerth Mobility</p>' +
+        '</div>';
+
+      // Share bar
+      var shareUrl = encodeURIComponent(window.location.href);
+      var shareTitle = encodeURIComponent(b.title);
+      document.getElementById('bpShare').innerHTML =
+        '<span class="bp-share-label">Share</span>' +
+        '<a href="https://wa.me/?text=' + shareTitle + '%20' + shareUrl + '" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.156.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.19-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a8 8 0 01-4.107-1.132l-.29-.174-3.01.79.804-2.938-.191-.303A8 8 0 1112 20z"/></svg></a>' +
+        '<a href="https://twitter.com/intent/tweet?text=' + shareTitle + '&url=' + shareUrl + '" target="_blank" rel="noopener" aria-label="X/Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>' +
+        '<a href="https://www.linkedin.com/sharing/share-offsite/?url=' + shareUrl + '" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></a>' +
+        '<a href="mailto:?subject=' + shareTitle + '&body=' + shareUrl + '" aria-label="Email"><svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline stroke-width="2" points="22,6 12,13 2,6"/></svg></a>';
+
+      // Show content, hide skeleton
+      document.getElementById('bpSkeleton').style.display = 'none';
+      document.getElementById('bpContent').style.display = 'block';
+    }
+
+    function showError(msg) {
+      document.getElementById('bpSkeleton').innerHTML =
+        '<div class="bp-hero" style="text-align:center;">' +
+        '<h1 style="color:var(--text);">' + esc(msg) + '</h1>' +
+        '<p style="color:var(--text-muted);">The blog post you are looking for does not exist.</p>' +
+        '<a href="blogs.html" class="bp-back" style="justify-content:center;margin-top:1rem;">' +
+        '<svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>' +
+        'Back to all articles</a></div>';
+    }
+
+    function esc(s) { 
+      var d = document.createElement('div'); 
+      d.textContent = s; 
+      return d.innerHTML; 
+    }
+  })();
+  </script>
+
+  <script src="evx.js"></script>
+</body>
+</html>

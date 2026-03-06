@@ -726,7 +726,7 @@ You can use simple formatting:
           var d = new Date(b.publishedDate);
           var dateStr = d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
           var tags = (b.tags || []).map(function (t) { return '<span class="blog-card-tag">' + t + '</span>'; }).join('');
-          return '<article class="blog-card" onclick="window.location.href=\'blogs/' + b.slug + '.html\'" style="cursor:pointer">' +
+          return '<article class="blog-card" onclick="window.location.href=\'blog-post.html?slug=' + b.slug + '\'" style="cursor:pointer">' +
             '<div class="blog-card-img is-loading">' +
               '<img src="https://Aerth Mobility.com/' + b.featuredImage + '" alt="' + b.title + '" loading="lazy" onerror="this.src=\'evx-s.png\'" onload="this.parentElement.classList.remove(\'is-loading\')">' +
               (b.isFeatured ? '<span class="blog-card-featured">Featured</span>' : '') +
@@ -743,7 +743,7 @@ You can use simple formatting:
             '</div>' +
             '<div class="blog-card-footer">' +
               '<span class="blog-card-author">' + b.author + '</span>' +
-              '<a href="https://Aerth Mobility.com/blogs/' + b.slug + '.html" class="blog-card-link">Read More <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></a>' +
+              '<a href="blog-post.html?slug=' + b.slug + '" class="blog-card-link">Read More <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></a>' +
             '</div>' +
           '</article>';
         }).join('');
@@ -1019,12 +1019,12 @@ You can use simple formatting:
       adminBlogs.unshift(newBlog); // Add to beginning
       localStorage.setItem('adminBlogs', JSON.stringify(adminBlogs));
       
-      // Close form and refresh
+      // Close form and redirect to new blog post
       closeBlogForm();
       alert('Blog published successfully!');
       
-      // Refresh the blog grid
-      location.reload();
+      // Redirect to the new blog post
+      window.location.href = 'blog-post.html?slug=' + slug;
     }
     
     // Close popups on overlay click
