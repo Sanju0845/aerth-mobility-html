@@ -327,7 +327,7 @@
             Expert EV Tips
           </span>
           <h1>Aerth Mobility <span>Tips</span></h1>
-          <p>Essential care, maintenance &amp; safety advice to keep your electric vehicle running at peak performance</p>
+          <p class="editable">Essential care, maintenance &amp; safety advice to keep your electric vehicle running at peak performance</p>
           <span class="tips-hero-stat" id="tipsStat">
             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
             <strong id="tipsTotal">—</strong>&nbsp;Tips
@@ -345,7 +345,7 @@
       <!-- Empty -->
       <div class="tips-empty" id="tipsEmpty">
         <svg width="40" height="40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke-width="1.5"/><path stroke-width="1.5" stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
-        <p>No tips match your search.</p>
+        <p class="editable">No tips match your search.</p>
       </div>
 
       <!-- Grid -->
@@ -358,7 +358,7 @@
     <div class="footer-inner">
       <div class="footer-brand">
         <img src="evx-h.png" alt="Aerth Mobility" class="footer-logo" />
-        <p class="footer-tagline">Your Trusted EV Partner</p>
+        <p class="editable footer-tagline">Your Trusted EV Partner</p>
         <p class="footer-address">India : Rudrapur | New Delhi (Functional Centers)<br>India : Ghaziabad | Pune | Bangalore ( Upcoming Centers) &ndash; 500019</p>
       </div>
       <nav class="footer-nav" aria-label="Footer navigation">
@@ -392,7 +392,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">&copy; 2026 Aerth Mobility. All rights reserved.</p>
+      <p class="editable footer-copy">&copy; 2026 Aerth Mobility. All rights reserved.</p>
       <div class="footer-legal">
         <a href="privacy-policy.html">Privacy Policy</a>
         <a href="terms-and-conditions.html">Terms &amp; Conditions</a>
@@ -422,7 +422,7 @@
     <div class="gt-drawer-overlay" id="gt-drawer-overlay"></div>
     <div class="gt-drawer-panel">
       <div class="gt-drawer-header">
-        <h3 class="gt-drawer-title">Select Language</h3>
+        <h3 class="editable gt-drawer-title">Select Language</h3>
         <button type="button" class="gt-drawer-close" id="gt-close" aria-label="Close">&times;</button>
       </div>
       <div class="gt-drawer-body">
@@ -456,7 +456,7 @@
     <div class="wa-drawer-overlay" id="wa-drawer-overlay"></div>
     <div class="wa-drawer-panel">
       <div class="wa-drawer-header">
-        <h3 class="wa-drawer-title">Chat on WhatsApp</h3>
+        <h3 class="editable wa-drawer-title">Chat on WhatsApp</h3>
         <button type="button" class="wa-drawer-close" id="wa-drawer-close" aria-label="Close">&times;</button>
       </div>
       <div class="wa-drawer-body">
@@ -513,15 +513,15 @@
           '<span class="tip-number">#' + t.number + '</span>' +
           '<div class="tip-header">' +
             '<span class="tip-icon">' + (t.icon || '💡') + '</span>' +
-            '<h2 class="tip-title">' + esc(t.title) + '</h2>' +
+            '<h2 class="editable tip-title">' + esc(t.title) + '</h2>' +
           '</div>' +
           '<div class="tip-section">' +
             '<div class="tip-label tip-label--why"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path stroke-width="2" d="M12 16v-4m0-4h.01"/></svg> Why It Matters</div>' +
-            '<p class="tip-text">' + esc(t.why) + '</p>' +
+            '<p class="editable tip-text">' + esc(t.why) + '</p>' +
           '</div>' +
           '<div class="tip-impact-wrap">' +
             '<div class="tip-label tip-label--impact"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4m0 4h.01"/></svg> If Ignored</div>' +
-            '<p class="tip-text">' + esc(t.negative_impact) + '</p>' +
+            '<p class="editable tip-text">' + esc(t.negative_impact) + '</p>' +
           '</div>' +
           (tags ? '<div class="tip-tags">' + tags + '</div>' : '') +
         '</article>';
@@ -536,7 +536,7 @@
         renderTips(allTips);
       })
       .catch(function () {
-        grid.innerHTML = '<div class="tips-empty" style="display:block"><p>Could not load tips.</p></div>';
+        grid.innerHTML = '<div class="tips-empty" style="display:block"><p class="editable">Could not load tips.</p></div>';
       });
 
     searchInput.addEventListener('input', function () {

@@ -279,8 +279,8 @@
             <svg width="14" height="14" viewBox="0 0 32 32" fill="#fff"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.5.66 4.93 1.91 7.07L2 30l7.14-1.87A13.94 13.94 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2z"/></svg>
             WhatsApp Channels
           </span>
-          <h1>Aerth Mobility on WhatsApp</h1>
-          <p>Follow our channels for EV tips, updates &amp; exclusive offers</p>
+          <h1 class="editable">Aerth Mobility on WhatsApp</h1>
+          <p class="editable">Follow our channels for EV tips, updates &amp; exclusive offers</p>
         </div>
       </div>
 
@@ -290,8 +290,8 @@
           <svg width="24" height="24" viewBox="0 0 32 32" fill="#fff"><path d="M16 2C8.27 2 2 8.27 2 16c0 2.5.66 4.93 1.91 7.07L2 30l7.14-1.87A13.94 13.94 0 0016 30c7.73 0 14-6.27 14-14S23.73 2 16 2zm6.35 19.33c-.35.17-2.06 1.02-2.38 1.13-.32.12-.55.17-.79-.17-.23-.35-.9-1.13-1.1-1.36-.2-.23-.41-.26-.76-.09-.35.17-1.47.54-2.8 1.73-1.03.92-1.73 2.06-1.94 2.41-.2.35-.02.54.15.71.16.16.35.41.52.61.17.2.23.35.35.58.12.23.06.44-.03.61-.09.17-.79 1.89-1.08 2.59-.28.68-.57.59-.79-.01l-.67-.01c-.23 0-.61.09-.93.44-.32.35-1.22 1.19-1.22 2.9 0 1.71 1.25 3.37 1.42 3.6.17.23 2.45 3.75 5.95 5.25.83.36 1.48.57 1.99.73.84.27 1.6.23 2.2.14.67-.1 2.06-.84 2.35-1.66.29-.81.29-1.51.2-1.66-.09-.14-.32-.23-.67-.4z"/></svg>
         </div>
         <div class="wa-intro-text">
-          <h2>Our WhatsApp Channels</h2>
-          <p>Scan the QR code or tap "Follow Channel" to stay updated with the latest from Aerth Mobility directly on WhatsApp.</p>
+          <h2 class="editable">Our WhatsApp Channels</h2>
+          <p class="editable">Scan the QR code or tap "Follow Channel" to stay updated with the latest from Aerth Mobility directly on WhatsApp.</p>
         </div>
       </div>
 
@@ -311,7 +311,7 @@
     <div class="footer-inner">
       <div class="footer-brand">
         <img src="evx-h.png" alt="Aerth Mobility" class="footer-logo" />
-        <p class="footer-tagline">Your Trusted EV Partner</p>
+        <p class="editable footer-tagline">Your Trusted EV Partner</p>
         <p class="footer-address">India : Rudrapur | New Delhi (Functional Centers)<br>India : Ghaziabad | Pune | Bangalore ( Upcoming Centers) &ndash; 500019</p>
       </div>
       <nav class="footer-nav" aria-label="Footer navigation">
@@ -345,7 +345,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">&copy; 2026 Aerth Mobility. All rights reserved.</p>
+      <p class="editable footer-copy">&copy; 2026 Aerth Mobility. All rights reserved.</p>
       <div class="footer-legal">
         <a href="privacy-policy.html">Privacy Policy</a>
         <a href="terms-and-conditions.html">Terms &amp; Conditions</a>
@@ -377,7 +377,7 @@
     <div class="gt-drawer-overlay" id="gt-drawer-overlay"></div>
     <div class="gt-drawer-panel">
       <div class="gt-drawer-header">
-        <h3 class="gt-drawer-title">Select Language</h3>
+        <h3 class="editable gt-drawer-title">Select Language</h3>
         <button type="button" class="gt-drawer-close" id="gt-close" aria-label="Close">&times;</button>
       </div>
       <div class="gt-drawer-body">
@@ -405,7 +405,7 @@
   <div class="wa-drawer" id="wa-drawer" aria-hidden="true">
     <div class="wa-drawer-overlay" id="wa-drawer-overlay"></div>
     <div class="wa-drawer-panel">
-      <div class="wa-drawer-header"><h3 class="wa-drawer-title">Chat on WhatsApp</h3><button type="button" class="wa-drawer-close" id="wa-drawer-close" aria-label="Close">&times;</button></div>
+      <div class="wa-drawer-header"><h3 class="editable wa-drawer-title">Chat on WhatsApp</h3><button type="button" class="wa-drawer-close" id="wa-drawer-close" aria-label="Close">&times;</button></div>
       <div class="wa-drawer-body">
         <label class="wa-label">Phone Number</label>
         <div class="wa-digits" id="wa-digits">
@@ -434,7 +434,7 @@
         grid.style.display = '';
 
         if (!channels || !channels.length) {
-          grid.innerHTML = '<div class="wa-empty"><svg width="40" height="40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><p>No channels found.</p></div>';
+          grid.innerHTML = '<div class="wa-empty"><svg width="40" height="40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><p class="editable">No channels found.</p></div>';
           return;
         }
 
@@ -467,7 +467,7 @@
       .catch(function () {
         skeleton.style.display = 'none';
         grid.style.display = '';
-        grid.innerHTML = '<div class="wa-empty"><svg width="40" height="40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><p>Failed to load channels. Please try again later.</p></div>';
+        grid.innerHTML = '<div class="wa-empty"><svg width="40" height="40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><p class="editable">Failed to load channels. Please try again later.</p></div>';
       });
 
     function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }

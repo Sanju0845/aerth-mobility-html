@@ -391,7 +391,7 @@
             Blog
           </span>
           <h1>EV Insights &amp; <span>Expert Tips</span></h1>
-          <p>Explore the latest in electric vehicle technology, maintenance, and industry trends.</p>
+          <p class="editable">Explore the latest in electric vehicle technology, maintenance, and industry trends.</p>
           <span class="blog-hero-stat" id="blogStat">
             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
             <strong id="blogTotal">—</strong>&nbsp;Articles
@@ -484,7 +484,7 @@
       if (page.length === 0) {
         grid.innerHTML = '<div class="blog-empty">' +
           '<svg width="48" height="48" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>' +
-          '<p>No blogs found matching your search.</p></div>';
+          '<p class="editable">No blogs found matching your search.</p></div>';
       } else {
         grid.innerHTML = page.map(function (b) {
           var d = new Date(b.publishedDate);
@@ -501,8 +501,8 @@
                 '<span class="blog-card-date"><svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" stroke-width="2"/><path stroke-width="2" d="M16 2v4M8 2v4M3 10h18"/></svg>' + dateStr + '</span>' +
                 '<span class="blog-card-read"><svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path stroke-width="2" d="M12 6v6l4 2"/></svg>' + b.readingTimeMinutes + ' min</span>' +
               '</div>' +
-              '<h3 class="blog-card-title">' + b.title + '</h3>' +
-              '<p class="blog-card-excerpt">' + b.excerpt + '</p>' +
+              '<h3 class="editable blog-card-title">' + b.title + '</h3>' +
+              '<p class="editable blog-card-excerpt">' + b.excerpt + '</p>' +
               (tags ? '<div class="blog-card-tags">' + tags + '</div>' : '') +
             '</div>' +
             '<div class="blog-card-footer">' +
@@ -544,7 +544,7 @@
     <div class="footer-inner">
       <div class="footer-brand">
         <img src="evx-h.png" alt="Aerth Mobility" class="footer-logo" />
-        <p class="footer-tagline">Your Trusted EV Partner</p>
+        <p class="editable footer-tagline">Your Trusted EV Partner</p>
         <p class="footer-address">India : Rudrapur | New Delhi (Functional Centers)<br>India : Ghaziabad | Pune | Bangalore ( Upcoming Centers) &ndash; 500019</p>
       </div>
       <nav class="footer-nav" aria-label="Footer navigation">
@@ -578,7 +578,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">&copy; 2026 Aerth Mobility. All rights reserved.</p>
+      <p class="editable footer-copy">&copy; 2026 Aerth Mobility. All rights reserved.</p>
       <div class="footer-legal">
         <a href="privacy-policy.html">Privacy Policy</a>
         <a href="terms-and-conditions.html">Terms &amp; Conditions</a>
@@ -621,7 +621,7 @@
     <div class="gt-drawer-overlay" id="gt-drawer-overlay"></div>
     <div class="gt-drawer-panel">
       <div class="gt-drawer-header">
-        <h3 class="gt-drawer-title">Select Language</h3>
+        <h3 class="editable gt-drawer-title">Select Language</h3>
         <button type="button" class="gt-drawer-close" id="gt-close" aria-label="Close">&times;</button>
       </div>
       <div class="gt-drawer-body">
@@ -659,7 +659,7 @@
     <div class="wa-drawer-overlay" id="wa-drawer-overlay"></div>
     <div class="wa-drawer-panel">
       <div class="wa-drawer-header">
-        <h3 class="wa-drawer-title">Chat on WhatsApp</h3>
+        <h3 class="editable wa-drawer-title">Chat on WhatsApp</h3>
         <button type="button" class="wa-drawer-close" id="wa-drawer-close" aria-label="Close">&times;</button>
       </div>
       <div class="wa-drawer-body">

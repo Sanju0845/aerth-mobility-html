@@ -405,8 +405,8 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg>
             YouTube Channel
           </span>
-          <h1>Aerth Mobility on YouTube</h1>
-          <p>EV service tutorials, customer stories, battery tips &amp; shorts</p>
+          <h1 class="editable">Aerth Mobility on YouTube</h1>
+          <p class="editable">EV service tutorials, customer stories, battery tips &amp; shorts</p>
         </div>
       </div>
 
@@ -453,7 +453,7 @@
     <div class="footer-inner">
       <div class="footer-brand">
         <img src="evx-h.png" alt="Aerth Mobility" class="footer-logo" />
-        <p class="footer-tagline">Your Trusted EV Partner</p>
+        <p class="editable footer-tagline">Your Trusted EV Partner</p>
         <p class="footer-address">India : Rudrapur | New Delhi (Functional Centers)<br>India : Ghaziabad | Pune | Bangalore ( Upcoming Centers) &ndash; 500019</p>
       </div>
       <nav class="footer-nav" aria-label="Footer navigation">
@@ -487,7 +487,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">&copy; 2026 Aerth Mobility. All rights reserved.</p>
+      <p class="editable footer-copy">&copy; 2026 Aerth Mobility. All rights reserved.</p>
       <div class="footer-legal">
         <a href="privacy-policy.html">Privacy Policy</a>
         <a href="terms-and-conditions.html">Terms &amp; Conditions</a>
@@ -518,7 +518,7 @@
     <div class="gt-drawer-overlay" id="gt-drawer-overlay"></div>
     <div class="gt-drawer-panel">
       <div class="gt-drawer-header">
-        <h3 class="gt-drawer-title">Select Language</h3>
+        <h3 class="editable gt-drawer-title">Select Language</h3>
         <button type="button" class="gt-drawer-close" id="gt-close" aria-label="Close">&times;</button>
       </div>
       <div class="gt-drawer-body">
@@ -546,7 +546,7 @@
   <div class="wa-drawer" id="wa-drawer" aria-hidden="true">
     <div class="wa-drawer-overlay" id="wa-drawer-overlay"></div>
     <div class="wa-drawer-panel">
-      <div class="wa-drawer-header"><h3 class="wa-drawer-title">Chat on WhatsApp</h3><button type="button" class="wa-drawer-close" id="wa-drawer-close" aria-label="Close">&times;</button></div>
+      <div class="wa-drawer-header"><h3 class="editable wa-drawer-title">Chat on WhatsApp</h3><button type="button" class="wa-drawer-close" id="wa-drawer-close" aria-label="Close">&times;</button></div>
       <div class="wa-drawer-body">
         <label class="wa-label">Phone Number</label>
         <div class="wa-digits" id="wa-digits">
@@ -669,7 +669,7 @@
       var end = Math.min(shownCount + BATCH, list.length);
 
       if (shownCount === 0 && list.length === 0) {
-        grid.innerHTML = '<div class="yt-empty"><svg width="40" height="40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><p>No results found.</p></div>';
+        grid.innerHTML = '<div class="yt-empty"><svg width="40" height="40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><p class="editable">No results found.</p></div>';
         loadMoreWrap.style.display = 'none';
         return;
       }
@@ -710,7 +710,7 @@
           dur + viewsBadge +
         '</div>' +
         '<div class="yt-card-body">' +
-          '<p class="yt-card-title">' + esc(v.Title) + '</p>' +
+          '<p class="editable yt-card-title">' + esc(v.Title) + '</p>' +
           (metaParts.length ? '<div class="yt-card-meta">' + metaParts.join('') + '</div>' : '') +
         '</div>';
 
