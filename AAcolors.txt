@@ -1,52 +1,98 @@
-#f2f2f5
-#ffffff
-#e9e9ee
-rgba(255, 255, 255, 0.7)
-rgba(0, 0, 0, 0.08)
-rgba(0, 0, 0, 0.16)
-#1a1a24
-#5a5a6e
-#8a8a9a
-#0094FF
-#0077cc
-rgba(0, 148, 255, 0.25)
-#4CFF00
-#3dd900
-rgba(76, 255, 0, 0.22)
-0 2px 16px rgba(0, 0, 0, 0.08)
-0 8px 32px rgba(0, 0, 0, 0.12)
-0 8px 40px rgba(0, 0, 0, 0.10)
-#fff
-#0a1a08
-rgba(255, 255, 255, 0.25)
-rgba(0, 148, 255, 0.04)
-rgba(0, 148, 255, 0.07)
-rgba(66, 133, 244, 0.35)
-rgba(76, 255, 0, 0.08)
-rgba(52, 168, 83, 0.08)
-rgba(0, 148, 255, 0.035)
-rgba(76, 255, 0, 0.035)
-#4db8ff
-#80ff40
-rgba(0, 148, 255, 0.18)
-rgba(76, 255, 0, 0.14)
-rgba(0, 148, 255, 0.08)
-rgba(76, 255, 0, 0.06)
-rgba(0, 148, 255, 0.3)
-rgba(76, 255, 0, 0.3)
-rgba(0, 148, 255, 0.05)
-rgba(76, 255, 0, 0.05)
-#1efd05
+EVXPERTZ COLOR REPLACEMENT FILE
+( BEFORE  →  AFTER )
+
+---
+
+## CORE BACKGROUND
+
+#f2f2f5  →  #FFFFFF
+#ffffff  →  #FFFFFF
+#e9e9ee  →  #F8FAFC
+rgba(255,255,255,0.7)  →  #F8FAFC
+rgba(255,255,255,0.9)  →  #FFFFFF
+rgba(255,255,255,0.1)  →  #F1F5F9
+
+---
+
+## TEXT COLORS
+
+#1a1a24  →  #1E293B
+#5a5a6e  →  #475569
+#8a8a9a  →  #64748B
+#0a1a08  →  #1E293B
+#000000  →  #000000 (keep for strong headings)
+
+---
+
+## BORDERS
+
+rgba(0,0,0,0.08)  →  #E2E8F0
+rgba(0,0,0,0.16)  →  #CBD5E1
+
+---
+
+## PRIMARY BLUE (Replace ALL Neon Blue Variants)
+
+#0094FF  →  #0A66C2
+#0077cc  →  #084A9E
+#4db8ff  →  #3B82F6
+#0062ff  →  #0A66C2
+
+rgba(0,148,255,0.04)  →  rgba(10,102,194,0.08)
+rgba(0,148,255,0.05)  →  rgba(10,102,194,0.10)
+rgba(0,148,255,0.07)  →  rgba(10,102,194,0.12)
+rgba(0,148,255,0.18)  →  rgba(10,102,194,0.15)
+rgba(0,148,255,0.25)  →  rgba(10,102,194,0.20)
+rgba(0,148,255,0.3)   →  rgba(10,102,194,0.25)
+rgba(0,148,255,0.4)   →  rgba(10,102,194,0.30)
+
+---
+
+## GREEN (Limit to 5% Usage – Success Only)
+
+#4CFF00  →  #16A34A
+#3dd900  →  #15803D
+#80ff40  →  #22C55E
+#1efd05  →  #16A34A
+
+rgba(76,255,0,0.035)  →  rgba(22,163,74,0.08)
+rgba(76,255,0,0.05)   →  rgba(22,163,74,0.10)
+rgba(76,255,0,0.06)   →  rgba(22,163,74,0.12)
+rgba(76,255,0,0.08)   →  rgba(22,163,74,0.15)
+rgba(76,255,0,0.14)   →  rgba(22,163,74,0.18)
+rgba(76,255,0,0.22)   →  rgba(22,163,74,0.20)
+rgba(76,255,0,0.3)    →  rgba(22,163,74,0.25)
+
+---
+
+## REMOVE COMPLETELY (Do Not Replace – Delete)
+
 #EA4335
 #041dfb
 #fffb00
 #ff0000
 #ffee00f9
-#0062ff
-#fff
-rgba(66, 133, 244, 0.22)
-rgba(76, 255, 0, 0.3)
-rgba(0, 148, 255, 0.4)
-rgba(255, 255, 255, 0.9)
-rgba(255, 255, 255, 0.1)
-rgba(0, 148, 255, 0.04)
+rgba(66,133,244,0.35)
+rgba(66,133,244,0.22)
+rgba(52,168,83,0.08)
+
+---
+
+## SHADOWS (Keep Soft Corporate Feel)
+
+0 2px 16px rgba(0,0,0,0.08)  →  0 2px 12px rgba(0,0,0,0.05)
+0 8px 32px rgba(0,0,0,0.12)  →  0 6px 24px rgba(0,0,0,0.08)
+0 8px 40px rgba(0,0,0,0.10)  →  0 8px 30px rgba(0,0,0,0.07)
+
+---
+
+FINAL RATIO TARGET:
+60% White
+25% Blue
+10% Grey
+5% Green
+Black minimal only for headings.
+
+---
+
+## END OF FILE
