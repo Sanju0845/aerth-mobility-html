@@ -1,0 +1,169 @@
+/* ========================================
+   WHY AERTH EXISTS – COMPACT BENTO GRID
+   ======================================== */
+.why-aerth-bento {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.bento-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.bento-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+
+/* Card spans */
+.bento-card--problem { grid-column: span 1; border-color: rgba(0,148,255,0.25); }
+.bento-card--needs { grid-column: span 1; }
+.bento-card--brand { grid-column: span 2; text-align: center; padding: 1rem 1.5rem; }
+.bento-card--ecosystem { grid-column: span 1; }
+.bento-card--belief { grid-column: span 1; }
+.bento-card--commitment { grid-column: span 1; text-align: center; padding: 1.25rem; }
+
+/* Problem Card */
+.bento-card--problem .bento-text {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+/* Needs Grid - 2x2 compact */
+.needs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.need-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.need-item--blue { background: rgba(0,148,255,0.08); border: 1px solid rgba(0,148,255,0.2); color: var(--neon-blue); }
+.need-item--green { background: rgba(76,255,0,0.08); border: 1px solid rgba(76,255,0,0.2); color: var(--neon-green-dim); }
+
+/* Brand Card */
+.brand-name {
+  font-size: 1.4rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--neon-blue), var(--neon-green));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.brand-tagline {
+  font-size: 1rem;
+  color: var(--text);
+  margin-top: 0.25rem;
+}
+
+/* Ecosystem List - compact 2-column */
+.ecosystem-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.eco-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.4rem 0;
+}
+.eco-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.eco-dot--blue { background: var(--neon-blue); }
+.eco-dot--green { background: var(--neon-green); }
+
+/* Belief Card */
+.belief-header {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+  color: var(--neon-blue);
+  font-weight: 700;
+  font-size: 1rem;
+}
+.belief-quote {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+.belief-quote strong { color: var(--neon-blue); }
+
+/* Impact Items - horizontal layout */
+.impact-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.impact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.impact-item--blue { background: rgba(0,148,255,0.08); border: 1px solid rgba(0,148,255,0.15); color: var(--neon-blue); }
+.impact-item--green { background: rgba(76,255,0,0.08); border: 1px solid rgba(76,255,0,0.15); color: var(--neon-green-dim); }
+.impact-item small {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  font-weight: 400;
+  display: block;
+}
+
+/* Commitment Card */
+.commitment-text { font-size: 1rem; margin-bottom: 0.75rem; }
+.commitment-pills {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+.commit-pill {
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1rem;
+}
+.commit-pill--blue { background: var(--neon-blue); color: #fff; }
+.commit-pill--green { background: var(--neon-green); color: #1a1a24; }
+.commitment-scope { font-size: 0.9rem; color: var(--text-muted); }
+
+/* Card Titles */
+.bento-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+.bento-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .why-aerth-bento { grid-template-columns: 1fr; }
+  .bento-card--problem, .bento-card--needs, .bento-card--brand, .bento-card--ecosystem, .bento-card--belief, .bento-card--commitment { grid-column: span 1; }
+  .ecosystem-list { grid-template-columns: 1fr; }
+  .needs-grid { grid-template-columns: 1fr; }
+}
