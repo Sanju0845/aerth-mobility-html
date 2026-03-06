@@ -506,7 +506,7 @@
       <div class="footer-brand">
         <img src="../evx-h.png" alt="EVXPERTZ" class="footer-logo" />
         <p class="editable footer-tagline">Your Trusted EV Partner</p>
-        <p class="footer-address">7/56, Bapu Nagar, Serilingampally<br>Hyderabad, Telangana, India &ndash; 500019</p>
+        <p class="editable footer-address">7/56, Bapu Nagar, Serilingampally<br>Hyderabad, Telangana, India &ndash; 500019</p>
       </div>
        <nav class="footer-nav" aria-label="Footer navigation">
         <a href="../services.html">Services</a>
@@ -543,7 +543,7 @@
         <a href="../terms-and-conditions.html">Terms &amp; Conditions</a>
         <a href="../sitemap.html" class="footer-sitemap">Sitemap</a>
       </div>
-      <p class="footer-credit">Designed by <a href="https://www.linkedin.com/in/manjuverm" target="_blank" rel="noopener">Manju Verma</a></p>
+      <p class="editable footer-credit">Designed by <a href="https://www.linkedin.com/in/manjuverm" target="_blank" rel="noopener">Manju Verma</a></p>
     </div>
   </footer>
 
@@ -662,8 +662,8 @@
       .then(function (blog) { renderBlog(blog); })
       .catch(function () {
         document.getElementById('bpSkeleton').innerHTML =
-          '<div class="bp-hero" style="text-align:center;"><h1 style="color:var(--text);">Article not found</h1>' +
-          '<p style="color:var(--text-muted);">The blog post you are looking for does not exist.</p>' +
+          '<div class="bp-hero" style="text-align:center;"><h1 class="editable" style="color:var(--text);">Article not found</h1>' +
+          '<p class="editable" style="color:var(--text-muted);">The blog post you are looking for does not exist.</p>' +
           '<a href="../blogs.html" class="bp-back" style="justify-content:center;margin-top:1rem;">' +
           '<svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>' +
           'Back to all articles</a></div>';
