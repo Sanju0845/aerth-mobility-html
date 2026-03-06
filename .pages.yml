@@ -1,8 +1,4 @@
-# Pages CMS Configuration for Aerth Mobility
-# This file defines editable content areas for the visual editor
-
 content:
-  # Homepage content
   - name: homepage
     label: Homepage
     type: collection
@@ -12,144 +8,71 @@ content:
         - name: title
           label: Page Title
           type: string
-          description: Main title shown in browser tab
         - name: hero_title
           label: Hero Title
           type: string
-          description: Main headline on homepage
         - name: hero_description
           label: Hero Description
           type: text
-          description: Subtitle/description under hero title
         - name: cta_text
-          label: CTA Button Text
+          label: CTA Button
           type: string
-          description: Call-to-action button text
 
-  # About page
   - name: about
-    label: About Page
+    label: About
     type: collection
     path: /
-    files:
-      - about.html
     view:
       fields:
         - name: title
           label: Page Title
-          type: string
-        - name: heading
-          label: Main Heading
           type: string
         - name: content
-          label: Page Content
-          type: rich-text
+          label: Content
+          type: text
 
-  # Services page
   - name: services
-    label: Services Page
+    label: Services
     type: collection
     path: /
-    files:
-      - services.html
     view:
       fields:
         - name: title
           label: Page Title
           type: string
         - name: description
-          label: Page Description
+          label: Description
           type: text
 
-  # Locations page
   - name: locations
-    label: Locations Page
+    label: Locations
     type: collection
     path: /
-    files:
-      - locations.html
     view:
       fields:
         - name: title
           label: Page Title
           type: string
-        - name: head_office_address
+        - name: office_address
           label: Head Office Address
           type: text
-        - name: delhi_centre_address
+        - name: delhi_address
           label: Delhi Centre Address
           type: text
-        - name: contact_phone
-          label: Contact Phone
-          type: string
-        - name: contact_email
-          label: Contact Email
-          type: string
 
-  # Contact page
   - name: contact
-    label: Contact Page
+    label: Contact
     type: collection
     path: /
-    files:
-      - contact.html
     view:
       fields:
         - name: title
           label: Page Title
           type: string
         - name: description
-          label: Page Description
+          label: Description
           type: text
 
-  # Global site settings
-  - name: globals
-    label: Site Settings
-    type: object
-    path: data/globals.json
-    view:
-      fields:
-        - name: site_name
-          label: Site Name
-          type: string
-          default: "Aerth Mobility"
-        - name: footer_tagline
-          label: Footer Tagline
-          type: string
-          default: "Your Trusted EV Partner"
-        - name: contact_phone
-          label: Contact Phone
-          type: string
-          default: "+91 8279773212"
-        - name: contact_email
-          label: Contact Email
-          type: string
-          default: "Support@AerthMobility.com"
-        - name: footer_address
-          label: Footer Address
-          type: text
-          default: "India : Rudrapur | New Delhi (Functional Centers)"
-
-# Media settings
 media:
-  uploads: images/uploads
-  public_path: /images/uploads
-  accept:
-    - image/*
-    - .pdf
-    - .doc
-    - .docx
-
-# Editor settings
-editor:
-  default_language: en
-  spellcheck: true
-
-# UI settings
-ui:
-  logo: /evx-h.png
-  color_scheme: light
-  sidebar:
-    - content
-    - media
-    - settings
+  uploads: images
+  public_path: /images
