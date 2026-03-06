@@ -152,7 +152,7 @@ img { max-width: 100%; height: auto; display: block; }
 .header-inner {
   max-width: 1240px;
   margin: 0 auto;
-  padding: 0.875rem var(--space-md);
+  padding: 0.05rem var(--space-md); /* Further reduced from 0.5rem to 0.25rem */
   display: flex;
   align-items: center;
   justify-content: space-between;
