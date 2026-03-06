@@ -1,0 +1,192 @@
+# CloudCannon Configuration for Aerth Mobility
+# This file configures the CloudCannon visual editor for your HTML site
+
+# Site information
+site:
+  name: Aerth Mobility
+  description: India's #1 EV Service & Spare Parts for 2W & 3W
+
+# Define content collections (editable pages)
+collections:
+  pages:
+    name: Pages
+    path: /
+    icon: page
+    sort:
+      key: order
+    options:
+      editor:
+        preview: true
+
+# Define editable data
+data:
+  globals:
+    path: data/globals.json
+    name: Site Settings
+
+# Input configuration for the editor
+_inputs:
+  title:
+    type: text
+    label: Page Title
+    comment: The title shown in the browser tab
+
+  hero_title:
+    type: text
+    label: Hero Title
+    comment: Main headline on the homepage
+
+  hero_description:
+    type: textarea
+    label: Hero Description
+    comment: Subtitle text under the hero title
+
+  content:
+    type: html
+    label: Content
+    options:
+      format: p h1 h2 h3 h4 h5 h6 bold italic link ul ol
+
+  description:
+    type: textarea
+    label: Description
+    comment: Page description or meta description
+
+  address:
+    type: textarea
+    label: Address
+    comment: Full address with line breaks
+
+  phone:
+    type: text
+    label: Phone Number
+
+  email:
+    type: email
+    label: Email Address
+
+# Structure definitions for each page type
+_structures:
+  homepage:
+    name: Homepage
+    path: index.html
+    icon: home
+    inputs:
+      title:
+        type: text
+        label: Page Title
+      hero_title:
+        type: text
+        label: Hero Title
+      hero_description:
+        type: textarea
+        label: Hero Description
+      cta_text:
+        type: text
+        label: CTA Button Text
+
+  about:
+    name: About Page
+    path: about.html
+    icon: info
+    inputs:
+      title:
+        type: text
+      heading:
+        type: text
+      content:
+        type: html
+
+  services:
+    name: Services Page
+    path: services.html
+    icon: services
+    inputs:
+      title:
+        type: text
+      description:
+        type: textarea
+
+  locations:
+    name: Locations Page
+    path: locations.html
+    icon: location
+    inputs:
+      title:
+        type: text
+      head_office_address:
+        type: textarea
+        label: Head Office Address
+      delhi_centre_address:
+        type: textarea
+        label: Delhi Centre Address
+      contact_phone:
+        type: text
+      contact_email:
+        type: email
+
+  contact:
+    name: Contact Page
+    path: contact.html
+    icon: contact
+    inputs:
+      title:
+        type: text
+      description:
+        type: textarea
+
+# Editor configuration
+editor:
+  default_path: index.html
+  allow_editors:
+    - visual
+    - content
+    - data
+
+# Source editor settings
+source_editor:
+  theme: default
+  tab_size: 2
+
+# Build configuration (for CloudCannon build)
+build:
+  output_path: _site
+  preserve_paths:
+    - images
+    - css
+    - js
+    - fonts
+
+# Routing for clean URLs
+drafts:
+  output: false
+
+# Preview settings
+preview:
+  metadata:
+    description: true
+    image: true
+
+# Timezone
+timezone: Asia/Kolkata
+
+# Public paths
+paths:
+  uploads: images/uploads
+  static: /
+
+# Schema for editable content (maps to HTML elements)
+# This helps CloudCannon identify which HTML elements to edit
+generated_outputs:
+  html:
+    engine: ""
+
+# Exclude patterns
+exclude:
+  - .git
+  - .github
+  - README.md
+  - LICENSE
+  - "*.log"
+  - node_modules
+  - .vscode
