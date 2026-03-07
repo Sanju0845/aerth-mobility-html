@@ -4404,8 +4404,9 @@ body { top: 0 !important; }
     padding-right: 0;
   }
   .header-inner {
-    padding: 0.05rem 0.5rem;
-    gap: 0.5rem;
+    padding: 0.05rem 0.4rem;
+    gap: 0.3rem;
+    justify-content: space-between;
   }
 
   .footer-inner {
@@ -4419,22 +4420,29 @@ body { top: 0 !important; }
 /* Extra small screens - ensure hamburger is visible */
 @media (max-width: 420px) {
   .logo { 
-    gap: 0.1rem; 
-    padding: 0.05rem 0.1rem; 
-    margin-left: -2rem; /* Push logo way to the left */
+    gap: 0.15rem; 
+    padding: 0.1rem 0.15rem; 
+    margin-left: 0; /* Keep logo visible on screen */
     margin-right: auto;
-    max-width: calc(100% - 50px);
+    max-width: calc(100% - 100px);
   }
-  .logo-brand { font-size: 0.55rem; }
-  .logo-img { height: 16px; width: 16px; }
-  .logo-ring { width: 20px; height: 20px; }
+  .logo-brand { font-size: 0.7rem; }
+  .logo-img { height: 22px; width: 22px; }
+  .logo-ring { width: 26px; height: 26px; }
   .header-inner {
-    padding: 0.02rem 0.05rem;
-    gap: 0.1rem;
+    padding: 0.05rem 0.3rem;
+    gap: 0.2rem;
+  }
+  .header-phone {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.4rem;
+    margin-right: 0.2rem; /* Reduce gap before hamburger */
+    display: none; /* Hide phone on very small screens */
   }
   .nav-toggle {
-    transform: scale(0.7);
-    margin-left: 2rem; /* Push hamburger way to right */
+    transform: scale(0.75);
+    margin-left: 0; /* Remove extra margin */
+    margin-right: 0;
   }
 }
 
