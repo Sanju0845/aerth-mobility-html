@@ -929,7 +929,7 @@
 
           // Build WhatsApp message from the object
           var type = formData.type;
-          var whatsappNum = '916302693485';
+          var whatsappNum = '918279773212';
           var lines = [];
           var typeLabels = {
             general: 'General Enquiry',
