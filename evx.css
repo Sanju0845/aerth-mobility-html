@@ -7783,7 +7783,7 @@ body { top: 0 !important; }
 
 .fs-cta .btn-primary {
   background: linear-gradient(135deg, var(--neon-blue), var(--neon-green));
-  color: white;
+  color: #000;
   border: none;
   box-shadow: 0 4px 16px var(--neon-blue-glow);
 }
