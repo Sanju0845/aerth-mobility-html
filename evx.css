@@ -237,7 +237,6 @@ img { max-width: 100%; height: auto; display: block; }
   animation: logo-breathe 4s var(--ease) infinite;
 }
 .logo:hover .logo-img {
-  transform: rotate(-6deg) scale(1.06);
   box-shadow:
     0 0 14px 3px var(--neon-blue-glow),
     0 0 24px 6px var(--neon-green-glow);
