@@ -4380,7 +4380,12 @@ body { top: 0 !important; }
     color: var(--text);
   }
 
-  .nav-toggle { display: flex; }
+  .nav-toggle { 
+    display: flex; 
+    z-index: 101;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
 
   /* Hide tagline on mobile, keep brand name compact */
   .logo { 
@@ -4389,9 +4394,9 @@ body { top: 0 !important; }
     margin-right: auto; /* Push logo to left, create space for hamburger */
   }
   .logo-tagline { display: none; }
-  .logo-brand { font-size: 0.95rem; }
-  .logo-img { height: 36px; width: 36px; }
-  .logo-ring { width: 40px; height: 40px; }
+  .logo-brand { font-size: 0.85rem; }
+  .logo-img { height: 28px; width: 28px; }
+  .logo-ring { width: 32px; height: 32px; }
   
   /* Ensure header has proper space for hamburger */
   .header { 
