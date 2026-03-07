@@ -220,9 +220,9 @@ img { max-width: 100%; height: auto; display: block; }
   position: relative;
   z-index: 1;
   height: 42px;
-  width: 42px;
-  border-radius: 50%;
-  object-fit: cover;
+  width: auto;
+  max-width: 120px;
+  object-fit: contain;
   flex-shrink: 0;
   border: 2px solid transparent;
   background-origin: border-box;
