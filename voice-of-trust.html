@@ -93,8 +93,19 @@
 /* ── Testimonials Grid ── */
 .testimonials-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2rem; margin-bottom: 3rem;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+@media (min-width: 640px) { 
+  .testimonials-grid { 
+    grid-template-columns: repeat(2, 1fr); 
+  } 
+}
+@media (min-width: 900px) { 
+  .testimonials-grid { 
+    grid-template-columns: repeat(2, 1fr); 
+  } 
 }
 .testimonial-card {
   background: var(--bg-elevated); border-radius: var(--radius-lg);
@@ -192,10 +203,9 @@
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
-  .testimonials-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .testimonials-page { padding: 4rem 1rem 2rem; }
   .testimonial-person { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
-  .testimonial-video { aspect-ratio: 16/9; height: 200px; }
+  .testimonial-video { aspect-ratio: 16/9; }
 }
 
 /* ── Loading Skeleton ── */
@@ -485,16 +495,35 @@ function loadTestimonials() {
   if (stored) {
     testimonials = JSON.parse(stored);
   } else {
-    // Sample testimonials
+    // Sample testimonials with 4 placeholder videos
     testimonials = [
       {
-        id: Date.now(),
-        name: "Rajesh Kumar",
-        title: "Fleet Manager",
-        business: "Delhi Transport Co.",
-        location: "New Delhi",
-        quote: "Aerth Mobility's EV solutions have transformed our fleet operations. We've seen 40% reduction in maintenance costs and excellent reliability.",
-        videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        id: 'testimonial-1',
+        title: "Amazing EV Service Experience",
+        subtitle: "Our fleet efficiency improved by 40% with Aerth Mobility's solutions",
+        videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        publishedDate: "2026-03-01"
+      },
+      {
+        id: 'testimonial-2',
+        title: "Best EV Partner in India",
+        subtitle: "Professional team, excellent after-sales support, highly recommended",
+        videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        publishedDate: "2026-03-02"
+      },
+      {
+        id: 'testimonial-3',
+        title: "Reliable EV Maintenance",
+        subtitle: "Quick service, genuine parts, and transparent pricing every time",
+        videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        publishedDate: "2026-03-03"
+      },
+      {
+        id: 'testimonial-4',
+        title: "Game Changer for Our Business",
+        subtitle: "Switched our entire fleet to EVs with Aerth's consultation support",
+        videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        publishedDate: "2026-03-04"
       }
     ];
     saveTestimonials();
