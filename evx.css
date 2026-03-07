@@ -1,5 +1,5 @@
 /* =====================================================
-   EVXPERTZ – Light Grey Luxury Theme with Neon Accents
+   Aerth Mobility – Light Grey Luxury Theme with Neon Accents
    ===================================================== */
 
 /* ---------- Google Font ---------- */
@@ -2613,7 +2613,7 @@ a.g-review-location:hover svg {
   transition: color .3s;
 }
 .footer-legal a:hover { color: var(--neon-blue); }
-.footer-sitemap {
+.footer- {
   position: relative;
   padding: 3px 10px !important;
   border-radius: 999px;
@@ -2626,7 +2626,7 @@ a.g-review-location:hover svg {
   text-transform: uppercase;
   transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
-.footer-sitemap:hover {
+.footer-:hover {
   background: rgba(0,148,255,0.16);
   border-color: var(--neon-blue);
   box-shadow: 0 0 10px var(--neon-blue-glow);
@@ -4137,7 +4137,7 @@ body { top: 0 !important; }
   color: var(--neon-blue-dim);
 }
 
-/* Why EVXPERTZ – two-column VS layout */
+/* Why Aerth Mobility – two-column VS layout */
 .evx-vs {
   display: grid;
   grid-template-columns: 1fr 1fr;
