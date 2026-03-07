@@ -4383,11 +4383,25 @@ body { top: 0 !important; }
   .nav-toggle { display: flex; }
 
   /* Hide tagline on mobile, keep brand name compact */
-  .logo { gap: 0.45rem; padding: 0.25rem 0.4rem 0.25rem 0.25rem; }
+  .logo { 
+    gap: 0.45rem; 
+    padding: 0.25rem 0.4rem 0.25rem 0.4rem; 
+    margin-right: auto; /* Push logo to left, create space for hamburger */
+  }
   .logo-tagline { display: none; }
   .logo-brand { font-size: 0.95rem; }
   .logo-img { height: 36px; width: 36px; }
   .logo-ring { width: 40px; height: 40px; }
+  
+  /* Ensure header has proper space for hamburger */
+  .header { 
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .header-inner {
+    padding: 0.05rem 0.5rem;
+    gap: 0.5rem;
+  }
 
   .footer-inner {
     grid-template-columns: 1fr;

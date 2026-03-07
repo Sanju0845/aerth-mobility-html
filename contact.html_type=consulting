@@ -301,7 +301,7 @@
             <div class="enq-side-features">
               <div class="enq-feature">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--neon-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Response within 30 min</span>
+                <span>response within 24 hrs</span>
               </div>
               <div class="enq-feature">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--neon-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -444,7 +444,7 @@
       <div class="footer-brand">
         <img src="evx-h.png" alt="Aerth Mobility" class="footer-logo" />
         <p class="footer-tagline">Your Trusted EV Partner</p>
-        <p class="footer-address">India : Rudrapur | New Delhi (Functional Centers)<br>India : Ghaziabad | Pune | Bangalore ( Upcoming Centers) &ndash; 500019</p>
+        <p class="footer-address">India : Rudrapur | New Delhi (Functional Centers)<br>India : Ghaziabad | Pune | Bangalore ( Upcoming Centers) &ndash; </p>
       </div>
       <nav class="footer-nav" aria-label="Footer navigation">
         <a href="services.html">Services</a>

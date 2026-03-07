@@ -955,7 +955,7 @@
           if (formData.message)    lines.push('Message: ' + formData.message);
 
           // ── Submit to Google Sheets ──
-          await fetch('https://script.google.com/macros/s/AKfycbxzoWmYYTbqMGw2O4BwCuQcx02QpiyPJy9ZooXCzmr_xKGONIvxh6oCjXowNK6YRyCT/exec', {
+          await fetch('https://script.google.com/macros/s/AKfycbynnPz0MDn5yHY8XbDa54p7RubZ32XOgBs9IAhduCrbt4nmoH2I1F0a_z3ZU6BukRzcdg/exec', {
             method: 'POST',
             mode: 'no-cors',
             headers: { 'Content-Type': 'application/json' },
@@ -965,9 +965,9 @@
           evxToast('Your enquiry has been submitted successfully!', 'success');
 
           // ── Open WhatsApp ──
-          //var message = lines.join('\n');
-          //var url = 'https://wa.me/' + whatsappNum + '?text=' + encodeURIComponent(message);
-          //window.open(url, '_blank');
+          // var message = lines.join('\n');
+          // var url = 'https://wa.me/' + whatsappNum + '?text=' + encodeURIComponent(message);
+          // window.open(url, '_blank');
 
         } catch (err) {
           console.error('Submission failed', err);
