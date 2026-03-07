@@ -4434,15 +4434,16 @@ body { top: 0 !important; }
     gap: 0.2rem;
   }
   .header-phone {
-    font-size: 0.7rem;
-    padding: 0.3rem 0.4rem;
-    margin-right: 0.2rem; /* Reduce gap before hamburger */
-    display: none; /* Hide phone on very small screens */
+    font-size: 0.65rem;
+    padding: 0.2rem 0.3rem;
+    margin: 0 0.1rem; /* Small gap on both sides */
+    white-space: nowrap;
+    flex-shrink: 0;
   }
   .nav-toggle {
-    transform: scale(0.75);
-    margin-left: 0; /* Remove extra margin */
-    margin-right: 0;
+    transform: scale(0.7);
+    margin: 0;
+    flex-shrink: 0;
   }
 }
 
