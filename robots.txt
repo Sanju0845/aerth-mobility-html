@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /job-card/
+Disallow: /sitemap.html
+Disallow: /sitemap - Copy.html
+Disallow: /blogs/copy-from.html
+Disallow: /tips/copy-from.html
+Disallow: /Onclick-Confetti-HTML-CSS-JS.html
+Disallow: /Onclick-Confetti-HTML-CSS-JS - Copy.html
+Sitemap: https://evxpertz.com/sitemap.xml
