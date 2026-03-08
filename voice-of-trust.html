@@ -489,46 +489,18 @@ function checkAdminStatus() {
   }
 }
 
-// Load testimonials
-function loadTestimonials() {
-  const stored = localStorage.getItem('aerth_testimonials');
-  if (stored) {
-    testimonials = JSON.parse(stored);
-  } else {
-    // Sample testimonials with 4 placeholder videos
-    testimonials = [
-      {
-        id: 'testimonial-1',
-        title: "Amazing EV Service Experience",
-        subtitle: "Our fleet efficiency improved by 40% with Aerth Mobility's solutions",
-        videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-        publishedDate: "2026-03-01"
-      },
-      {
-        id: 'testimonial-2',
-        title: "Best EV Partner in India",
-        subtitle: "Professional team, excellent after-sales support, highly recommended",
-        videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-        publishedDate: "2026-03-02"
-      },
-      {
-        id: 'testimonial-3',
-        title: "Reliable EV Maintenance",
-        subtitle: "Quick service, genuine parts, and transparent pricing every time",
-        videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-        publishedDate: "2026-03-03"
-      },
-      {
-        id: 'testimonial-4',
-        title: "Game Changer for Our Business",
-        subtitle: "Switched our entire fleet to EVs with Aerth's consultation support",
-        videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-        publishedDate: "2026-03-04"
-      }
-    ];
-    saveTestimonials();
+// Load testimonials from API
+async function loadTestimonials() {
+  try {
+    const response = await fetch('/api/voice-of-trust');
+    testimonials = await response.json();
+    renderTestimonials();
+  } catch (error) {
+    console.error('Error loading testimonials:', error);
+    // Show empty state on error
+    testimonials = [];
+    renderTestimonials();
   }
-  renderTestimonials();
 }
 
 // Render testimonials
@@ -564,8 +536,10 @@ function renderTestimonials() {
         </div>
       </div>
       <div class="testimonial-content">
-        <h3>${testimonial.title}</h3>
-        <p>${testimonial.subtitle}</p>
+        <h3>${testimonial.personName}</h3>
+        <p style="color: var(--text-muted); margin-bottom: 0.5rem;">${testimonial.title}${testimonial.business ? ` at ${testimonial.business}` : ''}</p>
+        <p style="font-style: italic;">"${testimonial.quote}"</p>
+        <p style="color: var(--accent); font-size: 0.875rem; margin-top: 0.5rem;">📍 ${testimonial.location}</p>
         ${isAdmin ? `
           <div style="margin-top: 1rem; text-align: right;">
             <button onclick="deleteTestimonial('${testimonial.id}')" class="btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
@@ -647,9 +621,9 @@ function deleteTestimonial(id) {
   }
 }
 
-// Save testimonials to localStorage
+// Save testimonials to localStorage - REMOVED (now using server API)
 function saveTestimonials() {
-  localStorage.setItem('aerth_testimonials', JSON.stringify(testimonials));
+  // No longer needed - data is stored on server
 }
 
 // Show success message

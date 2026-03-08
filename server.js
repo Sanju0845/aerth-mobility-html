@@ -442,6 +442,135 @@ app.delete('/api/blog/:slug', (req, res) => {
   }
 });
 
+// ═══════════════════════════════════════════════════════════════
+// Voice of Trust API Endpoints
+// ═══════════════════════════════════════════════════════════════
+
+const VOT_DATA_FILE = path.join(__dirname, 'data', 'voice-of-trust.json');
+
+// Ensure data directory exists
+function ensureDataDir() {
+  const dataDir = path.join(__dirname, 'data');
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir, { recursive: true });
+  }
+}
+
+// Load Voice of Trust entries
+function loadVOTEntries() {
+  ensureDataDir();
+  if (fs.existsSync(VOT_DATA_FILE)) {
+    return JSON.parse(fs.readFileSync(VOT_DATA_FILE, 'utf8'));
+  }
+  return { entries: [] };
+}
+
+// Save Voice of Trust entries
+function saveVOTEntries(data) {
+  ensureDataDir();
+  fs.writeFileSync(VOT_DATA_FILE, JSON.stringify(data, null, 2), 'utf8');
+}
+
+// API: Get all Voice of Trust entries
+app.get('/api/voice-of-trust', (req, res) => {
+  try {
+    const data = loadVOTEntries();
+    res.json(data.entries || []);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API: Add new Voice of Trust entry
+app.post('/api/voice-of-trust', (req, res) => {
+  const { password, entry } = req.body;
+  
+  if (password !== ADMIN_PASSWORD) {
+    return res.status(401).json({ success: false, error: 'Unauthorized' });
+  }
+  
+  if (!entry || !entry.videoUrl || !entry.personName) {
+    return res.status(400).json({ success: false, error: 'Video URL and person name required' });
+  }
+  
+  try {
+    const data = loadVOTEntries();
+    
+    const newEntry = {
+      id: entry.id || 'vot-' + Date.now(),
+      videoUrl: entry.videoUrl,
+      personName: entry.personName,
+      title: entry.title || '',
+      business: entry.business || '',
+      location: entry.location || '',
+      quote: entry.quote || '',
+      publishedDate: entry.publishedDate || new Date().toISOString().split('T')[0]
+    };
+    
+    // Add to beginning
+    data.entries.unshift(newEntry);
+    saveVOTEntries(data);
+    
+    res.json({ 
+      success: true, 
+      message: 'Voice of Trust entry added successfully!',
+      entry: newEntry
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// API: Update Voice of Trust entry
+app.put('/api/voice-of-trust/:id', (req, res) => {
+  const { password, entry } = req.body;
+  const { id } = req.params;
+  
+  if (password !== ADMIN_PASSWORD) {
+    return res.status(401).json({ success: false, error: 'Unauthorized' });
+  }
+  
+  try {
+    const data = loadVOTEntries();
+    const index = data.entries.findIndex(e => e.id === id);
+    
+    if (index === -1) {
+      return res.status(404).json({ success: false, error: 'Entry not found' });
+    }
+    
+    data.entries[index] = { ...data.entries[index], ...entry, id };
+    saveVOTEntries(data);
+    
+    res.json({ 
+      success: true, 
+      message: 'Voice of Trust entry updated successfully!',
+      entry: data.entries[index]
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// API: Delete Voice of Trust entry
+app.delete('/api/voice-of-trust/:id', (req, res) => {
+  const { password } = req.body;
+  const { id } = req.params;
+  
+  if (password !== ADMIN_PASSWORD) {
+    return res.status(401).json({ success: false, error: 'Unauthorized' });
+  }
+  
+  try {
+    const data = loadVOTEntries();
+    data.entries = data.entries.filter(e => e.id !== id);
+    saveVOTEntries(data);
+    
+    res.json({ success: true, message: 'Voice of Trust entry deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 // Serve admin dashboard
 app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'admin.html'));

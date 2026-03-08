@@ -483,20 +483,19 @@
   </div>
 
   <script>
-    // Load entries from localStorage
+    const ADMIN_PASSWORD = 'aerthadmin123';
     let entries = [];
     
-    function loadEntries() {
-      const stored = localStorage.getItem('aerth_voice_of_trust');
-      if (stored) {
-        entries = JSON.parse(stored);
+    // Load entries from API
+    async function loadEntries() {
+      try {
+        const response = await fetch('/api/voice-of-trust');
+        entries = await response.json();
+        renderEntries();
+      } catch (error) {
+        console.error('Error loading entries:', error);
+        showSuccess('Error loading entries: ' + error.message);
       }
-      renderEntries();
-    }
-    
-    // Save entries to localStorage
-    function saveEntries() {
-      localStorage.setItem('aerth_voice_of_trust', JSON.stringify(entries));
     }
     
     // Render entries list
@@ -557,15 +556,14 @@
       return div.innerHTML;
     }
     
-    // Save entry
-    function saveEntry(event) {
+    // Save entry (add or update)
+    async function saveEntry(event) {
       event.preventDefault();
       
       const form = event.target;
       const id = document.getElementById('entryId').value;
       
       const entry = {
-        id: id || 'vot-' + Date.now(),
         videoUrl: form.videoUrl.value,
         personName: form.personName.value,
         title: form.title.value,
@@ -575,21 +573,37 @@
         publishedDate: new Date().toISOString().split('T')[0]
       };
       
-      if (id) {
-        // Update existing
-        const index = entries.findIndex(e => e.id === id);
-        if (index !== -1) {
-          entries[index] = entry;
+      try {
+        let response;
+        if (id) {
+          // Update existing
+          response = await fetch(`/api/voice-of-trust/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password: ADMIN_PASSWORD, entry })
+          });
+        } else {
+          // Add new
+          response = await fetch('/api/voice-of-trust', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password: ADMIN_PASSWORD, entry })
+          });
         }
-      } else {
-        // Add new
-        entries.unshift(entry);
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          await loadEntries();
+          resetForm();
+          showSuccess(id ? 'Entry updated successfully!' : 'Entry added successfully!');
+        } else {
+          showSuccess('Error: ' + (result.error || 'Unknown error'));
+        }
+      } catch (error) {
+        console.error('Error saving entry:', error);
+        showSuccess('Error saving entry: ' + error.message);
       }
-      
-      saveEntries();
-      renderEntries();
-      resetForm();
-      showSuccess(id ? 'Entry updated successfully!' : 'Entry added successfully!');
     }
     
     // Edit entry
@@ -617,13 +631,28 @@
     }
     
     // Delete entry
-    function deleteEntry(id) {
+    async function deleteEntry(id) {
       if (!confirm('Are you sure you want to delete this entry?')) return;
       
-      entries = entries.filter(e => e.id !== id);
-      saveEntries();
-      renderEntries();
-      showSuccess('Entry deleted successfully!');
+      try {
+        const response = await fetch(`/api/voice-of-trust/${id}`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: ADMIN_PASSWORD })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          await loadEntries();
+          showSuccess('Entry deleted successfully!');
+        } else {
+          showSuccess('Error: ' + (result.error || 'Unknown error'));
+        }
+      } catch (error) {
+        console.error('Error deleting entry:', error);
+        showSuccess('Error deleting entry: ' + error.message);
+      }
     }
     
     // Reset form
