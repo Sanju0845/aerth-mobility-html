@@ -2,217 +2,527 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aerth Mobility - Blog Admin</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title>Blog Admin | Aerth Mobility</title>
+  <meta name="description" content="Admin panel for managing blog posts.">
+  <meta name="author" content="Aerth Mobility">
+  <meta name="robots" content="noindex, nofollow">
+  
+  <link rel="stylesheet" href="evx.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Inter', sans-serif;
       background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
       min-height: 100vh;
-      color: #e2e8f0;
+      color: #f1f5f9;
     }
-    .container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
     
-    /* Login Screen */
-    .login-screen {
-      display: flex; flex-direction: column; align-items: center;
-      justify-content: center; min-height: 100vh;
+    .dashboard {
+      min-height: 100vh;
+      padding: 2rem;
     }
-    .login-box {
+    
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto 2rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    }
+    
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .header-logo {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #3b82f6, #10b981);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .header-logo svg {
+      width: 24px;
+      height: 24px;
+      color: white;
+    }
+    
+    .header-title h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+    }
+    
+    .header-title p {
+      font-size: 0.875rem;
+      color: #94a3b8;
+      margin: 0;
+    }
+    
+    .header-actions {
+      display: flex;
+      gap: 0.75rem;
+    }
+    
+    .btn-header {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      border: none;
+    }
+    
+    .btn-back {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      color: #94a3b8;
+    }
+    
+    .btn-back:hover {
+      color: #f1f5f9;
+      border-color: rgba(59, 130, 246, 0.3);
+    }
+    
+    .btn-logout {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #ef4444;
+    }
+    
+    .btn-logout:hover {
+      background: rgba(239, 68, 68, 0.3);
+    }
+    
+    .dashboard-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .stat-card {
       background: rgba(30, 41, 59, 0.8);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(148, 163, 184, 0.1);
       border-radius: 16px;
-      padding: 2.5rem;
-      width: 100%; max-width: 400px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
-    .login-logo {
-      text-align: center; margin-bottom: 2rem;
-    }
-    .login-logo h1 {
-      font-size: 1.75rem; font-weight: 700;
-      background: linear-gradient(135deg, #3b82f6, #10b981);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .login-logo p { color: #94a3b8; margin-top: 0.5rem; font-size: 0.875rem; }
     
-    .form-group { margin-bottom: 1.25rem; }
+    .stat-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(16, 185, 129, 0.2));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .stat-icon svg {
+      width: 24px;
+      height: 24px;
+      color: #3b82f6;
+    }
+    
+    .stat-info h3 {
+      font-size: 0.875rem;
+      color: #94a3b8;
+      font-weight: 500;
+      margin: 0 0 0.25rem;
+    }
+    
+    .stat-info p {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+    }
+    
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    
+    @media (max-width: 1024px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .panel-card {
+      background: rgba(30, 41, 59, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(148, 163, 184, 0.1);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    
+    .panel-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .panel-header h2 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .panel-body {
+      padding: 1.5rem;
+    }
+    
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    
+    @media (max-width: 640px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+    
     .form-group label {
-      display: block; margin-bottom: 0.5rem;
-      font-size: 0.875rem; font-weight: 500; color: #cbd5e1;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
-    .form-group input {
-      width: 100%; padding: 0.75rem 1rem;
-      background: rgba(15, 23, 42, 0.6);
+    
+    .form-group label span {
+      color: #3b82f6;
+    }
+    
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      padding: 0.75rem 1rem;
       border: 1px solid rgba(148, 163, 184, 0.2);
-      border-radius: 8px;
-      color: #e2e8f0; font-size: 0.9375rem;
-      transition: all 0.2s;
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.6);
+      color: #f1f5f9;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+      font-family: inherit;
     }
-    .form-group input:focus {
-      outline: none; border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+    
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    
+    .form-hint {
+      font-size: 0.75rem;
+      color: #64748b;
+      margin-top: 0.25rem;
+    }
+    
+    .form-actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      justify-content: flex-end;
     }
     
     .btn {
-      width: 100%; padding: 0.875rem;
-      background: linear-gradient(135deg, #3b82f6, #10b981);
-      border: none; border-radius: 8px;
-      color: white; font-size: 0.9375rem; font-weight: 600;
-      cursor: pointer; transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
     }
-    .btn:hover { transform: translateY(-1px); box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4); }
-    .btn:active { transform: translateY(0); }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #3b82f6, #10b981);
+      color: #fff;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+    }
+    
+    .btn-secondary {
+      background: rgba(148, 163, 184, 0.1);
+      color: #94a3b8;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(148, 163, 184, 0.2);
+      color: #f1f5f9;
+    }
+    
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    
+    .btn-danger:hover {
+      background: rgba(239, 68, 68, 0.3);
+    }
+    
+    .btn-warning {
+      background: rgba(245, 158, 11, 0.2);
+      color: #f59e0b;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    
+    .btn-warning:hover {
+      background: rgba(245, 158, 11, 0.3);
+    }
+    
+    .entries-list {
+      max-height: 600px;
+      overflow-y: auto;
+    }
+    
+    .blog-item {
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid rgba(148, 163, 184, 0.1);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+      display: flex;
+      gap: 1rem;
+      transition: all 0.3s;
+      align-items: center;
+    }
+    
+    .blog-item:hover {
+      border-color: rgba(59, 130, 246, 0.3);
+      transform: translateY(-2px);
+    }
+    
+    .blog-thumb {
+      width: 80px;
+      height: 60px;
+      background: #000;
+      border-radius: 8px;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    
+    .blog-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .blog-info {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .blog-info h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      margin: 0 0 0.25rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .blog-info p {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .blog-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .blog-category {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.625rem;
+      background: rgba(59, 130, 246, 0.2);
+      border-radius: 999px;
+      color: #3b82f6;
+      white-space: nowrap;
+    }
+    
+    .btn-icon {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+      background: transparent;
+      color: #94a3b8;
+    }
+    
+    .btn-icon:hover {
+      background: rgba(148, 163, 184, 0.1);
+      color: #f1f5f9;
+    }
+    
+    .btn-icon.delete:hover {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      color: #64748b;
+    }
+    
+    .empty-state svg {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 1rem;
+      opacity: 0.3;
+    }
+    
+    .empty-state h3 {
+      font-size: 1.125rem;
+      color: #94a3b8;
+      margin: 0 0 0.5rem;
+    }
+    
+    .empty-state p {
+      font-size: 0.875rem;
+      margin: 0;
+    }
+    
+    .success-toast {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+      z-index: 1000;
+      display: none;
+      animation: slideIn 0.3s ease;
+    }
     
     .error-message {
-      background: rgba(239, 68, 68, 0.1);
+      background: rgba(239, 68, 68, 0.2);
       border: 1px solid rgba(239, 68, 68, 0.3);
       color: #fca5a5;
-      padding: 0.75rem;
-      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
       margin-bottom: 1rem;
       font-size: 0.875rem;
       display: none;
     }
     
-    /* Admin Dashboard */
-    .admin-screen { display: none; }
-    .admin-header {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 2rem; padding-bottom: 1rem;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.1);
-    }
-    .admin-header h2 {
-      font-size: 1.5rem; font-weight: 700;
-      background: linear-gradient(135deg, #3b82f6, #10b981);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .admin-actions { display: flex; gap: 0.75rem; }
-    
-    .btn-secondary {
-      padding: 0.625rem 1.25rem;
-      background: rgba(59, 130, 246, 0.1);
-      border: 1px solid rgba(59, 130, 246, 0.3);
-      border-radius: 8px;
-      color: #3b82f6; font-size: 0.875rem; font-weight: 600;
-      cursor: pointer; transition: all 0.2s;
-    }
-    .btn-secondary:hover { background: rgba(59, 130, 246, 0.2); }
-    
-    .btn-danger {
-      padding: 0.625rem 1.25rem;
-      background: rgba(239, 68, 68, 0.1);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      border-radius: 8px;
-      color: #ef4444; font-size: 0.875rem; font-weight: 600;
-      cursor: pointer; transition: all 0.2s;
-    }
-    .btn-danger:hover { background: rgba(239, 68, 68, 0.2); }
-    
-    .btn-warning {
-      padding: 0.625rem 1.25rem;
-      background: rgba(245, 158, 11, 0.1);
-      border: 1px solid rgba(245, 158, 11, 0.3);
-      border-radius: 8px;
-      color: #f59e0b; font-size: 0.875rem; font-weight: 600;
-      cursor: pointer; transition: all 0.2s;
-    }
-    .btn-warning:hover { background: rgba(245, 158, 11, 0.2); }
-    
-    .btn-info {
-      padding: 0.625rem 1.25rem;
-      background: rgba(59, 130, 246, 0.1);
-      border: 1px solid rgba(59, 130, 246, 0.3);
-      border-radius: 8px;
-      color: #3b82f6; font-size: 0.875rem; font-weight: 600;
-      cursor: pointer; transition: all 0.2s;
-    }
-    .btn-info:hover { background: rgba(59, 130, 246, 0.2); }
-    
-    /* Blog Form */
-    .blog-form {
-      background: rgba(30, 41, 59, 0.6);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(148, 163, 184, 0.1);
-      border-radius: 16px;
-      padding: 2rem;
-      margin-bottom: 2rem;
-      display: none;
-    }
-    .blog-form.show { display: block; }
-    .blog-form h3 { font-size: 1.25rem; margin-bottom: 1.5rem; color: #f1f5f9; }
-    
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
-    
-    .form-group textarea {
-      width: 100%; padding: 0.75rem 1rem;
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(148, 163, 184, 0.2);
-      border-radius: 8px;
-      color: #e2e8f0; font-size: 0.9375rem;
-      min-height: 200px; resize: vertical;
-      font-family: inherit;
-    }
-    .form-group textarea:focus {
-      outline: none; border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    .error-message.show {
+      display: block;
     }
     
-    .form-group select {
-      width: 100%; padding: 0.75rem 1rem;
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(148, 163, 184, 0.2);
-      border-radius: 8px;
-      color: #e2e8f0; font-size: 0.9375rem;
-      cursor: pointer;
-    }
-    .form-group select:focus {
-      outline: none; border-color: #3b82f6;
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
     }
     
-    .form-hint {
-      font-size: 0.75rem; color: #94a3b8; margin-top: 0.25rem;
+    .loading {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
     }
     
-    /* Blog List */
-    .blog-list { display: grid; gap: 1rem; }
-    .blog-item {
-      background: rgba(30, 41, 59, 0.4);
-      border: 1px solid rgba(148, 163, 184, 0.1);
-      border-radius: 12px;
-      padding: 1.25rem;
-      display: flex; justify-content: space-between; align-items: center;
-      transition: all 0.2s;
-    }
-    .blog-item:hover {
-      background: rgba(30, 41, 59, 0.6);
-      border-color: rgba(59, 130, 246, 0.3);
-    }
-    .blog-info h4 { font-size: 1rem; color: #f1f5f9; margin-bottom: 0.25rem; }
-    .blog-info p { font-size: 0.75rem; color: #94a3b8; }
-    .blog-meta {
-      display: flex; gap: 0.75rem;
-      align-items: center;
-    }
-    .blog-category {
-      font-size: 0.75rem; padding: 0.25rem 0.625rem;
-      background: rgba(59, 130, 246, 0.1);
-      border-radius: 999px; color: #3b82f6;
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
     
-    /* Success Message */
+    /* Success Overlay */
     .success-overlay {
-      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      position: fixed;
+      inset: 0;
       background: rgba(0, 0, 0, 0.8);
-      display: none; align-items: center; justify-content: center;
+      display: none;
+      align-items: center;
+      justify-content: center;
       z-index: 1000;
+      backdrop-filter: blur(4px);
     }
-    .success-overlay.show { display: flex; }
+    
+    .success-overlay.show {
+      display: flex;
+    }
+    
     .success-box {
       background: rgba(30, 41, 59, 0.95);
       border: 1px solid rgba(16, 185, 129, 0.3);
@@ -220,40 +530,58 @@
       padding: 2rem;
       text-align: center;
       max-width: 400px;
+      width: 90%;
     }
+    
     .success-icon {
-      width: 64px; height: 64px;
+      width: 64px;
+      height: 64px;
       background: linear-gradient(135deg, #10b981, #059669);
       border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       margin: 0 auto 1.5rem;
     }
-    .success-icon svg { width: 32px; height: 32px; color: white; }
-    .success-box h3 { font-size: 1.25rem; color: #f1f5f9; margin-bottom: 0.5rem; }
-    .success-box p { color: #94a3b8; font-size: 0.875rem; margin-bottom: 1.5rem; }
-    .success-box a {
-      color: #3b82f6; text-decoration: none;
-      font-size: 0.875rem; font-weight: 500;
-    }
-    .success-box a:hover { text-decoration: underline; }
     
-    /* Loading */
-    .loading {
-      display: inline-block; width: 20px; height: 20px;
-      border: 2px solid rgba(59, 130, 246, 0.3);
-      border-top-color: #3b82f6;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
+    .success-icon svg {
+      width: 32px;
+      height: 32px;
+      color: white;
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
     
-    .empty-state {
-      text-align: center; padding: 3rem;
+    .success-box h3 {
+      font-size: 1.25rem;
+      color: #f1f5f9;
+      margin-bottom: 0.5rem;
+    }
+    
+    .success-box p {
       color: #94a3b8;
+      font-size: 0.875rem;
+      margin-bottom: 1.5rem;
     }
-    .empty-state svg {
-      width: 64px; height: 64px; margin-bottom: 1rem;
-      opacity: 0.3;
+    
+    .success-box a {
+      color: #3b82f6;
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    
+    .success-box a:hover {
+      text-decoration: underline;
+    }
+    
+    @media (max-width: 768px) {
+      .dashboard { padding: 1rem; }
+      .dashboard-header { flex-direction: column; gap: 1rem; align-items: flex-start; }
+      .header-actions { width: 100%; flex-wrap: wrap; }
+      .btn-header { flex: 1; justify-content: center; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .blog-item { flex-direction: column; align-items: flex-start; }
+      .blog-thumb { width: 100%; height: 120px; }
+      .blog-meta { width: 100%; justify-content: flex-end; }
     }
   </style>
 </head>
@@ -279,87 +607,110 @@
     })();
   </script>
 
-  <div class="container">
-    <!-- Login Screen -->
-    <div id="loginScreen" class="login-screen">
-      <div class="login-box">
-        <div class="login-logo">
-          <h1>Aerth Mobility</h1>
-          <p>Blog Admin Panel</p>
+  <div class="dashboard">
+    <!-- Header -->
+    <header class="dashboard-header">
+      <div class="header-left">
+        <div class="header-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"/>
+          </svg>
         </div>
-        <div id="loginError" class="error-message">Invalid password</div>
-        <div class="form-group">
-          <label for="adminPassword">Admin Password</label>
-          <input type="password" id="adminPassword" placeholder="Enter password">
-        </div>
-        <button class="btn" onclick="login()">Login</button>
-      </div>
-    </div>
-
-    <!-- Admin Screen -->
-    <div id="adminScreen" class="admin-screen">
-      <div class="admin-header">
-        <h2>Content Admin</h2>
-        <div class="admin-actions">
-          <button class="btn-secondary" onclick="toggleForm()">+ New Blog</button>
-          <button class="btn-danger" onclick="clearLocalStorage()" title="⚠️ Delete ALL blogs from localStorage">🗑️ Delete All</button>
-          <button class="btn-info" onclick="syncUserView()" title="Sync current blogs to user view">🔄 Sync User View</button>
-          <button class="btn-danger" onclick="logout()">Logout</button>
+        <div class="header-title">
+          <h1>Blog Admin</h1>
+          <p>Manage blog posts</p>
         </div>
       </div>
+      <div class="header-actions">
+        <a href="admin.html" class="btn-header btn-back">← Back to Dashboard</a>
+        <button class="btn-header btn-logout" onclick="logout()">Logout</button>
+      </div>
+    </header>
 
-      <!-- Blog Form -->
-      <div id="blogForm" class="blog-form">
-        <h3>Create New Blog Post</h3>
-        <div id="formError" class="error-message"></div>
-        
-        <div class="form-row">
-          <div class="form-group">
-            <label for="blogTitle">Blog Title *</label>
-            <input type="text" id="blogTitle" placeholder="e.g., 5 Tips for EV Maintenance">
-            <p class="form-hint">Keep it catchy and under 60 characters</p>
+    <!-- Main Content -->
+    <main class="dashboard-content">
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"/>
+            </svg>
           </div>
-          <div class="form-group">
-            <label for="blogCategory">Category *</label>
-            <select id="blogCategory">
-              <option value="">Select category</option>
-              <option value="EV Tips">EV Tips</option>
-              <option value="Maintenance">Maintenance</option>
-              <option value="Industry News">Industry News</option>
-              <option value="Technology">Technology</option>
-              <option value="Buying Guide">Buying Guide</option>
-              <option value="Safety">Safety</option>
-              <option value="Battery Care">Battery Care</option>
-            </select>
+          <div class="stat-info">
+            <h3>Total Blogs</h3>
+            <p id="blogCount">0</p>
           </div>
         </div>
+      </div>
 
-        <div class="form-group">
-          <label for="blogSubtitle">Subtitle *</label>
-          <input type="text" id="blogSubtitle" placeholder="Brief description of the blog">
-          <p class="form-hint">This appears on the blog card and in search results</p>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="blogAuthor">Author Name *</label>
-            <input type="text" id="blogAuthor" placeholder="e.g., John Doe">
+      <!-- Two Column Layout -->
+      <div class="dashboard-grid">
+        <!-- Add/Edit Form -->
+        <div class="panel-card">
+          <div class="panel-header">
+            <h2 id="formTitle">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M5 12h14"/>
+              </svg>
+              Add New Blog
+            </h2>
           </div>
-          <div class="form-group">
-            <label for="blogDate">Publish Date</label>
-            <input type="date" id="blogDate">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="blogImage">Featured Image URL *</label>
-          <input type="text" id="blogImage" placeholder="https://example.com/image.jpg or /images/blog-image.jpg">
-          <p class="form-hint">Paste a full URL or a relative path starting with /</p>
-        </div>
-
-        <div class="form-group">
-          <label for="blogContent">Blog Content *</label>
-          <textarea id="blogContent" placeholder="Write your blog content here...
+          <div class="panel-body">
+            <div id="formError" class="error-message"></div>
+            
+            <form id="blogForm" onsubmit="publishBlog(event)">
+              <div class="form-grid">
+                <div class="form-group full-width">
+                  <label for="blogTitle">Blog Title <span>*</span></label>
+                  <input type="text" id="blogTitle" required placeholder="e.g., 5 Tips for EV Maintenance">
+                  <p class="form-hint">Keep it catchy and under 60 characters</p>
+                </div>
+                
+                <div class="form-group">
+                  <label for="blogCategory">Category <span>*</span></label>
+                  <select id="blogCategory" required>
+                    <option value="">Select category</option>
+                    <option value="EV Tips">EV Tips</option>
+                    <option value="Maintenance">Maintenance</option>
+                    <option value="Industry News">Industry News</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Buying Guide">Buying Guide</option>
+                    <option value="Safety">Safety</option>
+                    <option value="Battery Care">Battery Care</option>
+                  </select>
+                </div>
+                
+                <div class="form-group">
+                  <label for="blogDate">Publish Date</label>
+                  <input type="date" id="blogDate">
+                </div>
+                
+                <div class="form-group full-width">
+                  <label for="blogSubtitle">Subtitle <span>*</span></label>
+                  <input type="text" id="blogSubtitle" required placeholder="Brief description of the blog">
+                  <p class="form-hint">This appears on the blog card and in search results</p>
+                </div>
+                
+                <div class="form-group">
+                  <label for="blogAuthor">Author Name <span>*</span></label>
+                  <input type="text" id="blogAuthor" required placeholder="e.g., John Doe">
+                </div>
+                
+                <div class="form-group">
+                  <label for="blogReadTime">Reading Time (min)</label>
+                  <input type="number" id="blogReadTime" value="5" min="1" max="60">
+                </div>
+                
+                <div class="form-group full-width">
+                  <label for="blogImage">Featured Image URL <span>*</span></label>
+                  <input type="text" id="blogImage" required placeholder="https://example.com/image.jpg">
+                  <p class="form-hint">Paste a full URL or a relative path starting with /</p>
+                </div>
+                
+                <div class="form-group full-width">
+                  <label for="blogContent">Blog Content <span>*</span></label>
+                  <textarea id="blogContent" required placeholder="Write your blog content here...
 
 Use:
 # Heading 1
@@ -368,40 +719,71 @@ Use:
 * Bullet points
 > Blockquote
 
-Or just write plain paragraphs separated by blank lines."></textarea>
-          <p class="form-hint">Supports: # Heading, ## Subheading, - or * for bullets, > for quotes</p>
+Or just write plain paragraphs."></textarea>
+                  <p class="form-hint">Supports: # Heading, ## Subheading, - or * for bullets, > for quotes</p>
+                </div>
+                
+                <div class="form-group full-width">
+                  <label for="blogTags">Tags (comma separated)</label>
+                  <input type="text" id="blogTags" placeholder="e.g., EV, Battery, Maintenance">
+                </div>
+              </div>
+              
+              <div class="form-actions">
+                <button type="button" class="btn btn-secondary" onclick="resetForm()">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="publishBtn">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 5v14M5 12h14"/>
+                  </svg>
+                  Publish Blog
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
 
-        <div class="form-row">
-          <div class="form-group">
-            <label for="blogTags">Tags (comma separated)</label>
-            <input type="text" id="blogTags" placeholder="e.g., EV, Battery, Maintenance">
+        <!-- Existing Blogs -->
+        <div class="panel-card">
+          <div class="panel-header">
+            <h2>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+              </svg>
+              Existing Blogs
+            </h2>
+            <div style="display: flex; gap: 0.5rem;">
+              <button class="btn btn-warning" onclick="syncUserView()" title="Sync to user view">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                </svg>
+                Sync
+              </button>
+              <button class="btn btn-danger" onclick="clearLocalStorage()" title="Delete all blogs">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                </svg>
+                Clear All
+              </button>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="blogReadTime">Reading Time (minutes)</label>
-            <input type="number" id="blogReadTime" value="5" min="1" max="60">
+          <div class="panel-body">
+            <div id="blogList" class="entries-list">
+              <div class="empty-state">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"/>
+                </svg>
+                <h3>No Blogs Yet</h3>
+                <p>Create your first blog post</p>
+              </div>
+            </div>
           </div>
-        </div>
-
-        <div style="display: flex; gap: 0.75rem;">
-          <button class="btn" onclick="publishBlog()" id="publishBtn">
-            <span id="publishText">Publish Blog</span>
-          </button>
-          <button class="btn-secondary" onclick="toggleForm()">Cancel</button>
         </div>
       </div>
-
-      <!-- Blog List -->
-      <div id="blogList" class="blog-list">
-        <div class="empty-state">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"/>
-          </svg>
-          <p>No blogs yet. Click "+ New Blog" to create one.</p>
-        </div>
-      </div>
-    </div>
+    </main>
   </div>
+
+  <!-- Success Toast -->
+  <div id="successToast" class="success-toast"></div>
 
   <!-- Success Overlay -->
   <div id="successOverlay" class="success-overlay" onclick="closeSuccess()">
@@ -415,74 +797,23 @@ Or just write plain paragraphs separated by blank lines."></textarea>
       <p>Your blog has been successfully published and is now live.</p>
       <a href="#" id="viewBlogLink" target="_blank">View Blog Post →</a>
       <br><br>
-      <button class="btn" onclick="closeSuccess()" style="width: auto; padding: 0.625rem 2rem;">Create Another</button>
+      <button class="btn btn-primary" onclick="closeSuccess()">Create Another</button>
     </div>
   </div>
 
   <script>
     const ADMIN_PASSWORD = 'aerthadmin123';
-    let isLoggedIn = false;
-    
-    // Initialize
-    document.getElementById('blogDate').value = '2026-03-05';
-    
-    // Check if already logged in (session)
-    if (sessionStorage.getItem('adminToken')) {
-      isLoggedIn = true;
-      showAdmin();
-      loadBlogs();
-    }
-    
-    // Login on Enter key
-    document.getElementById('adminPassword').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') login();
-    });
-    
-    function login() {
-      const password = document.getElementById('adminPassword').value;
-      const errorEl = document.getElementById('loginError');
-      
-      if (password === ADMIN_PASSWORD) {
-        isLoggedIn = true;
-        // Use same session format as admin.html
-        const session = {
-          password: password,
-          expiry: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
-        };
-        localStorage.setItem('aerth_admin_session', JSON.stringify(session));
-        showAdmin();
-        loadBlogs();
-      } else {
-        errorEl.style.display = 'block';
-        document.getElementById('adminPassword').value = '';
-      }
-    }
     
     function logout() {
-      isLoggedIn = false;
       localStorage.removeItem('aerth_admin_session');
-      document.getElementById('loginScreen').style.display = 'flex';
-      document.getElementById('adminScreen').style.display = 'none';
-      document.getElementById('adminPassword').value = '';
-      document.getElementById('loginError').style.display = 'none';
+      window.location.href = 'admin.html';
     }
     
-    function showAdmin() {
-      document.getElementById('loginScreen').style.display = 'none';
-      document.getElementById('adminScreen').style.display = 'block';
-    }
-    
-    function toggleForm() {
-      const form = document.getElementById('blogForm');
-      form.classList.toggle('show');
-      if (form.classList.contains('show')) {
-        document.getElementById('blogTitle').focus();
-      }
-    }
+    // Initialize date
+    document.getElementById('blogDate').value = new Date().toISOString().split('T')[0];
     
     async function loadBlogs() {
       try {
-        // Try to load from localStorage first (admin changes)
         let blogs = [];
         try {
           const stored = localStorage.getItem('adminBlogs');
@@ -493,62 +824,80 @@ Or just write plain paragraphs separated by blank lines."></textarea>
           console.log('No localStorage blogs, loading from file');
         }
         
-        // If no localStorage blogs, load from blogs.json file
         if (blogs.length === 0) {
           const response = await fetch('blogs/blogs.json');
           blogs = await response.json();
         }
         
-        const listEl = document.getElementById('blogList');
-        
-        if (blogs.length === 0) {
-          listEl.innerHTML = `
-            <div class="empty-state">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"/>
-              </svg>
-              <p>No blogs yet. Click "+ New Blog" to create one.</p>
-            </div>`;
-          return;
-        }
-        
-        listEl.innerHTML = blogs.map(blog => `
-          <div class="blog-item">
-            <div class="blog-info">
-              <h4>${escapeHtml(blog.title)}</h4>
-              <p>${escapeHtml(blog.subtitle || '').substring(0, 80)}${(blog.subtitle || '').length > 80 ? '...' : ''}</p>
-            </div>
-            <div class="blog-meta">
-              <span class="blog-category">${escapeHtml(blog.category || 'General')}</span>
-              <a href="blog-post.html?slug=${blog.slug}" target="_blank" class="btn-secondary" style="padding: 0.375rem 0.75rem;">View</a>
-              <button class="btn-primary" style="padding: 0.375rem 0.75rem;" onclick="editBlog('${blog.slug}')">Edit</button>
-              <button class="btn-danger" style="padding: 0.375rem 0.75rem;" onclick="deleteBlog('${blog.slug}')">Delete</button>
-            </div>
-          </div>
-        `).join('');
+        renderBlogs(blogs);
       } catch (error) {
         console.error('Error loading blogs:', error);
       }
     }
     
-    async function publishBlog() {
-      // Make sure form is visible first
-      const form = document.getElementById('blogForm');
-      if (form && !form.classList.contains('show')) {
-        form.classList.add('show');
-      }
+    function renderBlogs(blogs) {
+      const container = document.getElementById('blogList');
+      const count = document.getElementById('blogCount');
       
-      // Wait a bit for form to render
-      await new Promise(resolve => setTimeout(resolve, 100));
+      count.textContent = blogs.length;
       
-      // Get button directly - don't rely on span
-      const publishBtn = document.getElementById('publishBtn');
-      
-      if (!publishBtn) {
-        console.error('Publish button not found');
-        alert('Error: Form elements not found. Please try again.');
+      if (blogs.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"/>
+            </svg>
+            <h3>No Blogs Yet</h3>
+            <p>Create your first blog post</p>
+          </div>
+        `;
         return;
       }
+      
+      container.innerHTML = blogs.map(blog => `
+        <div class="blog-item">
+          <div class="blog-thumb">
+            <img src="${blog.featuredImage || 'evx-s.png'}" alt="${escapeHtml(blog.title)}">
+          </div>
+          <div class="blog-info">
+            <h4>${escapeHtml(blog.title)}</h4>
+            <p>${escapeHtml(blog.subtitle || '').substring(0, 80)}${(blog.subtitle || '').length > 80 ? '...' : ''}</p>
+          </div>
+          <div class="blog-meta">
+            <span class="blog-category">${escapeHtml(blog.category || 'General')}</span>
+            <a href="blog-post.html?slug=${blog.slug}" target="_blank" class="btn-icon" title="View">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+              </svg>
+            </a>
+            <button class="btn-icon" onclick="editBlog('${blog.slug}')" title="Edit">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              </svg>
+            </button>
+            <button class="btn-icon delete" onclick="deleteBlog('${blog.slug}')" title="Delete">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+    
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+    
+    async function publishBlog(event) {
+      event.preventDefault();
+      
+      const btn = document.getElementById('publishBtn');
+      const originalContent = btn.innerHTML;
       
       const title = document.getElementById('blogTitle').value.trim();
       const subtitle = document.getElementById('blogSubtitle').value.trim();
@@ -560,17 +909,18 @@ Or just write plain paragraphs separated by blank lines."></textarea>
       const readTime = document.getElementById('blogReadTime').value || 5;
       const date = document.getElementById('blogDate').value || new Date().toISOString().split('T')[0];
       
-      // Validation
       if (!title || !subtitle || !category || !author || !image || !content) {
         const errorEl = document.getElementById('formError');
         errorEl.textContent = 'Please fill in all required fields (*)';
-        errorEl.style.display = 'block';
+        errorEl.classList.add('show');
         return;
       }
       
-      document.getElementById('formError').style.display = 'none';
+      document.getElementById('formError').classList.remove('show');
       
-      // Create slug or use existing for edit
+      btn.innerHTML = '<span class="loading"></span> Publishing...';
+      btn.disabled = true;
+      
       let slug;
       if (window.editingSlug) {
         slug = window.editingSlug;
@@ -593,119 +943,53 @@ Or just write plain paragraphs separated by blank lines."></textarea>
         status: 'published'
       };
       
-      // Show loading using button directly
-      const originalText = publishBtn.textContent;
-      publishBtn.innerHTML = '<span class="loading"></span> Publishing...';
-      publishBtn.disabled = true;
-      
       try {
-        // Load from localStorage first (preserves deletions)
         let blogs = [];
         try {
           const stored = localStorage.getItem('adminBlogs');
           if (stored) {
             blogs = JSON.parse(stored);
-            console.log('Loaded blogs from localStorage:', blogs.length);
           } else {
-            // Only load from JSON if no localStorage exists
             const response = await fetch('blogs/blogs.json');
             blogs = await response.json();
-            console.log('Loaded blogs from JSON file:', blogs.length);
           }
         } catch (e) {
           console.log('Error loading blogs, creating new array:', e);
         }
         
         if (window.editingSlug) {
-          // Update existing blog
           const index = blogs.findIndex(b => b.slug === window.editingSlug);
           if (index !== -1) {
             blogs[index] = { ...blog, id: blogs[index].id };
           }
         } else {
-          // Add new blog
           blogs.push(blog);
         }
         
-        // Save to localStorage for admin
         localStorage.setItem('adminBlogs', JSON.stringify(blogs));
-        console.log('Blog saved to localStorage:', blog);
-        console.log('Total blogs in localStorage:', blogs.length);
         
-        // Reset edit mode
         window.editingSlug = null;
-        document.getElementById('publishBtn').textContent = 'Publish Blog';
+        btn.innerHTML = originalContent;
         
-        // Reload list immediately
-        console.log('Reloading blog list...');
         loadBlogs();
         
-        // Show success after list reload
         setTimeout(() => {
           document.getElementById('viewBlogLink').href = `blog-post.html?slug=${slug}`;
           document.getElementById('successOverlay').classList.add('show');
-          console.log('Success overlay shown');
         }, 200);
         
-        // Clear form
-        document.getElementById('blogCategory').value = '';
-        document.getElementById('blogAuthor').value = '';
-        document.getElementById('blogImage').value = '';
-        document.getElementById('blogContent').value = '';
-        document.getElementById('blogTags').value = '';
-        document.getElementById('blogReadTime').value = '5';
-        document.getElementById('blogDate').value = '2026-03-05';
+        resetForm();
       } catch (error) {
         console.error('Publish error:', error);
-        alert('Error publishing blog. Please try again.');
+        showSuccess('Error publishing blog. Please try again.');
       } finally {
-        publishBtn.textContent = originalText;
-        if (publishBtn) publishBtn.disabled = false;
-      }
-    }
-    
-    async function deleteBlog(slug) {
-      if (!confirm('Are you sure you want to delete this blog?')) return;
-      
-      try {
-        // Get blogs from localStorage (same as publishBlog)
-        let blogs = [];
-        try {
-          const stored = localStorage.getItem('adminBlogs');
-          if (stored) {
-            blogs = JSON.parse(stored);
-          } else {
-            // Fallback to JSON file
-            const response = await fetch('blogs/blogs.json');
-            blogs = await response.json();
-          }
-        } catch (e) {
-          console.error('Error loading blogs:', e);
-          alert('Error loading blogs. Please try again.');
-          return;
-        }
-        
-        // Remove blog from array
-        blogs = blogs.filter(blog => blog.slug !== slug);
-        
-        // Save back to localStorage
-        localStorage.setItem('adminBlogs', JSON.stringify(blogs));
-        
-        // Reload blog list
-        loadBlogs();
-        
-        // Show success message
-        showSuccessMessage('Blog deleted successfully!');
-        
-      } catch (error) {
-        console.error('Delete error:', error);
-        alert('Error deleting blog. Please try again.');
+        btn.innerHTML = originalContent;
+        btn.disabled = false;
       }
     }
     
     async function editBlog(slug) {
       try {
-        // Load blog data from localStorage first (admin changes)
         let blogs = [];
         try {
           const stored = localStorage.getItem('adminBlogs');
@@ -716,106 +1000,114 @@ Or just write plain paragraphs separated by blank lines."></textarea>
           console.log('No localStorage blogs, loading from file');
         }
         
-        // If no localStorage blogs, load from blogs.json file
         if (blogs.length === 0) {
           const response = await fetch('blogs/blogs.json');
           blogs = await response.json();
         }
         
         const blog = blogs.find(b => b.slug === slug);
-        
         if (!blog) {
-          alert('Blog not found');
+          showSuccess('Blog not found');
           return;
         }
         
-        // Show form first
-        const form = document.getElementById('blogForm');
-        form.classList.add('show');
+        document.getElementById('blogTitle').value = blog.title || '';
+        document.getElementById('blogSubtitle').value = blog.subtitle || '';
+        document.getElementById('blogCategory').value = blog.category || '';
+        document.getElementById('blogAuthor').value = blog.author || '';
+        document.getElementById('blogImage').value = blog.featuredImage || '';
+        document.getElementById('blogContent').value = blog.content || '';
+        document.getElementById('blogTags').value = (blog.tags || []).join(', ');
+        document.getElementById('blogReadTime').value = blog.readingTimeMinutes || '5';
+        document.getElementById('blogDate').value = blog.publishedDate || new Date().toISOString().split('T')[0];
         
-        // Wait a bit for form to be visible, then fill data
-        setTimeout(() => {
-          // Fill form with blog data
-          document.getElementById('blogTitle').value = blog.title || '';
-          document.getElementById('blogSubtitle').value = blog.subtitle || '';
-          document.getElementById('blogCategory').value = blog.category || '';
-          document.getElementById('blogAuthor').value = blog.author || '';
-          document.getElementById('blogImage').value = blog.featuredImage || '';
-          document.getElementById('blogContent').value = blog.content || '';
-          document.getElementById('blogTags').value = (blog.tags || []).join(', ');
-          document.getElementById('blogReadTime').value = blog.readingTime || '5';
-          
-          document.getElementById('blogTitle').focus();
-          
-          // Store edit mode
-          window.editingSlug = slug;
-          
-          // Change button text
-          const publishBtn = document.getElementById('publishBtn');
-          if (publishBtn) {
-            publishBtn.textContent = 'Update Blog';
-          }
-        }, 100);
+        window.editingSlug = slug;
         
+        document.getElementById('formTitle').innerHTML = `
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+            <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+          </svg>
+          Edit Blog
+        `;
+        document.getElementById('publishBtn').innerHTML = `
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+            <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+          </svg>
+          Update Blog
+        `;
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } catch (error) {
         console.error('Edit error:', error);
-        alert('Error loading blog for editing');
+        showSuccess('Error loading blog for editing');
       }
+    }
+    
+    async function deleteBlog(slug) {
+      if (!confirm('Are you sure you want to delete this blog?')) return;
+      
+      try {
+        let blogs = [];
+        try {
+          const stored = localStorage.getItem('adminBlogs');
+          if (stored) {
+            blogs = JSON.parse(stored);
+          } else {
+            const response = await fetch('blogs/blogs.json');
+            blogs = await response.json();
+          }
+        } catch (e) {
+          console.error('Error loading blogs:', e);
+          showSuccess('Error loading blogs. Please try again.');
+          return;
+        }
+        
+        blogs = blogs.filter(blog => blog.slug !== slug);
+        localStorage.setItem('adminBlogs', JSON.stringify(blogs));
+        
+        loadBlogs();
+        showSuccess('Blog deleted successfully!');
+      } catch (error) {
+        console.error('Delete error:', error);
+        showSuccess('Error deleting blog. Please try again.');
+      }
+    }
+    
+    function resetForm() {
+      document.getElementById('blogForm').reset();
+      document.getElementById('blogDate').value = new Date().toISOString().split('T')[0];
+      document.getElementById('formError').classList.remove('show');
+      window.editingSlug = null;
+      
+      document.getElementById('formTitle').innerHTML = `
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 5v14M5 12h14"/>
+        </svg>
+        Add New Blog
+      `;
+      document.getElementById('publishBtn').innerHTML = `
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 5v14M5 12h14"/>
+        </svg>
+        Publish Blog
+      `;
     }
     
     function closeSuccess() {
       document.getElementById('successOverlay').classList.remove('show');
-      document.getElementById('blogForm').classList.remove('show');
     }
     
-    function escapeHtml(text) {
-      const div = document.createElement('div');
-      div.textContent = text;
-      return div.innerHTML;
+    function showSuccess(message) {
+      const toast = document.getElementById('successToast');
+      toast.textContent = message;
+      toast.style.display = 'block';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 3000);
     }
     
-    function showSuccessMessage(message) {
-      const msg = document.createElement('div');
-      msg.className = 'success-message';
-      msg.textContent = message;
-      msg.style.cssText = `
-        position: fixed; top: 2rem; right: 2rem; z-index: 2000;
-        background: var(--accent); color: white; padding: 1rem 1.5rem;
-        border-radius: var(--radius); box-shadow: 0 4px 16px rgba(0,148,255,0.3);
-        animation: slideIn 0.3s ease;
-      `;
-      document.body.appendChild(msg);
-      setTimeout(() => msg.remove(), 3000);
-    }
-    
-    // Function to update all blog dates to March 5th, 2026
-    function updateAllBlogDates() {
-      try {
-        const stored = localStorage.getItem('adminBlogs');
-        if (stored) {
-          const blogs = JSON.parse(stored);
-          const updatedBlogs = blogs.map(blog => ({
-            ...blog,
-            publishedDate: '2026-03-05'
-          }));
-          
-          localStorage.setItem('adminBlogs', JSON.stringify(updatedBlogs));
-          console.log(`Updated ${updatedBlogs.length} blog dates to March 5th, 2026`);
-          
-          // Reload the blog list to show changes
-          loadBlogs();
-          
-          showSuccessMessage(`Updated ${updatedBlogs.length} blog dates to March 5th, 2026`);
-        } else {
-          alert('No blogs found in localStorage to update');
-        }
-      } catch (error) {
-        console.error('Error updating blog dates:', error);
-        alert('Error updating blog dates. Please try again.');
-      }
-    }
-    
-    // Function to clear ALL blogs from localStorage
     function clearLocalStorage() {
       if (!confirm('⚠️ This will delete ALL blogs from localStorage. Are you sure?')) {
         return;
@@ -823,39 +1115,30 @@ Or just write plain paragraphs separated by blank lines."></textarea>
       
       try {
         localStorage.removeItem('adminBlogs');
-        console.log('Cleared ALL blogs from localStorage');
-        
-        // Reload blog list (will show empty or fallback to JSON)
         loadBlogs();
-        
-        showSuccessMessage('ALL blogs deleted from localStorage');
+        showSuccess('ALL blogs deleted from localStorage');
       } catch (error) {
         console.error('Error clearing localStorage:', error);
-        alert('Error clearing localStorage. Please try again.');
+        showSuccess('Error clearing localStorage. Please try again.');
       }
     }
     
-    // Function to sync localStorage with current admin blogs
     function syncUserView() {
       try {
         const stored = localStorage.getItem('adminBlogs');
         if (stored) {
           const adminBlogs = JSON.parse(stored);
-          console.log(`Syncing ${adminBlogs.length} blogs to user view`);
-          showSuccessMessage(`Synced ${adminBlogs.length} blogs to user view`);
-          
-          // Force reload of user-facing page blogs
-          if (typeof window.loadUserBlogs === 'function') {
-            window.loadUserBlogs();
-          }
+          showSuccess(`Synced ${adminBlogs.length} blogs to user view`);
         } else {
-          alert('No blogs in localStorage to sync');
+          showSuccess('No blogs in localStorage to sync');
         }
       } catch (error) {
         console.error('Error syncing blogs:', error);
-        alert('Error syncing blogs. Please try again.');
+        showSuccess('Error syncing blogs. Please try again.');
       }
     }
+    
+    document.addEventListener('DOMContentLoaded', loadBlogs);
   </script>
 </body>
 </html>
