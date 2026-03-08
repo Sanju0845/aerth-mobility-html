@@ -535,7 +535,25 @@ app.put('/api/voice-of-trust/:id', (req, res) => {
     const index = data.entries.findIndex(e => e.id === id);
     
     if (index === -1) {
-      return res.status(404).json({ success: false, error: 'Entry not found' });
+      // Entry not found - create it as new (upsert behavior)
+      const newEntry = {
+        id: id,
+        videoUrl: entry.videoUrl,
+        personName: entry.personName,
+        title: entry.title || '',
+        business: entry.business || '',
+        location: entry.location || '',
+        quote: entry.quote || '',
+        publishedDate: entry.publishedDate || new Date().toISOString().split('T')[0]
+      };
+      data.entries.unshift(newEntry);
+      saveVOTEntries(data);
+      
+      return res.json({ 
+        success: true, 
+        message: 'Voice of Trust entry created successfully!',
+        entry: newEntry
+      });
     }
     
     data.entries[index] = { ...data.entries[index], ...entry, id };
