@@ -398,18 +398,7 @@
   </style>
 </head>
 <body>
-  <!-- Password Protection Modal -->
-  <div id="passwordModal" class="password-modal">
-    <div class="password-modal-content">
-      <h2>🔒 Admin Access</h2>
-      <p style="color: var(--text-muted); margin-bottom: 1rem;">Enter admin password to continue</p>
-      <input type="password" id="adminPassword" placeholder="Password" onkeypress="if(event.key==='Enter')checkPassword()">
-      <button class="btn-primary" style="width: 100%;" onclick="checkPassword()">Access</button>
-      <p id="passwordError" style="color: #d32f2f; margin-top: 0.5rem; font-size: 0.875rem; display: none;">Invalid password</p>
-    </div>
-  </div>
-
-  <div class="admin-container" id="adminContent" style="display: none;">
+  <div class="admin-container">
     <a href="admin.html" class="back-btn">← Back to Dashboard</a>
     
     <div class="admin-header">
@@ -494,39 +483,9 @@
   </div>
 
   <script>
-    // Admin password check
-    const ADMIN_PASSWORD = 'aerthadmin123';
+    // Load entries from localStorage
     let entries = [];
     
-    function checkPassword() {
-      const input = document.getElementById('adminPassword').value;
-      if (input === ADMIN_PASSWORD) {
-        document.getElementById('passwordModal').classList.add('hidden');
-        document.getElementById('adminContent').style.display = 'block';
-        loadEntries();
-      } else {
-        document.getElementById('passwordError').style.display = 'block';
-      }
-    }
-    
-    // Check if already logged in
-    function checkAdminSession() {
-      const session = localStorage.getItem('aerth_admin_session');
-      if (session) {
-        try {
-          const data = JSON.parse(session);
-          if (data.password === ADMIN_PASSWORD && new Date(data.expiry) > new Date()) {
-            document.getElementById('passwordModal').classList.add('hidden');
-            document.getElementById('adminContent').style.display = 'block';
-            loadEntries();
-            return;
-          }
-        } catch (e) {}
-        localStorage.removeItem('aerth_admin_session');
-      }
-    }
-    
-    // Load entries from localStorage
     function loadEntries() {
       const stored = localStorage.getItem('aerth_voice_of_trust');
       if (stored) {
@@ -689,7 +648,7 @@
     }
     
     // Initialize
-    document.addEventListener('DOMContentLoaded', checkAdminSession);
+    document.addEventListener('DOMContentLoaded', loadEntries);
   </script>
 </body>
 </html>
