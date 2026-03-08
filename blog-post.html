@@ -241,22 +241,7 @@
         renderBlog(blog);
       })
       .catch(function() {
-        // Fallback to local JSON if API fails
-        fetch('blogs/blogs.json')
-          .then(function(r) { return r.json(); })
-          .then(function(data) {
-            var allBlogs = data || [];
-            var blog = allBlogs.find(function(b) { return b.slug === slug; });
-            
-            if (blog) {
-              renderBlog(blog);
-            } else {
-              showError('Blog post not found');
-            }
-          })
-          .catch(function() {
-            showError('Error loading blog post');
-          });
+        showError('Blog post not found');
       });
 
     function renderBlog(b) {
