@@ -398,6 +398,27 @@
   </style>
 </head>
 <body>
+  <!-- Password Protection Check -->
+  <script>
+    (function() {
+      const session = localStorage.getItem('aerth_admin_session');
+      if (!session) {
+        window.location.href = 'admin.html';
+        return;
+      }
+      try {
+        const data = JSON.parse(session);
+        if (data.password !== 'aerthadmin123' || new Date(data.expiry) <= new Date()) {
+          localStorage.removeItem('aerth_admin_session');
+          window.location.href = 'admin.html';
+        }
+      } catch (e) {
+        localStorage.removeItem('aerth_admin_session');
+        window.location.href = 'admin.html';
+      }
+    })();
+  </script>
+  
   <div class="admin-container">
     <a href="admin.html" class="back-btn">← Back to Dashboard</a>
     

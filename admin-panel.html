@@ -258,6 +258,27 @@
   </style>
 </head>
 <body>
+  <!-- Password Protection Check -->
+  <script>
+    (function() {
+      const session = localStorage.getItem('aerth_admin_session');
+      if (!session) {
+        window.location.href = 'admin.html';
+        return;
+      }
+      try {
+        const data = JSON.parse(session);
+        if (data.password !== 'aerthadmin123' || new Date(data.expiry) <= new Date()) {
+          localStorage.removeItem('aerth_admin_session');
+          window.location.href = 'admin.html';
+        }
+      } catch (e) {
+        localStorage.removeItem('aerth_admin_session');
+        window.location.href = 'admin.html';
+      }
+    })();
+  </script>
+
   <div class="container">
     <!-- Login Screen -->
     <div id="loginScreen" class="login-screen">
@@ -423,7 +444,12 @@ Or just write plain paragraphs separated by blank lines."></textarea>
       
       if (password === ADMIN_PASSWORD) {
         isLoggedIn = true;
-        sessionStorage.setItem('adminToken', 'admin-' + Date.now());
+        // Use same session format as admin.html
+        const session = {
+          password: password,
+          expiry: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
+        };
+        localStorage.setItem('aerth_admin_session', JSON.stringify(session));
         showAdmin();
         loadBlogs();
       } else {
@@ -434,7 +460,7 @@ Or just write plain paragraphs separated by blank lines."></textarea>
     
     function logout() {
       isLoggedIn = false;
-      sessionStorage.removeItem('adminToken');
+      localStorage.removeItem('aerth_admin_session');
       document.getElementById('loginScreen').style.display = 'flex';
       document.getElementById('adminScreen').style.display = 'none';
       document.getElementById('adminPassword').value = '';
