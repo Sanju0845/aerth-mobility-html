@@ -541,111 +541,11 @@
           <svg class="blog-search-icon" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke-width="2"/><path stroke-width="2" stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
           <input type="search" class="blog-search" id="blogSearch" placeholder="Search blogs — title, tag, category…" autocomplete="off">
         </div>
-        <select class="blog-sort" id="blogSort">
-          <option value="newest">Newest First</option>
-          <option value="oldest">Oldest First</option>
-        </select>
         <span class="blog-count" id="blogCount"></span>
-        <button class="blog-add-btn" id="addBlogBtn" title="Add New Blog (Admin Only)">
-          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" d="M12 5v14M5 12h14"/></svg>
-          + Blog
-        </button>
       </div>
 
       <!-- Blog Cards Grid -->
       <div class="blog-grid" id="blogGrid"></div>
-
-      <!-- Admin Password Popup -->
-      <div class="admin-popup-overlay" id="adminPopup">
-        <div class="admin-popup">
-          <h3><svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg> Admin Login</h3>
-          <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem;">Enter admin password to add a new blog post.</p>
-          <input type="password" id="adminPassword" placeholder="Enter password..." autocomplete="off">
-          <p class="admin-error" id="adminError">Wrong password! Try again.</p>
-          <div class="admin-popup-buttons">
-            <button class="btn-secondary" onclick="closeAdminPopup()">Cancel</button>
-            <button class="btn-primary" onclick="checkAdminPassword()">Continue</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Blog Creation Form -->
-      <div class="blog-form-overlay" id="blogFormOverlay">
-        <div class="blog-form-container">
-          <div class="blog-form-header">
-            <h2><svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" d="M12 5v14M5 12h14"/></svg> Add New Blog Post</h2>
-            <button class="blog-form-close" onclick="closeBlogForm()">&times;</button>
-          </div>
-          <div class="blog-form-body">
-            <div class="form-group">
-              <label for="blogTitle">Blog Title *</label>
-              <input type="text" id="blogTitle" placeholder="e.g., How to Maintain Your EV Battery">
-              <p class="form-hint">Keep it catchy and under 60 characters</p>
-            </div>
-            <div class="form-group">
-              <label for="blogSubtitle">Subtitle / Short Description *</label>
-              <input type="text" id="blogSubtitle" placeholder="e.g., Essential tips for extending your EV battery life">
-              <p class="form-hint">This appears under the title on the blog card</p>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="blogCategory">Category *</label>
-                <select id="blogCategory">
-                  <option value="">Select Category</option>
-                  <option value="Maintenance">Maintenance</option>
-                  <option value="Technology">Technology</option>
-                  <option value="Industry News">Industry News</option>
-                  <option value="Tips & Guides">Tips & Guides</option>
-                  <option value="Safety">Safety</option>
-                  <option value="Policy">Policy</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="blogAuthor">Author Name *</label>
-                <input type="text" id="blogAuthor" placeholder="e.g., John Doe">
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="blogImage">Featured Image URL *</label>
-              <input type="text" id="blogImage" placeholder="e.g., images/blog/battery-care.jpg">
-              <p class="form-hint">Paste the image path or URL. Image should be 16:9 ratio.</p>
-            </div>
-            <div class="form-group">
-              <label for="blogContent">Blog Content *</label>
-              <textarea id="blogContent" placeholder="Write your blog content here...
-
-You can use simple formatting:
-- Start with a hook
-- Use short paragraphs
-- Add tips and practical advice
-- End with a call-to-action"></textarea>
-              <p class="form-hint">Write in simple language. Use line breaks between paragraphs.</p>
-            </div>
-            <div class="form-group">
-              <label for="blogTags">Tags (comma separated)</label>
-              <input type="text" id="blogTags" placeholder="e.g., battery, maintenance, tips, EV care">
-              <p class="form-hint">These help users find your blog when searching</p>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="blogReadTime">Reading Time (minutes)</label>
-                <input type="number" id="blogReadTime" value="5" min="1" max="30">
-              </div>
-              <div class="form-group">
-                <label for="blogDate">Publish Date</label>
-                <input type="date" id="blogDate">
-              </div>
-            </div>
-          </div>
-          <div class="blog-form-footer">
-            <button class="btn-cancel" onclick="closeBlogForm()">Cancel</button>
-            <button class="btn-save" onclick="saveBlogPost()">
-              <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" d="M5 13l4 4L19 7"/></svg>
-              Publish Blog
-            </button>
-          </div>
-        </div>
-      </div>
 
       <!-- Pagination -->
       <nav class="blog-pagination" id="blogPagination" aria-label="Blog pagination"></nav>
@@ -665,7 +565,6 @@ You can use simple formatting:
     var pagination = document.getElementById('blogPagination');
     var pageInfo = document.getElementById('blogPageInfo');
     var searchInput = document.getElementById('blogSearch');
-    var sortSelect = document.getElementById('blogSort');
     var countEl = document.getElementById('blogCount');
 
     // Load blogs - prioritize localStorage (admin changes) then fallback to JSON
@@ -721,7 +620,6 @@ You can use simple formatting:
     loadBlogs();
 
     searchInput.addEventListener('input', function () { currentPage = 1; applyFilters(); });
-    sortSelect.addEventListener('change', function () { sortDir = this.value; currentPage = 1; applyFilters(); });
 
     function applyFilters() {
       var q = searchInput.value.trim().toLowerCase();
@@ -733,7 +631,7 @@ You can use simple formatting:
 
       filtered.sort(function (a, b) {
         var da = new Date(a.publishedDate), db = new Date(b.publishedDate);
-        return sortDir === 'newest' ? db - da : da - db;
+        return db - da; // Always newest first
       });
 
       countEl.textContent = filtered.length + ' article' + (filtered.length !== 1 ? 's' : '');
@@ -955,120 +853,6 @@ You can use simple formatting:
       </div>
     </div>
   </div>
-
-  <!-- Admin Blog Functions -->
-  <script>
-    const ADMIN_PASSWORD = 'aerthadmin123';
-    
-    // + Blog button click
-    document.getElementById('addBlogBtn').addEventListener('click', function() {
-      document.getElementById('adminPopup').classList.add('show');
-      document.getElementById('adminPassword').value = '';
-      document.getElementById('adminPassword').focus();
-      document.getElementById('adminError').style.display = 'none';
-    });
-    
-    // Close admin popup
-    function closeAdminPopup() {
-      document.getElementById('adminPopup').classList.remove('show');
-    }
-    
-    // Check admin password
-    function checkAdminPassword() {
-      const input = document.getElementById('adminPassword').value;
-      if (input === ADMIN_PASSWORD) {
-        closeAdminPopup();
-        openBlogForm();
-      } else {
-        document.getElementById('adminError').style.display = 'block';
-        document.getElementById('adminPassword').value = '';
-        document.getElementById('adminPassword').focus();
-      }
-    }
-    
-    // Enter key on password
-    document.getElementById('adminPassword').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') checkAdminPassword();
-    });
-    
-    // Open blog form
-    function openBlogForm() {
-      document.getElementById('blogFormOverlay').classList.add('show');
-      document.getElementById('blogDate').value = new Date().toISOString().split('T')[0];
-      document.getElementById('blogTitle').focus();
-    }
-    
-    // Close blog form
-    function closeBlogForm() {
-      document.getElementById('blogFormOverlay').classList.remove('show');
-      // Clear form
-      document.getElementById('blogTitle').value = '';
-      document.getElementById('blogSubtitle').value = '';
-      document.getElementById('blogCategory').value = '';
-      document.getElementById('blogAuthor').value = '';
-      document.getElementById('blogImage').value = '';
-      document.getElementById('blogContent').value = '';
-      document.getElementById('blogTags').value = '';
-      document.getElementById('blogReadTime').value = '5';
-    }
-    
-    // Save blog post
-    function saveBlogPost() {
-      const title = document.getElementById('blogTitle').value.trim();
-      const subtitle = document.getElementById('blogSubtitle').value.trim();
-      const category = document.getElementById('blogCategory').value;
-      const author = document.getElementById('blogAuthor').value.trim();
-      const image = document.getElementById('blogImage').value.trim();
-      const content = document.getElementById('blogContent').value.trim();
-      const tags = document.getElementById('blogTags').value.split(',').map(t => t.trim()).filter(t => t);
-      const readTime = document.getElementById('blogReadTime').value || 5;
-      const date = document.getElementById('blogDate').value || new Date().toISOString().split('T')[0];
-      
-      // Validation
-      if (!title || !subtitle || !category || !author || !image || !content) {
-        alert('Please fill in all required fields (*)');
-        return;
-      }
-      
-      // Create blog object
-      const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '').substring(0, 50);
-      const newBlog = {
-        id: 'admin-' + Date.now(),
-        slug: slug,
-        title: title,
-        subtitle: subtitle,
-        excerpt: subtitle,
-        category: category,
-        author: author,
-        featuredImage: image,
-        content: content,
-        tags: tags,
-        readingTimeMinutes: parseInt(readTime),
-        publishedDate: date,
-        status: 'published'
-      };
-      
-      // Save to localStorage
-      let adminBlogs = JSON.parse(localStorage.getItem('adminBlogs') || '[]');
-      adminBlogs.unshift(newBlog); // Add to beginning
-      localStorage.setItem('adminBlogs', JSON.stringify(adminBlogs));
-      
-      // Close form and redirect to new blog post
-      closeBlogForm();
-      alert('Blog published successfully!');
-      
-      // Redirect to the new blog post
-      window.location.href = 'blog-post.html?slug=' + slug;
-    }
-    
-    // Close popups on overlay click
-    document.getElementById('adminPopup').addEventListener('click', function(e) {
-      if (e.target === this) closeAdminPopup();
-    });
-    document.getElementById('blogFormOverlay').addEventListener('click', function(e) {
-      if (e.target === this) closeBlogForm();
-    });
-  </script>
 
   <script src="evx.js"></script>
 </body>
