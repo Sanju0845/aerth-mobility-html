@@ -331,117 +331,6 @@ app.post('/api/admin/login', (req, res) => {
   }
 });
 
-// API: Publish blog - creates actual HTML file
-app.post('/api/blog/publish', (req, res) => {
-  const { password, blog } = req.body;
-  
-  if (password !== ADMIN_PASSWORD) {
-    return res.status(401).json({ success: false, error: 'Unauthorized' });
-  }
-  
-  if (!blog || !blog.title || !blog.slug) {
-    return res.status(400).json({ success: false, error: 'Blog title and slug required' });
-  }
-  
-  try {
-    // Ensure blogs directory exists
-    const blogsDir = path.join(__dirname, 'blogs');
-    if (!fs.existsSync(blogsDir)) {
-      fs.mkdirSync(blogsDir, { recursive: true });
-    }
-    
-    // Generate HTML content
-    const htmlContent = getBlogTemplate(blog);
-    
-    // Write HTML file
-    const filePath = path.join(blogsDir, `${blog.slug}.html`);
-    fs.writeFileSync(filePath, htmlContent, 'utf8');
-    
-    // Update blogs.json
-    const blogsJsonPath = path.join(blogsDir, 'blogs.json');
-    let blogsData = { blogs: [] };
-    
-    if (fs.existsSync(blogsJsonPath)) {
-      blogsData = JSON.parse(fs.readFileSync(blogsJsonPath, 'utf8'));
-    }
-    
-    // Add new blog to the beginning
-    blogsData.blogs.unshift({
-      id: blog.id || 'blog-' + Date.now(),
-      slug: blog.slug,
-      title: blog.title,
-      subtitle: blog.subtitle,
-      excerpt: blog.subtitle || blog.excerpt || blog.content?.substring(0, 150) + '...',
-      category: blog.category || 'General',
-      author: blog.author || 'Aerth Mobility',
-      featuredImage: blog.featuredImage || '',
-      content: blog.content,
-      tags: blog.tags || [],
-      readingTimeMinutes: blog.readingTimeMinutes || 5,
-      publishedDate: blog.publishedDate || new Date().toISOString().split('T')[0],
-      status: 'published'
-    });
-    
-    fs.writeFileSync(blogsJsonPath, JSON.stringify(blogsData, null, 2), 'utf8');
-    
-    res.json({ 
-      success: true, 
-      message: 'Blog published successfully!',
-      url: `/blogs/${blog.slug}.html`,
-      filePath: filePath
-    });
-  } catch (error) {
-    console.error('Publish error:', error);
-    res.status(500).json({ success: false, error: error.message });
-  }
-});
-
-// API: Get all blogs
-app.get('/api/blogs', (req, res) => {
-  try {
-    const blogsJsonPath = path.join(__dirname, 'blogs', 'blogs.json');
-    if (fs.existsSync(blogsJsonPath)) {
-      const data = JSON.parse(fs.readFileSync(blogsJsonPath, 'utf8'));
-      res.json(data.blogs || []);
-    } else {
-      res.json([]);
-    }
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// API: Delete blog
-app.delete('/api/blog/:slug', (req, res) => {
-  const { password } = req.body;
-  
-  if (password !== ADMIN_PASSWORD) {
-    return res.status(401).json({ success: false, error: 'Unauthorized' });
-  }
-  
-  const { slug } = req.params;
-  
-  try {
-    // Delete HTML file
-    const filePath = path.join(__dirname, 'blogs', `${slug}.html`);
-    if (fs.existsSync(filePath)) {
-      fs.unlinkSync(filePath);
-    }
-    
-    // Update blogs.json
-    const blogsJsonPath = path.join(__dirname, 'blogs', 'blogs.json');
-    if (fs.existsSync(blogsJsonPath)) {
-      const data = JSON.parse(fs.readFileSync(blogsJsonPath, 'utf8'));
-      data.blogs = data.blogs.filter(b => b.slug !== slug);
-      fs.writeFileSync(blogsJsonPath, JSON.stringify(data, null, 2), 'utf8');
-    }
-    
-    res.json({ success: true, message: 'Blog deleted successfully' });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
-});
-
 // ═══════════════════════════════════════════════════════════════
 // Voice of Trust API Endpoints
 // ═══════════════════════════════════════════════════════════════
@@ -593,7 +482,10 @@ app.delete('/api/voice-of-trust/:id', (req, res) => {
 // Blog Management API Endpoints
 // ═══════════════════════════════════════════════════════════════
 
+console.log('Loading blog API endpoints...');
+
 const BLOGS_FILE = path.join(__dirname, 'data', 'blogs.json');
+console.log('BLOGS_FILE:', BLOGS_FILE);
 
 // Ensure blogs data file exists
 function ensureBlogsFile() {
@@ -611,9 +503,14 @@ ensureBlogsFile();
 // Load blogs from file
 function loadBlogs() {
   try {
+    console.log('Loading blogs from:', BLOGS_FILE);
     const data = fs.readFileSync(BLOGS_FILE, 'utf8');
-    return JSON.parse(data);
+    console.log('File content length:', data.length);
+    const parsed = JSON.parse(data);
+    console.log('Loaded blogs:', parsed.blogs.length);
+    return parsed;
   } catch (error) {
+    console.error('Error loading blogs:', error.message);
     return { blogs: [] };
   }
 }
@@ -625,10 +522,14 @@ function saveBlogs(data) {
 
 // API: Get all blogs (public)
 app.get('/api/blogs', (req, res) => {
+  console.log('GET /api/blogs called');
+  console.log('BLOGS_FILE path:', BLOGS_FILE);
   try {
     const data = loadBlogs();
+    console.log('Returning blogs:', data.blogs.length);
     res.json(data.blogs);
   } catch (error) {
+    console.error('Error in GET /api/blogs:', error.message);
     res.status(500).json({ error: error.message });
   }
 });

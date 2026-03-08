@@ -1,0 +1,20 @@
+{
+  "blogs": [
+    {
+      "id": "blog-test-1",
+      "slug": "test-blog",
+      "title": "Test Blog",
+      "subtitle": "This is a test",
+      "category": "EV Tips",
+      "author": "Admin",
+      "featuredImage": "evx-s.png",
+      "content": "Test content",
+      "tags": [
+        "test"
+      ],
+      "readingTimeMinutes": 5,
+      "publishedDate": "2026-03-08",
+      "status": "published"
+    }
+  ]
+}
