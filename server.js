@@ -589,9 +589,182 @@ app.delete('/api/voice-of-trust/:id', (req, res) => {
   }
 });
 
-// Serve admin dashboard
-app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, 'admin.html'));
+// ═══════════════════════════════════════════════════════════════
+// Blog Management API Endpoints
+// ═══════════════════════════════════════════════════════════════
+
+const BLOGS_FILE = path.join(__dirname, 'data', 'blogs.json');
+
+// Ensure blogs data file exists
+function ensureBlogsFile() {
+  const dataDir = path.join(__dirname, 'data');
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir, { recursive: true });
+  }
+  if (!fs.existsSync(BLOGS_FILE)) {
+    fs.writeFileSync(BLOGS_FILE, JSON.stringify({ blogs: [] }, null, 2));
+  }
+}
+
+ensureBlogsFile();
+
+// Load blogs from file
+function loadBlogs() {
+  try {
+    const data = fs.readFileSync(BLOGS_FILE, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    return { blogs: [] };
+  }
+}
+
+// Save blogs to file
+function saveBlogs(data) {
+  fs.writeFileSync(BLOGS_FILE, JSON.stringify(data, null, 2));
+}
+
+// API: Get all blogs (public)
+app.get('/api/blogs', (req, res) => {
+  try {
+    const data = loadBlogs();
+    res.json(data.blogs);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API: Get single blog by slug (public)
+app.get('/api/blogs/:slug', (req, res) => {
+  try {
+    const data = loadBlogs();
+    const blog = data.blogs.find(b => b.slug === req.params.slug);
+    if (!blog) {
+      return res.status(404).json({ error: 'Blog not found' });
+    }
+    res.json(blog);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API: Add new blog
+app.post('/api/blogs', (req, res) => {
+  const { password, blog } = req.body;
+  
+  if (password !== ADMIN_PASSWORD) {
+    return res.status(401).json({ success: false, error: 'Unauthorized' });
+  }
+  
+  if (!blog || !blog.title || !blog.slug) {
+    return res.status(400).json({ success: false, error: 'Title and slug required' });
+  }
+  
+  try {
+    const data = loadBlogs();
+    
+    // Check for duplicate slug
+    if (data.blogs.find(b => b.slug === blog.slug)) {
+      return res.status(400).json({ success: false, error: 'Blog with this slug already exists' });
+    }
+    
+    const newBlog = {
+      id: blog.id || 'blog-' + Date.now(),
+      slug: blog.slug,
+      title: blog.title,
+      subtitle: blog.subtitle || '',
+      category: blog.category || 'General',
+      author: blog.author || '',
+      featuredImage: blog.featuredImage || '',
+      content: blog.content || '',
+      tags: blog.tags || [],
+      readingTimeMinutes: blog.readingTimeMinutes || 5,
+      publishedDate: blog.publishedDate || new Date().toISOString().split('T')[0],
+      status: blog.status || 'published'
+    };
+    
+    data.blogs.unshift(newBlog);
+    saveBlogs(data);
+    
+    res.json({ 
+      success: true, 
+      message: 'Blog created successfully!',
+      blog: newBlog
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// API: Update blog
+app.put('/api/blogs/:slug', (req, res) => {
+  const { password, blog } = req.body;
+  const { slug } = req.params;
+  
+  if (password !== ADMIN_PASSWORD) {
+    return res.status(401).json({ success: false, error: 'Unauthorized' });
+  }
+  
+  try {
+    const data = loadBlogs();
+    const index = data.blogs.findIndex(b => b.slug === slug);
+    
+    if (index === -1) {
+      // Blog not found - create it as new (upsert behavior)
+      const newBlog = {
+        id: blog.id || 'blog-' + Date.now(),
+        slug: slug,
+        title: blog.title || '',
+        subtitle: blog.subtitle || '',
+        category: blog.category || 'General',
+        author: blog.author || '',
+        featuredImage: blog.featuredImage || '',
+        content: blog.content || '',
+        tags: blog.tags || [],
+        readingTimeMinutes: blog.readingTimeMinutes || 5,
+        publishedDate: blog.publishedDate || new Date().toISOString().split('T')[0],
+        status: blog.status || 'published'
+      };
+      data.blogs.unshift(newBlog);
+      saveBlogs(data);
+      
+      return res.json({ 
+        success: true, 
+        message: 'Blog created successfully!',
+        blog: newBlog
+      });
+    }
+    
+    data.blogs[index] = { ...data.blogs[index], ...blog, slug, id: data.blogs[index].id };
+    saveBlogs(data);
+    
+    res.json({ 
+      success: true, 
+      message: 'Blog updated successfully!',
+      blog: data.blogs[index]
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// API: Delete blog
+app.delete('/api/blogs/:slug', (req, res) => {
+  const { password } = req.body;
+  const { slug } = req.params;
+  
+  if (password !== ADMIN_PASSWORD) {
+    return res.status(401).json({ success: false, error: 'Unauthorized' });
+  }
+  
+  try {
+    const data = loadBlogs();
+    data.blogs = data.blogs.filter(b => b.slug !== slug);
+    saveBlogs(data);
+    
+    res.json({ success: true, message: 'Blog deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
 });
 
 // Start server

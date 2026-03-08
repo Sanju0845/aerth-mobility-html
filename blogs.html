@@ -567,32 +567,25 @@
     var searchInput = document.getElementById('blogSearch');
     var countEl = document.getElementById('blogCount');
 
-    // Load blogs - prioritize localStorage (admin changes) then fallback to JSON
+    // Load blogs from API
     function loadBlogs() {
-      console.log('Loading blogs...');
+      console.log('Loading blogs from API...');
       
-      // Try localStorage first
-      try {
-        const stored = localStorage.getItem('adminBlogs');
-        if (stored) {
-          const localStorageBlogs = JSON.parse(stored);
-          console.log('Loaded from localStorage:', localStorageBlogs.length, 'blogs');
-          processBlogsData(localStorageBlogs);
-          return;
-        } else {
-          console.log('No localStorage blogs found');
-        }
-      } catch (e) {
-        console.log('Error loading from localStorage:', e);
-      }
-      
-      // Fallback to blogs.json
-      console.log('Loading from blogs.json...');
-      fetch('blogs/blogs.json')
+      fetch('/api/blogs')
         .then(function (r) { return r.json(); })
         .then(function(data) {
-          console.log('Loaded from blogs.json:', data.length, 'blogs');
+          console.log('Loaded from API:', data.length, 'blogs');
           processBlogsData(data);
+        })
+        .catch(function(error) {
+          console.error('Error loading from API:', error);
+          // Fallback to local JSON if API fails
+          fetch('blogs/blogs.json')
+            .then(function (r) { return r.json(); })
+            .then(function(data) {
+              console.log('Loaded from blogs.json:', data.length, 'blogs');
+              processBlogsData(data);
+            });
         });
     }
     

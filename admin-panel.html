@@ -325,16 +325,6 @@
       background: rgba(239, 68, 68, 0.3);
     }
     
-    .btn-warning {
-      background: rgba(245, 158, 11, 0.2);
-      color: #f59e0b;
-      border: 1px solid rgba(245, 158, 11, 0.3);
-    }
-    
-    .btn-warning:hover {
-      background: rgba(245, 158, 11, 0.3);
-    }
-    
     .entries-list {
       max-height: 600px;
       overflow-y: auto;
@@ -751,20 +741,6 @@ Or just write plain paragraphs."></textarea>
               </svg>
               Existing Blogs
             </h2>
-            <div style="display: flex; gap: 0.5rem;">
-              <button class="btn btn-warning" onclick="syncUserView()" title="Sync to user view">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-                </svg>
-                Sync
-              </button>
-              <button class="btn btn-danger" onclick="clearLocalStorage()" title="Delete all blogs">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                </svg>
-                Clear All
-              </button>
-            </div>
           </div>
           <div class="panel-body">
             <div id="blogList" class="entries-list">
@@ -803,6 +779,7 @@ Or just write plain paragraphs."></textarea>
 
   <script>
     const ADMIN_PASSWORD = 'aerthadmin123';
+    let blogs = [];
     
     function logout() {
       localStorage.removeItem('aerth_admin_session');
@@ -812,30 +789,19 @@ Or just write plain paragraphs."></textarea>
     // Initialize date
     document.getElementById('blogDate').value = new Date().toISOString().split('T')[0];
     
+    // Load blogs from API
     async function loadBlogs() {
       try {
-        let blogs = [];
-        try {
-          const stored = localStorage.getItem('adminBlogs');
-          if (stored) {
-            blogs = JSON.parse(stored);
-          }
-        } catch (e) {
-          console.log('No localStorage blogs, loading from file');
-        }
-        
-        if (blogs.length === 0) {
-          const response = await fetch('blogs/blogs.json');
-          blogs = await response.json();
-        }
-        
-        renderBlogs(blogs);
+        const response = await fetch('/api/blogs');
+        blogs = await response.json();
+        renderBlogs();
       } catch (error) {
         console.error('Error loading blogs:', error);
+        showSuccess('Error loading blogs: ' + error.message);
       }
     }
     
-    function renderBlogs(blogs) {
+    function renderBlogs() {
       const container = document.getElementById('blogList');
       const count = document.getElementById('blogCount');
       
@@ -921,6 +887,7 @@ Or just write plain paragraphs."></textarea>
       btn.innerHTML = '<span class="loading"></span> Publishing...';
       btn.disabled = true;
       
+      // Generate slug from title
       let slug;
       if (window.editingSlug) {
         slug = window.editingSlug;
@@ -944,44 +911,37 @@ Or just write plain paragraphs."></textarea>
       };
       
       try {
-        let blogs = [];
-        try {
-          const stored = localStorage.getItem('adminBlogs');
-          if (stored) {
-            blogs = JSON.parse(stored);
-          } else {
-            const response = await fetch('blogs/blogs.json');
-            blogs = await response.json();
-          }
-        } catch (e) {
-          console.log('Error loading blogs, creating new array:', e);
-        }
-        
+        let response;
         if (window.editingSlug) {
-          const index = blogs.findIndex(b => b.slug === window.editingSlug);
-          if (index !== -1) {
-            blogs[index] = { ...blog, id: blogs[index].id };
-          }
+          // Update existing
+          response = await fetch(`/api/blogs/${slug}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password: ADMIN_PASSWORD, blog })
+          });
         } else {
-          blogs.push(blog);
+          // Add new
+          response = await fetch('/api/blogs', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password: ADMIN_PASSWORD, blog })
+          });
         }
         
-        localStorage.setItem('adminBlogs', JSON.stringify(blogs));
+        const result = await response.json();
         
-        window.editingSlug = null;
-        btn.innerHTML = originalContent;
-        
-        loadBlogs();
-        
-        setTimeout(() => {
+        if (result.success) {
+          await loadBlogs();
+          resetForm();
+          
           document.getElementById('viewBlogLink').href = `blog-post.html?slug=${slug}`;
           document.getElementById('successOverlay').classList.add('show');
-        }, 200);
-        
-        resetForm();
+        } else {
+          showSuccess('Error: ' + (result.error || 'Unknown error'));
+        }
       } catch (error) {
-        console.error('Publish error:', error);
-        showSuccess('Error publishing blog. Please try again.');
+        console.error('Error saving blog:', error);
+        showSuccess('Error saving blog: ' + error.message);
       } finally {
         btn.innerHTML = originalContent;
         btn.disabled = false;
@@ -989,89 +949,60 @@ Or just write plain paragraphs."></textarea>
     }
     
     async function editBlog(slug) {
-      try {
-        let blogs = [];
-        try {
-          const stored = localStorage.getItem('adminBlogs');
-          if (stored) {
-            blogs = JSON.parse(stored);
-          }
-        } catch (e) {
-          console.log('No localStorage blogs, loading from file');
-        }
-        
-        if (blogs.length === 0) {
-          const response = await fetch('blogs/blogs.json');
-          blogs = await response.json();
-        }
-        
-        const blog = blogs.find(b => b.slug === slug);
-        if (!blog) {
-          showSuccess('Blog not found');
-          return;
-        }
-        
-        document.getElementById('blogTitle').value = blog.title || '';
-        document.getElementById('blogSubtitle').value = blog.subtitle || '';
-        document.getElementById('blogCategory').value = blog.category || '';
-        document.getElementById('blogAuthor').value = blog.author || '';
-        document.getElementById('blogImage').value = blog.featuredImage || '';
-        document.getElementById('blogContent').value = blog.content || '';
-        document.getElementById('blogTags').value = (blog.tags || []).join(', ');
-        document.getElementById('blogReadTime').value = blog.readingTimeMinutes || '5';
-        document.getElementById('blogDate').value = blog.publishedDate || new Date().toISOString().split('T')[0];
-        
-        window.editingSlug = slug;
-        
-        document.getElementById('formTitle').innerHTML = `
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
-            <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
-          </svg>
-          Edit Blog
-        `;
-        document.getElementById('publishBtn').innerHTML = `
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
-            <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
-          </svg>
-          Update Blog
-        `;
-        
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } catch (error) {
-        console.error('Edit error:', error);
-        showSuccess('Error loading blog for editing');
-      }
+      const blog = blogs.find(b => b.slug === slug);
+      if (!blog) return;
+      
+      document.getElementById('blogTitle').value = blog.title || '';
+      document.getElementById('blogSubtitle').value = blog.subtitle || '';
+      document.getElementById('blogCategory').value = blog.category || '';
+      document.getElementById('blogAuthor').value = blog.author || '';
+      document.getElementById('blogImage').value = blog.featuredImage || '';
+      document.getElementById('blogContent').value = blog.content || '';
+      document.getElementById('blogTags').value = (blog.tags || []).join(', ');
+      document.getElementById('blogReadTime').value = blog.readingTimeMinutes || '5';
+      document.getElementById('blogDate').value = blog.publishedDate || new Date().toISOString().split('T')[0];
+      
+      window.editingSlug = slug;
+      
+      document.getElementById('formTitle').innerHTML = `
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+          <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+        </svg>
+        Edit Blog
+      `;
+      document.getElementById('publishBtn').innerHTML = `
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+          <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+        </svg>
+        Update Blog
+      `;
+      
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     
     async function deleteBlog(slug) {
       if (!confirm('Are you sure you want to delete this blog?')) return;
       
       try {
-        let blogs = [];
-        try {
-          const stored = localStorage.getItem('adminBlogs');
-          if (stored) {
-            blogs = JSON.parse(stored);
-          } else {
-            const response = await fetch('blogs/blogs.json');
-            blogs = await response.json();
-          }
-        } catch (e) {
-          console.error('Error loading blogs:', e);
-          showSuccess('Error loading blogs. Please try again.');
-          return;
+        const response = await fetch(`/api/blogs/${slug}`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: ADMIN_PASSWORD })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          await loadBlogs();
+          showSuccess('Blog deleted!');
+        } else {
+          showSuccess('Error: ' + (result.error || 'Unknown error'));
         }
-        
-        blogs = blogs.filter(blog => blog.slug !== slug);
-        localStorage.setItem('adminBlogs', JSON.stringify(blogs));
-        
-        loadBlogs();
-        showSuccess('Blog deleted successfully!');
       } catch (error) {
-        console.error('Delete error:', error);
-        showSuccess('Error deleting blog. Please try again.');
+        console.error('Error deleting blog:', error);
+        showSuccess('Error deleting blog: ' + error.message);
       }
     }
     
@@ -1106,36 +1037,6 @@ Or just write plain paragraphs."></textarea>
       setTimeout(() => {
         toast.style.display = 'none';
       }, 3000);
-    }
-    
-    function clearLocalStorage() {
-      if (!confirm('⚠️ This will delete ALL blogs from localStorage. Are you sure?')) {
-        return;
-      }
-      
-      try {
-        localStorage.removeItem('adminBlogs');
-        loadBlogs();
-        showSuccess('ALL blogs deleted from localStorage');
-      } catch (error) {
-        console.error('Error clearing localStorage:', error);
-        showSuccess('Error clearing localStorage. Please try again.');
-      }
-    }
-    
-    function syncUserView() {
-      try {
-        const stored = localStorage.getItem('adminBlogs');
-        if (stored) {
-          const adminBlogs = JSON.parse(stored);
-          showSuccess(`Synced ${adminBlogs.length} blogs to user view`);
-        } else {
-          showSuccess('No blogs in localStorage to sync');
-        }
-      } catch (error) {
-        console.error('Error syncing blogs:', error);
-        showSuccess('Error syncing blogs. Please try again.');
-      }
     }
     
     document.addEventListener('DOMContentLoaded', loadBlogs);

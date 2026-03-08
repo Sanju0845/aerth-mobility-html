@@ -231,36 +231,33 @@
       return;
     }
 
-    // Try to find blog in localStorage first (admin blogs)
-    var adminBlogs = JSON.parse(localStorage.getItem('adminBlogs') || '[]');
-    var blog = adminBlogs.find(function(b) { return b.slug === slug; });
-    
-    // If not found in admin blogs, try to fetch from blogs.json (only works on http/https, not file://)
-    if (!blog) {
-      // Check if running from file:// protocol
-      if (window.location.protocol === 'file:') {
-        showError('Blog not found in local storage.\n\nTo view published blogs, please open this file through a web server (http://localhost) instead of directly from the file system.');
-        return;
-      }
-      
-      fetch('blogs/blogs.json')
-        .then(function(r) { return r.json(); })
-        .then(function(data) {
-          var allBlogs = data || [];
-          blog = allBlogs.find(function(b) { return b.slug === slug; });
-          
-          if (blog) {
-            renderBlog(blog);
-          } else {
-            showError('Blog post not found');
-          }
-        })
-        .catch(function() {
-          showError('Error loading blog post');
-        });
-    } else {
-      renderBlog(blog);
-    }
+    // Fetch blog from API
+    fetch('/api/blogs/' + slug)
+      .then(function(r) { 
+        if (!r.ok) throw new Error('Blog not found');
+        return r.json(); 
+      })
+      .then(function(blog) {
+        renderBlog(blog);
+      })
+      .catch(function() {
+        // Fallback to local JSON if API fails
+        fetch('blogs/blogs.json')
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            var allBlogs = data || [];
+            var blog = allBlogs.find(function(b) { return b.slug === slug; });
+            
+            if (blog) {
+              renderBlog(blog);
+            } else {
+              showError('Blog post not found');
+            }
+          })
+          .catch(function() {
+            showError('Error loading blog post');
+          });
+      });
 
     function renderBlog(b) {
       // Update SEO
