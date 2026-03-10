@@ -192,13 +192,48 @@
   }
   
   .skill-hero p {
-    font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+    font-size: clamp(1rem, 2vw, 1.25rem);
     color: var(--text-secondary);
     max-width: 600px;
-    margin: 0 auto;
+    margin: 0 auto var(--space-lg);
     line-height: 1.6;
   }
   
+  .skill-hero .hero-badge {
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    padding: 0.3rem 2rem;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 148, 255, 0.8);
+    background: rgba(0, 148, 255, 0.08);
+    transition: all 0.3s ease;
+  }
+  
+  .skill-hero .hero-badge::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.6s ease;
+  }
+  
+  .skill-hero .hero-badge:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0, 148, 255, 0.3);
+    border-color: rgba(0, 148, 255, 1);
+    background: rgba(0, 148, 255, 0.12);
+  }
+  
+  .skill-hero .hero-badge:hover::before {
+    left: 100%;
+  }
+  
+    
   .skill-section {
     padding: var(--space-lg) var(--space-md);
     max-width: 1100px;
@@ -742,6 +777,40 @@
     opacity: 1;
   }
   
+  .cta-section .hero-badge {
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    padding: 0.3rem 2rem;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 148, 255, 0.8);
+    background: rgba(0, 148, 255, 0.08);
+    transition: all 0.3s ease;
+  }
+  
+  .cta-section .hero-badge::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.6s ease;
+  }
+  
+  .cta-section .hero-badge:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0, 148, 255, 0.3);
+    border-color: rgba(0, 148, 255, 1);
+    background: rgba(0, 148, 255, 0.12);
+  }
+  
+  .cta-section .hero-badge:hover::before {
+    left: 100%;
+  }
+  
   @media (max-width: 768px) {
     .skill-hero {
       padding: var(--space-lg) var(--space-sm);
@@ -762,6 +831,7 @@
     <section class="skill-hero">
       <div class="skill-hero-content reveal">
         <h1>AERTH EV Skill Center</h1>
+        <p class="editable hero-badge reveal">AERTH Mobility is building the service infrastructure powering India's electric mobility revolution.</p>
         <p>Building India's Next Generation of Electric Vehicle Technicians</p>
       </div>
     </section>
@@ -954,6 +1024,7 @@
 
     <!-- CTA Section -->
     <section class="cta-section reveal">
+      <p class="editable hero-badge reveal">AERTH Mobility is building the service infrastructure powering India's electric mobility revolution.</p>
       <h2>Join the Future of Electric Mobility</h2>
       <p>Develop specialized EV skills and become part of the growing electric mobility ecosystem.</p>
       <div class="cta-buttons">

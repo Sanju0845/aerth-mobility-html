@@ -1,15 +1,16 @@
 {
-  "name": "aerth-mobility-blog",
+  "name": "aerth-mobility-static",
   "version": "1.0.0",
-  "description": "Aerth Mobility Blog Management System",
-  "main": "server.js",
+  "description": "Aerth Mobility Static Website",
+  "main": "index.html",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js"
+    "start": "npx serve .",
+    "dev": "npx serve .",
+    "build": "echo 'No build step required for static site'",
+    "deploy": "wrangler pages deploy ."
   },
   "dependencies": {
-    "cors": "^2.8.6",
-    "express": "^4.22.1"
+    "serve": "^14.2.4"
   },
   "engines": {
     "node": ">=18.0.0"
