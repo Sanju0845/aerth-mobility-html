@@ -495,7 +495,25 @@ function checkAdminStatus() {
 async function loadTestimonials() {
   try {
     const response = await fetch('/api/voice-of-trust');
-    testimonials = await response.json();
+    if (response.ok) {
+      testimonials = await response.json();
+      renderTestimonials();
+      return;
+    }
+  } catch (error) {
+    console.log('API not available, trying static JSON...');
+  }
+  
+  // Fallback to static JSON (for Cloudflare)
+  try {
+    const response = await fetch('/voice-of-trust.json');
+    const contentType = response.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      throw new Error('Voice of Trust data not available - use Railway/Render deployment');
+    }
+    
+    const data = await response.json();
+    testimonials = data.entries || [];
     renderTestimonials();
   } catch (error) {
     console.error('Error loading testimonials:', error);
