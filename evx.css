@@ -1102,6 +1102,13 @@ img { max-width: 100%; height: auto; display: block; }
     var(--bg);
   overflow: hidden;
 }
+
+/* Mobile responsive for why-aerth section */
+@media (max-width: 768px) {
+  .why-aerth {
+    padding: var(--space-lg) var(--space-md);
+  }
+}
 /* Ambient glows */
 .why-aerth-glow {
   position: absolute;
@@ -1126,6 +1133,13 @@ img { max-width: 100%; height: auto; display: block; }
 .why-aerth-header {
   text-align: center;
   margin-bottom: var(--space-2xl);
+}
+
+/* Mobile responsive for why-aerth-header */
+@media (max-width: 768px) {
+  .why-aerth-header {
+    margin-bottom: var(--space-md);
+  }
 }
 .why-aerth-eyebrow {
   font-size: 0.75rem;
