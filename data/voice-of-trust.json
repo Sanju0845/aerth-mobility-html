@@ -1,0 +1,24 @@
+{
+  "entries": [
+    {
+      "id": "1",
+      "name": "Rajesh Kumar",
+      "role": "Fleet Manager",
+      "company": "XYZ Logistics",
+      "videoUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "quote": "Aerth Mobility has transformed our fleet operations. Their EV service is reliable and cost-effective.",
+      "rating": 5,
+      "date": "2024-03-10"
+    },
+    {
+      "id": "2", 
+      "name": "Priya Sharma",
+      "role": "Service Center Owner",
+      "company": "Priya EV Service",
+      "videoUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "quote": "The training and support from Aerth Mobility helped me establish a successful EV service business.",
+      "rating": 5,
+      "date": "2024-03-08"
+    }
+  ]
+}
