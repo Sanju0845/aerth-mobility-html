@@ -928,6 +928,13 @@ Or just write plain paragraphs."></textarea>
           });
         }
         
+        // Check if response is JSON
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+          // Not JSON - likely a 404 or HTML error page from static hosting
+          throw new Error('Blog API not available on static hosting. Admin panel requires Railway deployment to create blogs. For Cloudflare: manually create HTML blog files or use Railway backend.');
+        }
+        
         const result = await response.json();
         
         if (result.success) {
@@ -941,7 +948,7 @@ Or just write plain paragraphs."></textarea>
         }
       } catch (error) {
         console.error('Error saving blog:', error);
-        showSuccess('Error saving blog: ' + error.message);
+        showSuccess('Error: ' + error.message);
       } finally {
         btn.innerHTML = originalContent;
         btn.disabled = false;
@@ -992,6 +999,12 @@ Or just write plain paragraphs."></textarea>
           body: JSON.stringify({ password: ADMIN_PASSWORD })
         });
         
+        // Check if response is JSON
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+          throw new Error('Blog API not available on static hosting. Use Railway deployment for full admin features.');
+        }
+        
         const result = await response.json();
         
         if (result.success) {
@@ -1002,7 +1015,7 @@ Or just write plain paragraphs."></textarea>
         }
       } catch (error) {
         console.error('Error deleting blog:', error);
-        showSuccess('Error deleting blog: ' + error.message);
+        showSuccess('Error: ' + error.message);
       }
     }
     
