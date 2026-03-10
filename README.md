@@ -1,64 +1,19 @@
-# Aerth Mobility Blog System
+# AERTH Mobility
 
-**Live Site:** https://aerthmobility.com/
+**Live Website:** https://aerthmobility.com/
 
-Free blog management system with Railway deployment - creates actual HTML files!
+## About AERTH Mobility
 
-## Features
-- Admin panel with password protection (`aerthadmin123`)
-- Create blogs that generate real HTML files
-- Blogs are publicly visible to everyone
-- SEO optimized with meta tags
-- Social sharing buttons
+AERTH Mobility is building the service infrastructure powering India's electric mobility revolution. We are India's largest network of electric vehicle service centers, providing comprehensive EV solutions including repairs, maintenance, battery diagnostics, fleet services, and professional technician training.
 
-## Railway Deployment (FREE)
+## Our Services
 
-### Step 1: Push to GitHub
-Already done! Code is at: `https://github.com/Sanju0845/aerth-mobility-html`
+- **EV Service Network** - Pan-India service centers for electric two-wheelers
+- **Fleet Solutions** - End-to-end EV fleet maintenance for businesses
+- **Battery Diagnostics** - Advanced battery health assessment and replacement
+- **Skill Development** - EV technician training and certification programs
+- **Franchise Opportunities** - Join India's growing EV service network
 
-### Step 2: Deploy to Railway
-1. Go to [railway.app](https://railway.app)
-2. Click **"New Project"**
-3. Select **"Deploy from GitHub repo"**
-4. Choose: `aerth-mobility-html`
-5. Click **"Add Variables"** and add:
-   - `ADMIN_PASSWORD` = `aerthadmin123` (or your own)
-6. Click **"Deploy"**
+## Technology
 
-### Step 3: Access Your Site
-- **Homepage:** `https://your-project.railway.app`
-- **Admin Panel:** `https://your-project.railway.app/admin`
-- **Published Blogs:** `https://your-project.railway.app/blogs/[slug].html`
-
-## Admin Usage
-1. Visit `/admin`
-2. Password: `aerthadmin123`
-3. Fill blog form → Click **"Publish Blog"**
-4. Blog HTML file is created instantly!
-5. Everyone can see it at `/blogs/[your-blog-slug].html`
-
-## Local Development
-```bash
-npm install
-npm start
-# Open http://localhost:3000/admin
-```
-
-## File Structure
-```
-aerth_with_evxpertz_design/
-├── server.js          # Node.js server (creates HTML files)
-├── admin-panel.html   # Admin dashboard
-├── blogs/             # Generated blog HTML files
-│   ├── blogs.json     # Blog metadata
-│   └── [slug].html    # Individual blog posts
-├── railway.json       # Railway config
-└── ...                # Other site files
-```
-
-## Why Railway?
-- **FREE** tier available
-- Can write files (unlike Vercel)
-- Real HTML files for SEO
-- No build step needed
-- Easy GitHub integration
+This website is built with modern HTML, CSS, and JavaScript, deployed on Cloudflare Pages for fast global delivery and optimal performance.
