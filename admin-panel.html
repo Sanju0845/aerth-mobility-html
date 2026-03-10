@@ -802,18 +802,35 @@ Or just write plain paragraphs."></textarea>
     // Load blogs from static JSON
     async function loadBlogs() {
       try {
+        // Try API first (for Railway/Render)
+        const response = await fetch('/api/blogs');
+        if (response.ok) {
+          const data = await response.json();
+          blogs = data;
+          displayBlogs();
+          updateBlogCount();
+          return;
+        }
+      } catch (error) {
+        console.log('API not available, trying static JSON...');
+      }
+      
+      // Fallback to static JSON (for Cloudflare)
+      try {
         const response = await fetch('/blogs/blogs.json');
         // Check if response is JSON
         const contentType = response.headers.get('content-type');
         if (!contentType || !contentType.includes('application/json')) {
-          throw new Error('Blog data not available');
+          throw new Error('Static JSON not available - use Railway/Render deployment');
         }
-        blogs = await response.json();
-        renderBlogs();
+        
+        const data = await response.json();
+        blogs = data;
+        displayBlogs();
+        updateBlogCount();
       } catch (error) {
         console.error('Error loading blogs:', error);
-        blogs = [];
-        renderBlogs();
+        document.getElementById('blogList').innerHTML = '<p style="color: #ef4444; text-align: center; padding: 2rem;">Error loading blogs. Please deploy to Railway/Render for full admin functionality.</p>';
       }
     }
     

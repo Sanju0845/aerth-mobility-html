@@ -10,8 +10,18 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json({ limit: '10mb' }));
 app.use(cors());
 
-// Serve static files
-app.use(express.static('.'));
+// Serve static files with proper MIME types
+app.use(express.static('.', {
+  setHeaders: (res, path) => {
+    if (path.endsWith('.css')) {
+      res.setHeader('Content-Type', 'text/css');
+    } else if (path.endsWith('.js')) {
+      res.setHeader('Content-Type', 'application/javascript');
+    } else if (path.endsWith('.json')) {
+      res.setHeader('Content-Type', 'application/json');
+    }
+  }
+}));
 
 // Admin password
 const ADMIN_PASSWORD = 'aerthadmin123';
@@ -683,6 +693,15 @@ app.delete('/api/blogs/:slug', (req, res) => {
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
+});
+
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ 
+    status: 'ok', 
+    message: 'Aerth Blog Server is running',
+    timestamp: new Date().toISOString()
+  });
 });
 
 // API: Sync blogs to GitHub (creates static file for commit)
