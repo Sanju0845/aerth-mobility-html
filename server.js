@@ -489,12 +489,19 @@ console.log('BLOGS_FILE:', BLOGS_FILE);
 
 // Ensure blogs data file exists
 function ensureBlogsFile() {
-  const dataDir = path.join(__dirname, 'data');
+  const dataDir = path.dirname(BLOGS_FILE);
+  const staticBlogsDir = path.join(__dirname, 'blogs');
+  
   if (!fs.existsSync(dataDir)) {
     fs.mkdirSync(dataDir, { recursive: true });
   }
   if (!fs.existsSync(BLOGS_FILE)) {
     fs.writeFileSync(BLOGS_FILE, JSON.stringify({ blogs: [] }, null, 2));
+  }
+  
+  // Ensure static blogs directory exists
+  if (!fs.existsSync(staticBlogsDir)) {
+    fs.mkdirSync(staticBlogsDir, { recursive: true });
   }
 }
 
@@ -518,6 +525,16 @@ function loadBlogs() {
 // Save blogs to file
 function saveBlogs(data) {
   fs.writeFileSync(BLOGS_FILE, JSON.stringify(data, null, 2));
+  
+  // Also save to blogs/blogs.json for GitHub sync
+  try {
+    const staticBlogsPath = path.join(__dirname, 'blogs', 'blogs.json');
+    const blogsData = data.blogs || [];
+    fs.writeFileSync(staticBlogsPath, JSON.stringify(blogsData, null, 2));
+    console.log('Also saved to static blogs/blogs.json for GitHub sync');
+  } catch (error) {
+    console.log('Could not save to static blogs.json:', error.message);
+  }
 }
 
 // API: Get all blogs (public)
@@ -663,6 +680,32 @@ app.delete('/api/blogs/:slug', (req, res) => {
     saveBlogs(data);
     
     res.json({ success: true, message: 'Blog deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// API: Sync blogs to GitHub (creates static file for commit)
+app.post('/api/blogs/sync', (req, res) => {
+  const { password } = req.body;
+  
+  if (password !== ADMIN_PASSWORD) {
+    return res.status(401).json({ success: false, error: 'Unauthorized' });
+  }
+  
+  try {
+    const data = loadBlogs();
+    const staticBlogsPath = path.join(__dirname, 'blogs', 'blogs.json');
+    const blogsData = data.blogs || [];
+    
+    fs.writeFileSync(staticBlogsPath, JSON.stringify(blogsData, null, 2));
+    
+    res.json({ 
+      success: true, 
+      message: 'Blogs synced to static file! Now run: git add blogs/blogs.json && git commit -m "Update blogs" && git push origin main',
+      blogsCount: blogsData.length,
+      filePath: staticBlogsPath
+    });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }

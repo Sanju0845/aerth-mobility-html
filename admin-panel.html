@@ -104,13 +104,22 @@
     }
     
     .btn-logout {
-      background: rgba(239, 68, 68, 0.2);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      color: #ef4444;
+      background: #ef4444;
+      color: white;
     }
     
     .btn-logout:hover {
       background: rgba(239, 68, 68, 0.3);
+    }
+    
+    .btn-sync {
+      background: #10b981;
+      color: white;
+    }
+    
+    .btn-sync:hover {
+      background: #059669;
+      transform: translateY(-1px);
     }
     
     .dashboard-content {
@@ -613,6 +622,7 @@
       </div>
       <div class="header-actions">
         <a href="admin.html" class="btn-header btn-back">← Back to Dashboard</a>
+        <button class="btn-header btn-sync" onclick="syncToGitHub()" title="Sync blogs to GitHub for Cloudflare">🔄 Sync to GitHub</button>
         <button class="btn-header btn-logout" onclick="logout()">Logout</button>
       </div>
     </header>
@@ -1056,6 +1066,31 @@ Or just write plain paragraphs."></textarea>
       setTimeout(() => {
         toast.style.display = 'none';
       }, 3000);
+    }
+    
+    // Sync blogs to GitHub
+    async function syncToGitHub() {
+      try {
+        showSuccess('Syncing blogs to GitHub...');
+        
+        const response = await fetch('/api/blogs/sync', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: 'aerthadmin123' })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          showSuccess(`Synced ${result.blogsCount} blogs! Run: git add blogs/blogs.json && git commit -m "Update blogs" && git push origin main`);
+          console.log('Git commands to run:', result.message);
+        } else {
+          showSuccess('Sync failed: ' + (result.error || 'Unknown error'));
+        }
+      } catch (error) {
+        console.error('Sync error:', error);
+        showSuccess('Sync failed: ' + error.message);
+      }
     }
     
     document.addEventListener('DOMContentLoaded', loadBlogs);
