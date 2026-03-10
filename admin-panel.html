@@ -807,7 +807,7 @@ Or just write plain paragraphs."></textarea>
         if (response.ok) {
           const data = await response.json();
           blogs = data;
-          displayBlogs();
+          renderBlogs();
           updateBlogCount();
           return;
         }
@@ -826,7 +826,7 @@ Or just write plain paragraphs."></textarea>
         
         const data = await response.json();
         blogs = data;
-        displayBlogs();
+        renderBlogs();
         updateBlogCount();
       } catch (error) {
         console.error('Error loading blogs:', error);
