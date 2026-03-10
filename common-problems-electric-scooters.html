@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Common Problems in Electric Scooters | EV Troubleshooting Guide | Aerth Mobility</title>
+    <meta name="description" content="Complete guide to common electric scooter problems and troubleshooting. Learn about battery issues, motor problems, brake failures, and how to fix EV scooter issues.">
+    <meta name="keywords" content="common electric scooter problems, EV scooter issues, electric scooter troubleshooting, scooter battery problems, EV motor issues, electric scooter repair">
+    
+    <!-- SEO Meta Tags -->
+    <link rel="profile" href="https://gmpg.org/xfn/11">
+    <meta name="author" content="Aerth Mobility">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="language" content="English">
+    <meta name="distribution" content="global">
+    <meta name="rating" content="general">
+    <meta name="revisit-after" content="3 days">
+    <meta name="theme-color" content="#f2f2f5">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://aerthmobility.com/blog/common-problems-electric-scooters">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Common Problems in Electric Scooters | EV Troubleshooting Guide">
+    <meta property="og:description" content="Complete guide to common electric scooter problems and troubleshooting. Learn about battery issues, motor problems, and how to fix EV scooter issues.">
+    <meta property="og:url" content="https://aerthmobility.com/blog/common-problems-electric-scooters">
+    <meta property="og:site_name" content="Aerth Mobility">
+    <meta property="og:image" content="https://aerthmobility.com/evx-s.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Common Electric Scooter Problems - Aerth Mobility">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@AerthMobility">
+    <meta name="twitter:creator" content="@AerthMobility">
+    <meta name="twitter:title" content="Common Problems in Electric Scooters | EV Troubleshooting">
+    <meta name="twitter:description" content="Complete guide to common electric scooter problems and troubleshooting. Learn how to fix EV scooter issues.">
+    <meta name="twitter:image" content="https://aerthmobility.com/evx-s.png">
+    <meta name="twitter:image:alt" content="Common Electric Scooter Problems - Aerth Mobility">
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="evx.css">
+    <link rel="preload" href="evx-h.png" as="image">
+    <!-- Favicon -->
+    <link rel="icon" href="evx.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="evx.ico">
+    
+    <script>
+    (function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+            'gtm.start': new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-P5X7Q6Q');
+    </script>
+</head>
+<body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P5X7Q6Q" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    
+    <header class="header" id="header">
+        <div class="header-inner">
+            <a href="index.html" class="logo" aria-label="Aerth Mobility Home">
+                <img src="evx-h.png" alt="Aerth Mobility" class="header-logo" loading="eager">
+            </a>
+            <nav class="nav" aria-label="Main navigation">
+                <a href="services.html">Services</a>
+                <a href="spare-parts.html">Spare Parts</a>
+                <a href="fleet.html">Fleet</a>
+                <a href="franchise.html">Franchise</a>
+                <a href="locations.html">Locations</a>
+                <a href="skill-center.html">Skill Center</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+            <a href="https://wa.me/918279773212" class="header-phone">+91 82797 73212</a>
+            <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <style>
+        .blog-hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            padding: var(--space-xl) var(--space-md);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .blog-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(0,255,136,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .blog-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .blog-hero h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: var(--space-md);
+            background: linear-gradient(90deg, var(--neon-green), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+        
+        .blog-hero p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto var(--space-lg);
+            line-height: 1.6;
+        }
+        
+        .blog-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-md);
+            line-height: 1.8;
+            color: var(--dark-text);
+        }
+        
+        .blog-content h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: var(--space-xl) 0 var(--space-md);
+            color: var(--dark-text);
+        }
+        
+        .blog-content h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: var(--space-lg) 0 var(--space-md);
+            color: var(--dark-text);
+        }
+        
+        .problem-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            padding: var(--space-lg);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,255,136,0.1);
+            margin: var(--space-lg) 0;
+            transition: all 0.3s ease;
+        }
+        
+        .problem-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,255,136,0.15);
+        }
+        
+        .problem-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+        
+        .problem-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        
+        .problem-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+        
+        .symptoms-list {
+            background: #f2f2f5;
+            padding: var(--space-md);
+            border-radius: 12px;
+            margin: var(--space-md) 0;
+        }
+        
+        .symptoms-list h4 {
+            color: var(--neon-green);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .symptoms-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .symptoms-list li {
+            padding: var(--space-xs) 0;
+            padding-left: 20px;
+            position: relative;
+            color: var(--text-secondary);
+        }
+        
+        .symptoms-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--neon-green);
+        }
+        
+        .solution-box {
+            background: linear-gradient(135deg, rgba(0,255,136,0.05) 0%, rgba(0,212,255,0.05) 100%);
+            border-left: 4px solid var(--neon-green);
+            padding: var(--space-md);
+            border-radius: 8px;
+            margin: var(--space-md) 0;
+        }
+        
+        .solution-box h4 {
+            color: var(--neon-green);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .cta-section {
+            background: #f2f2f5;
+            padding: var(--space-xl) var(--space-md);
+            text-align: center;
+            margin: var(--space-xl) 0;
+            border-radius: 20px;
+        }
+        
+        .cta-section h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+            color: var(--dark-text);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-blue));
+            color: var(--dark-bg);
+            padding: var(--space-md) var(--space-lg);
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,255,136,0.3);
+        }
+    </style>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="blog-hero">
+            <div class="blog-hero-content reveal">
+                <h1>Common Problems in Electric Scooters</h1>
+                <p>Complete troubleshooting guide for electric scooter issues. Learn about common problems, their symptoms, and how to fix them effectively.</p>
+            </div>
+        </section>
+
+        <!-- Blog Content -->
+        <article class="blog-content">
+            <p>Electric scooters are becoming increasingly popular in India, but like any vehicle, they can experience issues. Understanding common problems and their solutions can help you maintain your EV scooter better and know when to seek professional help.</p>
+
+            <h2>🔋 Battery Problems</h2>
+            
+            <div class="problem-card">
+                <div class="problem-header">
+                    <div class="problem-icon">🔋</div>
+                    <h3 class="problem-title">Battery Not Charging</h3>
+                </div>
+                
+                <div class="symptoms-list">
+                    <h4>Common Symptoms:</h4>
+                    <ul>
+                        <li>Scooter shows charging indicator but battery percentage doesn't increase</li>
+                        <li>Charger gets hot during charging</li>
+                        <li>Battery drains very quickly</li>
+                        <li>Scooter won't turn on even after charging</li>
+                    </ul>
+                </div>
+                
+                <div class="solution-box">
+                    <h4>Solutions:</h4>
+                    <ul>
+                        <li>Check the charger - try a different charger to isolate the issue</li>
+                        <li>Inspect charging port for damage or debris</li>
+                        <li>Check battery connections and wiring</li>
+                        <li>Test battery voltage with a multimeter</li>
+                        <li>Replace faulty charger or charging port</li>
+                        <li>Seek professional help for battery pack issues</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="problem-card">
+                <div class="problem-header">
+                    <div class="problem-icon">🔋</div>
+                    <h3 class="problem-title">Reduced Range</h3>
+                </div>
+                
+                <div class="symptoms-list">
+                    <h4>Common Symptoms:</h4>
+                    <ul>
+                        <li>Battery drains faster than before</li>
+                        <li>Maximum range has decreased significantly</li>
+                        <li>Battery percentage drops suddenly</li>
+                        <li>Scooter needs frequent charging</li>
+                    </ul>
+                </div>
+                
+                <div class="solution-box">
+                    <h4>Solutions:</h4>
+                    <ul>
+                        <li>Check tire pressure - underinflated tires reduce range</li>
+                        <li>Avoid rapid acceleration and hard braking</li>
+                        <li>Charge battery regularly and avoid deep discharge</li>
+                        <li>Store scooter in moderate temperatures</li>
+                        <li>Get battery health check at authorized service center</li>
+                        <li>Consider battery replacement if aged</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2>⚙️ Motor and Performance Issues</h2>
+            
+            <div class="problem-card">
+                <div class="problem-header">
+                    <div class="problem-icon">⚙️</div>
+                    <h3 class="problem-title">Motor Not Working</h3>
+                </div>
+                
+                <div class="symptoms-list">
+                    <h4>Common Symptoms:</h4>
+                    <ul>
+                        <li>Scooter turns on but doesn't move</li>
+                        <li>Motor makes unusual noises</li>
+                        <li>Intermittent power delivery</li>
+                        <li>Scooter loses power under load</li>
+                    </ul>
+                </div>
+                
+                <div class="solution-box">
+                    <h4>Solutions:</h4>
+                    <ul>
+                        <li>Check throttle connection and functionality</li>
+                        <li>Inspect motor controller wiring</li>
+                        <li>Check brake sensors - some scooters won't move with engaged brakes</li>
+                        <li>Test motor with direct connection (if safe)</li>
+                        <li>Check for blown fuses or tripped circuit breakers</li>
+                        <li>Professional diagnosis for motor winding issues</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="problem-card">
+                <div class="problem-header">
+                    <div class="problem-icon">⚙️</div>
+                    <h3 class="problem-title">Speed Issues</h3>
+                </div>
+                
+                <div class="symptoms-list">
+                    <h4>Common Symptoms:</h4>
+                    <ul>
+                        <li>Scooter won't reach maximum speed</li>
+                        <li>Speed fluctuates while riding</li>
+                        <li>Scooter suddenly loses speed</li>
+                        <li>Acceleration is very slow</li>
+                    </ul>
+                </div>
+                
+                <div class="solution-box">
+                    <h4>Solutions:</h4>
+                    <ul>
+                        <li>Check if speed limiter is engaged</li>
+                        <li>Inspect throttle response</li>
+                        <li>Check battery voltage under load</li>
+                        <li>Look for controller error codes</li>
+                        <li>Check for motor overheating</li>
+                        <li>Verify wheel alignment and tire condition</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2>🛞 Brake and Mechanical Issues</h2>
+            
+            <div class="problem-card">
+                <div class="problem-header">
+                    <div class="problem-icon">🛞</div>
+                    <h3 class="problem-title">Brake Problems</h3>
+                </div>
+                
+                <div class="symptoms-list">
+                    <h4>Common Symptoms:</h4>
+                    <ul>
+                        <li>Brakes are too tight or too loose</li>
+                        <li>Scooter pulls to one side when braking</li>
+                        <li>Brake lever feels spongy</li>
+                        <li>Brakes make grinding noises</li>
+                    </ul>
+                </div>
+                
+                <div class="solution-box">
+                    <h4>Solutions:</h4>
+                    <ul>
+                        <li>Adjust brake cable tension</li>
+                        <li>Check brake pad wear and replace if needed</li>
+                        <li>Clean brake disc or drum</li>
+                        <li>Bleed hydraulic brakes (if applicable)</li>
+                        <li>Lubricate brake pivot points</li>
+                        <li>Ensure wheel alignment is correct</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2>🔧 Electrical and Electronics Issues</h2>
+            
+            <div class="problem-card">
+                <div class="problem-header">
+                    <div class="problem-icon">🔧</div>
+                    <h3 class="problem-title">Electrical Failures</h3>
+                </div>
+                
+                <div class="symptoms-list">
+                    <h4>Common Symptoms:</h4>
+                    <ul>
+                        <li>Lights and display not working</li>
+                        <li>Frequent fuse blowing</li>
+                        <li>Short circuits causing shutdowns</li>
+                        <li>Water damage symptoms</li>
+                    </ul>
+                </div>
+                
+                <div class="solution-box">
+                    <h4>Solutions:</h4>
+                    <ul>
+                        <li>Check and replace blown fuses</li>
+                        <li>Inspect wiring for damage or loose connections</li>
+                        <li>Check for water ingress in connectors</li>
+                        <li>Test voltage regulator</li>
+                        <li>Inspect main switch and ignition system</li>
+                        <li>Professional diagnosis for complex electrical issues</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2>📋 When to Seek Professional Help</h2>
+            
+            <div class="solution-box">
+                <h4>Visit a Service Center For:</h4>
+                <ul>
+                    <li>Battery pack issues (cell replacement, BMS problems)</li>
+                    <li>Motor winding or bearing replacement</li>
+                    <li>Controller programming or replacement</li>
+                    <li>Complex electrical diagnostics</li>
+                    <li>Wiring harness repairs</li>
+                    <li>Performance optimization</li>
+                </ul>
+            </div>
+
+            <div class="solution-box">
+                <h4>Preventive Maintenance Tips:</h4>
+                <ul>
+                    <li>Regular battery health checks</li>
+                    <li>Keep tires properly inflated</li>
+                    <li>Clean and lubricate moving parts</li>
+                    <li>Check all connections periodically</li>
+                    <li>Avoid riding in heavy rain</li>
+                    <li>Follow manufacturer's service schedule</li>
+                </ul>
+            </div>
+
+            <h2>🚀 Conclusion</h2>
+            
+            <p>Understanding these common electric scooter problems can help you maintain your vehicle better and know when to seek professional assistance. While some issues can be resolved with basic troubleshooting, others require specialized tools and expertise.</p>
+            
+            <p>For complex issues or regular maintenance, always choose authorized EV service centers like Aerth Mobility, where trained technicians can provide professional service using genuine parts and advanced diagnostic tools.</p>
+        </article>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h2>Need Professional EV Scooter Service?</h2>
+            <p>Don't let electric scooter problems disrupt your daily commute. Get expert diagnosis and repair from certified EV technicians.</p>
+            <a href="contact.html?type=service" class="btn-primary">Book Service Appointment</a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <img src="evx-h.png" alt="Aerth Mobility" class="footer-logo" />
+                <p class="editable footer-tagline">Your Trusted EV Partner</p>
+                <p class="editable footer-address">India : Rudrapur | New Delhi (Functional Centers)<br>India : Ghaziabad | Pune | Bangalore ( Upcoming Centers)</p>
+            </div>
+            <nav class="footer-nav" aria-label="Footer navigation">
+                <a href="services.html">Services</a>
+                <a href="spare-parts.html">Spare Parts</a>
+                <a href="fleet.html">Fleet</a>
+                <a href="franchise.html">Franchise</a>
+                <a href="locations.html">Locations</a>
+                <a href="skill-center.html">Skill Center</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="blogs.html">Blog</a>
+                <a href="tips.html">Tips</a>
+            </nav>
+            <div class="footer-right">
+                <a href="https://wa.me/918279773212" class="footer-phone">+91 82797 73212</a>
+                <a href="mailto:support@aerthmobility.com" class="footer-email">support@aerthmobility.com</a>
+                <div class="footer-social">
+                    <a href="https://www.linkedin.com/company/aerthmobility" target="_blank" rel="noopener" aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                    </a>
+                    <a href="https://www.facebook.com/AerthMobility" target="_blank" rel="noopener" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/aerthmobility/" target="_blank" rel="noopener" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2m-.2 2A3.6 3.6 0 004 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 003.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5M12 7a5 5 0 110 10 5 5 0 010-10m0 2a3 3 0 100 6 3 3 0 000-6z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="editable footer-copy">&copy; 2026 Aerth Mobility. All rights reserved.</p>
+            <div class="footer-legal">
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-and-conditions.html">Terms & Conditions</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="evx.js"></script>
+</body>
+</html>
