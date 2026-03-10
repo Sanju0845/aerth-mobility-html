@@ -1,1 +1,32 @@
-[]
+[
+  {
+    "id": 1,
+    "slug": "common-problems-electric-scooters",
+    "title": "Common Problems in Electric Scooters",
+    "excerpt": "Discover the most common issues electric scooter owners face and learn expert troubleshooting tips to keep your EV running smoothly.",
+    "content": "",
+    "category": "EV Troubleshooting",
+    "tags": ["electric scooter", "common problems", "troubleshooting", "EV maintenance"],
+    "author": "Aerth Mobility",
+    "publishedDate": "2024-03-10",
+    "readingTimeMinutes": 8,
+    "featuredImage": "evx-s.png",
+    "status": "published",
+    "isFeatured": true
+  },
+  {
+    "id": 2,
+    "slug": "how-long-do-ev-batteries-last",
+    "title": "How Long Do EV Batteries Last?",
+    "excerpt": "Learn everything about EV battery lifespan, factors affecting battery life, and tips to maximize your electric vehicle battery performance.",
+    "content": "",
+    "category": "EV Battery",
+    "tags": ["EV battery", "battery life", "lithium battery", "EV maintenance"],
+    "author": "Aerth Mobility",
+    "publishedDate": "2024-03-08",
+    "readingTimeMinutes": 6,
+    "featuredImage": "evx-s.png",
+    "status": "published",
+    "isFeatured": false
+  }
+]

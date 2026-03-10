@@ -566,18 +566,29 @@
     var searchInput = document.getElementById('blogSearch');
     var countEl = document.getElementById('blogCount');
 
-    // Load blogs from API
+    // Load blogs from static JSON
     function loadBlogs() {
-      console.log('Loading blogs from API...');
+      console.log('Loading blogs from static JSON...');
       
-      fetch('/api/blogs')
+      fetch('/blogs/blogs.json')
         .then(function (r) { return r.json(); })
         .then(function(data) {
-          console.log('Loaded from API:', data.length, 'blogs');
+          console.log('Loaded from JSON:', data.length, 'blogs');
           processBlogsData(data);
         })
         .catch(function(error) {
-          console.error('Error loading from API:', error);
+          console.error('Error loading blogs:', error);
+          // Fallback: try to load from root directory
+          fetch('blogs/blogs.json')
+            .then(function (r) { return r.json(); })
+            .then(function(data) {
+              console.log('Loaded from relative path:', data.length, 'blogs');
+              processBlogsData(data);
+            })
+            .catch(function(err) {
+              console.error('Failed to load blogs from both paths:', err);
+              grid.innerHTML = '<div class="blog-empty"><p>Unable to load blog posts. Please try again later.</p></div>';
+            });
         });
     }
     
