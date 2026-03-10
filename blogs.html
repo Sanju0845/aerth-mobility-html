@@ -566,30 +566,39 @@
     var searchInput = document.getElementById('blogSearch');
     var countEl = document.getElementById('blogCount');
 
-    // Load blogs from static JSON
-    function loadBlogs() {
-      console.log('Loading blogs from static JSON...');
+    // Load blogs from API first, then fallback to static JSON
+    async function loadBlogs() {
+      console.log('Loading blogs...');
       
-      fetch('/blogs/blogs.json')
-        .then(function (r) { return r.json(); })
-        .then(function(data) {
-          console.log('Loaded from JSON:', data.length, 'blogs');
+      try {
+        // Try API first (for Railway/Render)
+        const response = await fetch('/api/blogs');
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Loaded from API:', data.length, 'blogs');
           processBlogsData(data);
-        })
-        .catch(function(error) {
-          console.error('Error loading blogs:', error);
-          // Fallback: try to load from root directory
-          fetch('blogs/blogs.json')
-            .then(function (r) { return r.json(); })
-            .then(function(data) {
-              console.log('Loaded from relative path:', data.length, 'blogs');
-              processBlogsData(data);
-            })
-            .catch(function(err) {
-              console.error('Failed to load blogs from both paths:', err);
-              grid.innerHTML = '<div class="blog-empty"><p>Unable to load blog posts. Please try again later.</p></div>';
-            });
-        });
+          return;
+        }
+      } catch (error) {
+        console.log('API not available, trying static JSON...');
+      }
+      
+      // Fallback to static JSON (for Cloudflare)
+      try {
+        const response = await fetch('/blogs/blogs.json');
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+          throw new Error('Blogs data not available - use Railway/Render deployment');
+        }
+        
+        const data = await response.json();
+        console.log('Loaded from static JSON:', data.length, 'blogs');
+        processBlogsData(data);
+      } catch (error) {
+        console.error('Error loading blogs:', error);
+        // Show empty state on error
+        processBlogsData([]);
+      }
     }
     
     function processBlogsData(data) {
