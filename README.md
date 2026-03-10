@@ -1,5 +1,7 @@
 # Aerth Mobility Blog System
 
+**Live Site:** https://aerthmobility.com/
+
 Free blog management system with Railway deployment - creates actual HTML files!
 
 ## Features
