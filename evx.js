@@ -965,9 +965,9 @@
           evxToast('Your enquiry has been submitted successfully!', 'success');
 
           // ── Open WhatsApp ──
-          // var message = lines.join('\n');
-          // var url = 'https://wa.me/' + whatsappNum + '?text=' + encodeURIComponent(message);
-          // window.open(url, '_blank');
+          var message = lines.join('\n');
+          var url = 'https://wa.me/' + whatsappNum + '?text=' + encodeURIComponent(message);
+          window.open(url, '_blank');
 
         } catch (err) {
           console.error('Submission failed', err);
