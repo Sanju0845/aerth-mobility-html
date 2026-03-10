@@ -789,15 +789,21 @@ Or just write plain paragraphs."></textarea>
     // Initialize date
     document.getElementById('blogDate').value = new Date().toISOString().split('T')[0];
     
-    // Load blogs from API
+    // Load blogs from static JSON
     async function loadBlogs() {
       try {
-        const response = await fetch('/api/blogs');
+        const response = await fetch('/blogs/blogs.json');
+        // Check if response is JSON
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+          throw new Error('Blog data not available');
+        }
         blogs = await response.json();
         renderBlogs();
       } catch (error) {
         console.error('Error loading blogs:', error);
-        showSuccess('Error loading blogs: ' + error.message);
+        blogs = [];
+        renderBlogs();
       }
     }
     
